@@ -8,11 +8,11 @@
 #include "voice_gamemgr.h"
 #include <string.h>
 #include <assert.h>
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "dlls/cbase.h"
-#include "dlls/player.h"
-#include "mod/AvHServerVariables.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "../dlls/cbase.h"
+#include "../dlls/player.h"
+#include "../mod/AvHServerVariables.h"
 
 
 #define UPDATE_INTERVAL	0.3
@@ -73,7 +73,7 @@ static void VoiceServerDebug( char const *pFmt, ... )
 		return;
 
 	va_start( marker, pFmt );
-	_vsnprintf( msg, sizeof(msg), pFmt, marker );
+	vsnprintf( msg, sizeof(msg), pFmt, marker );
 	va_end( marker );
 
 	ALERT( at_console, "%s", msg );

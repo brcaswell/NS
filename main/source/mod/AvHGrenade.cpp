@@ -25,8 +25,8 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "mod/AvHMarineWeapons.h"
-#include "mod/AvHPlayer.h"
+#include "AvHMarineWeapons.h"
+#include "AvHPlayer.h"
 
 #ifdef AVH_CLIENT
 #include "cl_dll/eventscripts.h"
@@ -35,18 +35,18 @@
 #include "cl_dll/cl_dll.h"
 #endif
 
-#include "common/hldm.h"
-#include "common/event_api.h"
-#include "common/event_args.h"
-#include "common/vector_util.h"
-#include "mod/AvHMarineWeapons.h"
+#include "../common/hldm.h"
+#include "../common/event_api.h"
+#include "../common/event_args.h"
+#include "../common/vector_util.h"
+#include "AvHMarineWeapons.h"
 
 #ifdef AVH_SERVER
-#include "mod/AvHGamerules.h"
-#include "mod/AvHServerUtil.h"
+#include "AvHGamerules.h"
+#include "AvHServerUtil.h"
 #endif
 
-#include "dlls/util.h"
+#include "../dlls/util.h"
 
 LINK_ENTITY_TO_CLASS(kwGrenade, AvHGrenade);
 

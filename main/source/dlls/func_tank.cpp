@@ -18,7 +18,7 @@
 #include "effects.h"
 #include "weapons.h"
 #include "explode.h"
-
+#include <math.h>
 #include "player.h"
 
 

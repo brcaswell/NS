@@ -1,10 +1,10 @@
 #include "AvHNetworkMessages.h"
 #include "NetworkMeter.h"
-#include "util/MathUtil.h" //for WrapFloat
-#include "util/STLUtil.h" //for MakeBytesFromHexPairs
-#include "cl_dll/parsemsg.h"
+#include "../util/MathUtil.h" //for WrapFloat
+#include "../util/STLUtil.h" //for MakeBytesFromHexPairs
+#include "../cl_dll/parsemsg.h"
 #ifndef AVH_SERVER
-#include "cl_dll/chudmisc.h"  
+#include "../cl_dll/chudmisc.h"  
 #endif
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // MESSAGE CODES - NEED TO BE INITIALIZED BEFORE CLIENT CONNECTION, OR THEY'D

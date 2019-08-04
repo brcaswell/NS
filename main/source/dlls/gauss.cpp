@@ -22,9 +22,9 @@
 #include "nodes.h"
 #include "player.h"
 #include "soundent.h"
-#include "engine/shake.h"
+#include "../engine/shake.h"
 #include "gamerules.h"
-#include "mod/AvHNetworkMessages.h"
+#include "../mod/AvHNetworkMessages.h"
 
 
 #define	GAUSS_PRIMARY_CHARGE_VOLUME	256// how loud gauss is while charging

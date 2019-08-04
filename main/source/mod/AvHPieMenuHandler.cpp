@@ -34,21 +34,22 @@
 // - Renamed pop-up menu command, reworked it to be a regular bind
 //
 //===============================================================================
-#include "util/nowarnings.h"
+#include "../util/nowarnings.h"
 #include "ui/PieMenu.h"
 #include "ui/PieNode.h"
-#include "mod/AvHPieMenuHandler.h"
-#include "mod/AvHTeamHierarchy.h"
-#include "mod/AvHMessage.h"
-#include "mod/AvHClientVariables.h"
-#include "mod/AvHCommandConstants.h"
-#include "engine/cdll_int.h"
-#include "types.h"
+#include "AvHPieMenuHandler.h"
+#include "AvHTeamHierarchy.h"
+#include "AvHMessage.h"
+#include "AvHClientVariables.h"
+#include "AvHCommandConstants.h"
+#include "../engine/cdll_int.h"
+#include "../types.h"
+#include <SDL2/SDL_mouse.h>
 #include <string>
 using std::string;
 
 #include "cl_dll/demo.h"
-#include "common/demo_api.h"
+#include "../common/demo_api.h"
 
 void IN_ResetMouse();
 
@@ -78,11 +79,11 @@ PieMenu* AvHPieMenuHandler::GetActivePieMenu()
 
 void AvHPieMenuHandler::ClosePieMenu(void)
 {
-
-    if (!sPieMenuOpen)
-    {
-        return;
-    }
+	
+    //if (!sPieMenuOpen)
+    //{
+     //   return;
+    //}
 
 	//CenterPrint("AvHPieMenuHandler::closePieMenu.\n");
 
@@ -121,13 +122,13 @@ void AvHPieMenuHandler::ClosePieMenu(void)
 
 	IN_ResetMouse();
     gHUD.ShowCrosshair();
-
+	
     sPieMenuOpen = false;
 
 }
 
 void AvHPieMenuHandler::InternalClosePieMenu(void)
-{
+{	
     PieMenu* theMarineMenu = NULL;
 
     if(gHUD.GetManager().GetVGUIComponentNamed(sPieMenuName, theMarineMenu))
@@ -136,6 +137,10 @@ void AvHPieMenuHandler::InternalClosePieMenu(void)
 		if(!gHUD.GetInTopDownMode())
 		{
 			gHUD.GetManager().SetMouseVisibility(false);
+			//attempt at fixing OS cursor appearing over game's cursor
+			#ifdef WIN32
+			ShowCursor(TRUE);
+			#endif
 		}
 
         theMarineMenu->SetFadeState(false);
@@ -145,6 +150,11 @@ void AvHPieMenuHandler::InternalClosePieMenu(void)
         }
         sLastNodeHighlighted = NULL;
 
+		if (CVAR_GET_FLOAT("m_rawinput") != 0)
+		{
+			SDL_SetRelativeMouseMode(SDL_TRUE);
+		}
+
 //        if(sTheDebugBool)
 //        {
 //            AvHTeamHierarchy* theHierarchyComponent = NULL;
@@ -153,17 +163,17 @@ void AvHPieMenuHandler::InternalClosePieMenu(void)
 //                theHierarchyComponent->setVisible(true);
 //            }
 //        }
-
-    }
+	}
 
 }
 
 void AvHPieMenuHandler::OpenPieMenu(void)
 {
-    PieMenu* theMarineMenu = NULL;
-
+	PieMenu* theMarineMenu = NULL;
+	
 	//CenterPrint("AvHPieMenuHandler::openPieMenu.\n");
-		
+	
+	
 	// Pie menu only active when playing
 	AvHUser3 theUser3 = gHUD.GetHUDUser3();
 	if(theUser3 > AVH_USER3_NONE && theUser3 <= AVH_USER3_ALIEN_PLAYER5)
@@ -175,10 +185,23 @@ void AvHPieMenuHandler::OpenPieMenu(void)
 				if(!gHUD.GetInTopDownMode())
 				{
 					gHUD.GetManager().SetMouseVisibility(true);
+					//attempt at fixing OS cursor appearing over game's cursor
+					#ifdef WIN32
+					ShowCursor(FALSE);
+					#endif
 				}
 
                 gHUD.HideCrosshair();
-                
+
+				if (CVAR_GET_FLOAT("m_rawinput") != 0)
+				{
+					SDL_SetRelativeMouseMode(SDL_FALSE);
+					gEngfuncs.pfnSetMousePos(gEngfuncs.GetWindowCenterX(), gEngfuncs.GetWindowCenterY());
+				}
+				//App::getInstance()->setCursorOveride(App::getInstance()->getScheme()->getCursor(Scheme::scu_none));
+				//App::getInstance()->setCursorOveride(gHUD.GetManager().mBlankCursor);
+
+
 				// Only do this when in full screen
 				//App::getInstance()->setCursorPos(ScreenWidth/2, ScreenHeight/2);
 	
@@ -189,7 +212,7 @@ void AvHPieMenuHandler::OpenPieMenu(void)
 				sTimeLastNodeHighlighted = sTimeMenuOpened;
                 sPieMenuOpen = true;
 
-				
+
 				//        if(sTheDebugBool)
 				//        {
 				//            AvHTeamHierarchy* theHierarchyComponent = NULL;
@@ -201,6 +224,7 @@ void AvHPieMenuHandler::OpenPieMenu(void)
 			}
 		}
 	}
+	
 }
 
 void AvHPieMenuHandler::NodeCancelled()
@@ -338,20 +362,22 @@ void AvHPieMenuHandler::cursorExited(Panel* panel)
 
 void AvHPieMenuHandler::mousePressed(MouseCode code,Panel* panel)
 {
-//	CenterPrint("AvHPieMenuHandler::mousePressed.\n");
+	ClosePieMenu();
+	//CenterPrint("AvHPieMenuHandler::mousePressed.\n");
 }
 
 void AvHPieMenuHandler::mouseDoublePressed(MouseCode code,Panel* panel)
 {
-//	CenterPrint("AvHPieMenuHandler::mouseDoublePressed.\n");
+	CenterPrint("AvHPieMenuHandler::mouseDoublePressed.\n");
 }
 
 void AvHPieMenuHandler::mouseReleased(MouseCode code, Panel* inPanel)
 {
-
-    //	CenterPrint("AvHPieMenuHandler::mouseReleased.\n");
 	
-
+	/*
+	
+    	CenterPrint("AvHPieMenuHandler::mouseReleased.\n");
+		
 
 //
 //    if(code == MOUSE_RIGHT)
@@ -389,6 +415,8 @@ void AvHPieMenuHandler::mouseReleased(MouseCode code, Panel* inPanel)
         {
             NodeCancelled();
         }
+		
+		
 
 	//  : 983 releasing a mouse closes the popup menu
 	//if ( code == MOUSE_RIGHT || code == MOUSE_LEFT || code == MOUSE_MIDDLE)	
@@ -397,6 +425,8 @@ void AvHPieMenuHandler::mouseReleased(MouseCode code, Panel* inPanel)
 	//	ClosePieMenu();
 	//}
 //    }
+*/
+
 }
 
 void AvHPieMenuHandler::mouseWheeled(int delta,Panel* panel)
@@ -418,5 +448,3 @@ void AvHPieMenuHandler::keyReleased(KeyCode code,Panel* panel)
 void AvHPieMenuHandler::keyFocusTicked(Panel* panel)
 {
 }
-
-

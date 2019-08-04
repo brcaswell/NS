@@ -22,9 +22,9 @@
 #ifndef AVH_RESEARCHMANAGER_H
 #define AVH_RESEARCHMANAGER_H
 
-#include "types.h"
-#include "mod/AvHMessage.h"
-#include "mod/AvHTechTree.h"
+#include "../types.h"
+#include "AvHMessage.h"
+#include "AvHTechTree.h"
 
 class AvHResearchNode
 {

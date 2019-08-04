@@ -22,9 +22,9 @@
 #include<VGUI_ScrollBar.h>
 #include<VGUI_Slider.h>
 #include<VGUI_TextEntry.h>
-#include "cl_dll/CLabelHeader.h"
-#include "game_shared/VGUI_ListBox.h"
-#include "game_shared/VGUI_Grid.h"
+#include "CLabelHeader.h"
+#include "vgui_listbox.h"
+#include "vgui_grid.h"
 
 
 // custom scheme handling
@@ -35,7 +35,6 @@
 
 using namespace vgui;
 
-class Cursor;
 class ScorePanel;
 class SpectatorPanel;
 class CCommandMenu;
@@ -400,7 +399,7 @@ public:
 	CommandButton *FindButtonWithSubmenu( CCommandMenu *pSubMenu );
 
 	void		ClearButtonsOfArmedState( void );
-    void        RemoveAllButtons();
+	void		RemoveAllButtons(void);
 
 	bool		KeyInput( int keyNum );
 

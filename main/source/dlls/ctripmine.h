@@ -1,8 +1,8 @@
 #ifndef CTRIPMINE_H
 #define CTRIPMINE_H
 
-#include "mod/AvHBasePlayerWeapon.h"
-#include "mod/AvHMarineEquipmentConstants.h"
+#include "../mod/AvHBasePlayerWeapon.h"
+#include "../mod/AvHMarineEquipmentConstants.h"
 
 ////class CTripmine : public CBasePlayerWeapon
 //class CTripmine : public AvHBasePlayerWeapon

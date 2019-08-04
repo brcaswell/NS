@@ -37,20 +37,20 @@
 // - Quick fix during playtesting...why is this happening?
 //
 //===============================================================================
-#include "util/nowarnings.h"
-#include "mod/AvHEntityHierarchy.h"
-#include "mod/AvHNetworkMessages.h"
+#include "../util/nowarnings.h"
+#include "AvHEntityHierarchy.h"
+#include "AvHNetworkMessages.h"
 
 #ifdef AVH_SERVER
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "mod/AvHPlayer.h"
-#include "mod/AvHTeam.h"
-#include "mod/AvHServerUtil.h"
-#include "mod/AvHGamerules.h"
-#include "mod/AvHMarineEquipment.h"
-#include "mod/AvHSharedUtil.h"
-#include "util/MathUtil.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "AvHPlayer.h"
+#include "AvHTeam.h"
+#include "AvHServerUtil.h"
+#include "AvHGamerules.h"
+#include "AvHMarineEquipment.h"
+#include "AvHSharedUtil.h"
+#include "../util/MathUtil.h"
 #endif
 
 #ifdef AVH_CLIENT

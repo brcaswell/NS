@@ -27,8 +27,8 @@
 #include "saverestore.h"
 #include "trains.h"			// trigger_camera has train functionality
 #include "gamerules.h"
-#include "dlls/triggers.h"
-#include "mod/AvHServerVariables.h"
+#include "triggers.h"
+#include "../mod/AvHServerVariables.h"
 
 #define	SF_TRIGGER_PUSH_START_OFF	2//spawnflag that makes trigger_push spawn turned OFF
 #define SF_TRIGGER_HURT_TARGETONCE	1// Only fire hurt target once

@@ -48,14 +48,14 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "mod/AvHMarineTurret.h"
-#include "mod/AvHMarineEquipment.h"
-#include "mod/AvHConstants.h"
-#include "mod/AvHPlayerUpgrade.h"
-#include "mod/AvHGamerules.h"
-#include "mod/AvHServerUtil.h"
-#include "mod/AvHParticleConstants.h"
-#include "util/MathUtil.h"
+#include "AvHMarineTurret.h"
+#include "AvHMarineEquipment.h"
+#include "AvHConstants.h"
+#include "AvHPlayerUpgrade.h"
+#include "AvHGamerules.h"
+#include "AvHServerUtil.h"
+#include "AvHParticleConstants.h"
+#include "../util/MathUtil.h"
 
 LINK_ENTITY_TO_CLASS(kwDeployedTurret, AvHMarineTurret);
 

@@ -23,9 +23,9 @@
 
 #include <string.h>
 #include <stdio.h>
-#include "mod/AvHPlayerUpgrade.h"
-#include "mod/AvHHudConstants.h"
-#include "mod/AvHNetworkMessages.h"
+#include "AvHPlayerUpgrade.h"
+#include "AvHHudConstants.h"
+#include "AvHNetworkMessages.h"
 
 DECLARE_MESSAGE(m_Battery, Battery)
 

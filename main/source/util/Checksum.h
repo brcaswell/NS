@@ -19,7 +19,7 @@
 #ifndef CHECKSUM_H
 #define CHECKSUM_H
 
-#include "types.h"
+#include "../types.h"
 
 class ChecksumEntry
 {

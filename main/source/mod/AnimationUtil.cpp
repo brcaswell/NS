@@ -1,13 +1,14 @@
 #include <math.h>
-#include "types.h"
+#include <string.h>
+#include "../types.h"
 
 #ifdef AVH_CLIENT
 #include "cl_dll/wrect.h"
 #include "cl_dll/cl_dll.h"
 #include "cl_dll/r_studioint.h"
-#include "common/com_model.h"
-#include "common/cl_entity.h"
-#include "common/vec_op.h"
+#include "../common/com_model.h"
+#include "../common/cl_entity.h"
+#include "../common/vec_op.h"
 #include "cl_dll/studio_util.h"
 
 extern engine_studio_api_t IEngineStudio;
@@ -15,16 +16,16 @@ extern engine_studio_api_t IEngineStudio;
 #endif
 
 #ifdef AVH_SERVER
-#include "common/mathlib.h"
-#include "common/const.h"
-#include "engine/eiface.h"
-#include "engine/edict.h"
-#include "dlls/enginecallback.h"
+#include "../common/mathlib.h"
+#include "../common/const.h"
+#include "../engine/eiface.h"
+#include "../engine/edict.h"
+#include "../dlls/enginecallback.h"
 #endif
 
-#include "mod/AnimationUtil.h"
-#include "mod/AvHSpecials.h"
-#include "util/MathUtil.h"
+#include "AnimationUtil.h"
+#include "AvHSpecials.h"
+#include "../util/MathUtil.h"
 
 #define PITCH   0
 #define YAW     1
@@ -543,7 +544,7 @@ mstudioanim_t* NS_GetAnimation(studiohdr_t* inModelHeader, mstudioseqdesc_t* inS
 	// : 0000573
 	// Unless we actually check for null, we can get null references... 
 	if (theSequenceGroup) { 
-		return (mstudioanim_t*)((byte*)inModelHeader + theSequenceGroup->data + inSequence->animindex);
+		return (mstudioanim_t*)((byte*)inModelHeader + inSequence->animindex);
 	}
 	else {
 		return NULL;

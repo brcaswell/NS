@@ -28,9 +28,9 @@ CBaseEntity
 #ifndef CBASE_H
 #define CBASE_H
 
-#include "common/damagetypes.h"
-#include "util/Checksum.h"
-#include "types.h"
+#include "damagetypes.h"
+#include "../util/Checksum.h"
+#include "../types.h"
 
 #define		MAX_PATH_SIZE	10 // max number of nodes available for a path.
 
@@ -48,6 +48,7 @@ CBaseEntity
 // UNDONE: This will ignore transition volumes (trigger_transition), but not the PVS!!!
 #define		FCAP_FORCE_TRANSITION		0x00000080		// ALWAYS goes across transitions
 
+#include "archtypes.h"     // DAL
 #include "saverestore.h"
 #include "schedule.h"
 
@@ -57,14 +58,18 @@ CBaseEntity
 
 // C functions for external declarations that call the appropriate C++ methods
 
+#ifndef CBASE_DLLEXPORT
 #ifdef _WIN32
-#define EXPORT	_declspec( dllexport )
+#define CBASE_DLLEXPORT _declspec( dllexport )
 #else
-#define EXPORT	/* */
+#define CBASE_DLLEXPORT __attribute__ ((visibility("default")))
 #endif
-
-extern "C" EXPORT int GetEntityAPI( DLL_FUNCTIONS *pFunctionTable, int interfaceVersion );
-extern "C" EXPORT int GetEntityAPI2( DLL_FUNCTIONS *pFunctionTable, int *interfaceVersion );
+#endif
+#ifndef EXPORT
+#define EXPORT CBASE_DLLEXPORT
+#endif
+extern "C" CBASE_DLLEXPORT int GetEntityAPI( DLL_FUNCTIONS *pFunctionTable, int interfaceVersion );
+extern "C" CBASE_DLLEXPORT int GetEntityAPI2( DLL_FUNCTIONS *pFunctionTable, int *interfaceVersion );
 
 extern int DispatchSpawn( edict_t *pent );
 extern void DispatchKeyValue( edict_t *pentKeyvalue, KeyValueData *pkvd );
@@ -230,7 +235,7 @@ public:
 	// allow engine to allocate instance data
     void *operator new( size_t stAllocateBlock, entvars_t *pev )
 	{
-		return (void *)ALLOC_PRIVATE(ENT(pev), (int)stAllocateBlock);
+		return (void *)ALLOC_PRIVATE(ENT(pev), stAllocateBlock);
 	};
 
 	// don't use this.
@@ -339,7 +344,7 @@ public:
 
 
 	//
-	static CBaseEntity *Create( const char *szName, const Vector &vecOrigin, const Vector &vecAngles, edict_t *pentOwner = NULL );
+	static CBaseEntity *Create(const char *szName, const Vector &vecOrigin, const Vector &vecAngles, edict_t *pentOwner = NULL );
 
 	virtual BOOL FBecomeProne( void ) {return FALSE;};
 	edict_t *edict() { return ENT( pev ); };
@@ -617,7 +622,7 @@ private:
 
 // time-based damage
 //#define DMG_TIMEBASED		(~(0x3fff))	// mask for time-based damage
-#include "common/damagetypes.h"
+#include "../common/damagetypes.h"
 
 #define DMG_PARALYZE		(1 << 15)	// slows affected creature down
 #define DMG_NERVEGAS		(1 << 16)	// nerve toxins, very bad

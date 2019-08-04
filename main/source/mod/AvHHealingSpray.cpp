@@ -47,8 +47,8 @@
 // - Level 2 healing ability
 //
 //===============================================================================
-#include "mod/AvHAlienWeapons.h"
-#include "mod/AvHPlayer.h"
+#include "AvHAlienWeapons.h"
+#include "AvHPlayer.h"
 
 #ifdef AVH_CLIENT
 #include "cl_dll/eventscripts.h"
@@ -58,18 +58,18 @@
 #endif
 
 #ifdef AVH_SERVER
-#include "mod/AvHBaseBuildable.h"
-#include "mod/AvHGamerules.h"
+#include "AvHBaseBuildable.h"
+#include "AvHGamerules.h"
 #endif
 
-#include "common/hldm.h"
-#include "common/event_api.h"
-#include "common/event_args.h"
-#include "common/vector_util.h"
-#include "mod/AvHAlienWeaponConstants.h"
-#include "mod/AvHPlayerUpgrade.h"
-#include "mod/AvHConstants.h"
-#include "mod/AvHSharedUtil.h"
+#include "../common/hldm.h"
+#include "../common/event_api.h"
+#include "../common/event_args.h"
+#include "../common/vector_util.h"
+#include "AvHAlienWeaponConstants.h"
+#include "AvHPlayerUpgrade.h"
+#include "AvHConstants.h"
+#include "AvHSharedUtil.h"
 
 LINK_ENTITY_TO_CLASS(kwHealingSpray, AvHHealingSpray);
 

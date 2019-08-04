@@ -1,4 +1,4 @@
-#include "mod/AvHBaseInfoLocation.h"
+#include "AvHBaseInfoLocation.h"
 
 AvHBaseInfoLocation::AvHBaseInfoLocation()
 {

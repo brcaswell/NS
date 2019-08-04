@@ -18,9 +18,9 @@
 // implementation of class-less helper functions
 //
 
-#include "STDIO.H"
-#include "STDLIB.H"
-#include "MATH.H"
+#include "stdio.h"
+#include "stdlib.h"
+#include "math.h"
 
 #include "hud.h"
 #include "cl_util.h"
@@ -141,8 +141,8 @@ int ScreenWidth()
 	return gHUD.m_scrinfo.iWidth;
 }
 
-
-HSPRITE Safe_SPR_Load(const char* inSpriteName)
+/*
+HSPRITE SPR_Load(const char* inSpriteName)
 {
 	HSPRITE theSpriteHandle = gEngfuncs.pfnSPR_Load(inSpriteName);
 	
@@ -150,7 +150,7 @@ HSPRITE Safe_SPR_Load(const char* inSpriteName)
 	ASSERT(theSpriteHandle < 128);
 	
 	return theSpriteHandle;
-}
+}*/
 
 //-----------------------------------------------------------------------------
 // Purpose: 
@@ -177,7 +177,7 @@ void CreatePickingRay( int mousex, int mousey, Vector& outVecPickingRay )
 
 //	char gDebugMessage[256];
 
-	float fovDegrees = gHUD.m_iFOV;
+	float fovDegrees = gHUD.m_wsFOV;
 
 	//cl_entity_s* theLocalEntity = gEngfuncs.GetLocalPlayer();
 	//Vector vecRenderOrigin = theLocalEntity->origin;
@@ -254,7 +254,7 @@ void FillRGBAClipped(vgui::Panel* inPanel, int inStartX, int inStartY, int inWid
 }
 
 
-HSPRITE LoadSprite(const char *pszName)
+AVHHSPRITE LoadSprite(const char *pszName)
 {
 	int i;
 	char sz[256]; 
@@ -266,7 +266,7 @@ HSPRITE LoadSprite(const char *pszName)
 
 	sprintf(sz, pszName, i);
 
-	return Safe_SPR_Load(sz);
+	return SPR_Load(sz);
 }
 
 bool LocalizeString(const char* inMessage, string& outputString)

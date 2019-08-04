@@ -15,8 +15,8 @@
 	<Configurations>
 		<Configuration
 			Name="Developer - debug|Win32"
-			OutputDirectory="V:\temp\$(ProjectName)\$(ConfigurationName)"
-			IntermediateDirectory="V:\temp\$(ProjectName)\$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -99,8 +99,8 @@
 		</Configuration>
 		<Configuration
 			Name="Developer - release|Win32"
-			OutputDirectory="V:\temp\$(ProjectName)\$(ConfigurationName)"
-			IntermediateDirectory="V:\temp\$(ProjectName)\$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"

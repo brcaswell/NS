@@ -17,11 +17,11 @@
 //
 //===============================================================================
 
-#include "textrep/TRTag.h"
-#include "textrep/TRTagValuePair.h"
-#include "textrep/TRDescription.h"
-#include "textrep/TRFactory.h"
-#include "util/STLUtil.h"
+#include "TRTag.h"
+#include "TRTagValuePair.h"
+#include "TRDescription.h"
+#include "TRFactory.h"
+#include "../util/STLUtil.h"
 
 const int maxLineLength = 256;
 

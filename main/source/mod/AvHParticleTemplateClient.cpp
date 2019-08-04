@@ -2,7 +2,7 @@
 #include "cl_dll/hud.h"
 #include "cl_dll/cl_util.h"
 #include "cl_dll/demo.h"
-#include "common/demo_api.h"
+#include "../common/demo_api.h"
 
 int	AvHParticleTemplateListClient::InitializeDemoPlayback(int inSize, unsigned char* inBuffer, int index)
 {

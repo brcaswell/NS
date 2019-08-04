@@ -58,8 +58,8 @@ void AvHSpriteSetColor(float r, float g, float b, float a = 1);
  */
 void AvHSpriteSetDepthOffset(float depthOffset);
 
-void AvHSpriteDraw(int spriteHandle, int frame, float x1, float y1, float x2, float y2, float u1, float v1, float u2, float v2);
-void AvHSpriteDrawTiles(int spriteHandle, int numXFrames, int numYFrames, float x1, float y1, float x2, float y2, float u1, float v1, float u2, float v2);
+void AvHSpriteDraw(AVHHSPRITE spriteHandle, int frame, float x1, float y1, float x2, float y2, float u1, float v1, float u2, float v2);
+void AvHSpriteDrawTiles(AVHHSPRITE spriteHandle, int numXFrames, int numYFrames, float x1, float y1, float x2, float y2, float u1, float v1, float u2, float v2);
 
 void AvHSpriteEnableVGUI(bool enableVGUI);
 void AvHSpriteSetVGUIOffset(int x, int y);

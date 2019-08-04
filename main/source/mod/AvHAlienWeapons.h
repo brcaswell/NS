@@ -47,7 +47,7 @@
 #ifndef AVHALIENWEAPONS_H
 #define AVHALIENWEAPONS_H
 
-#include "mod/AvHAlienWeapon.h"
+#include "AvHAlienWeapon.h"
 
 
 #ifdef AVH_SERVER

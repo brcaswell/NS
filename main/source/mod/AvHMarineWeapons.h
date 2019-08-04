@@ -62,12 +62,12 @@
 #ifndef AVHMARINEWEAPONS_H
 #define AVHMARINEWEAPONS_H
 
-#include "util/nowarnings.h"
-#include "dlls/weapons.h"
-#include "mod/AvHBasePlayerWeapon.h"
-#include "mod/AvHConstants.h"
-#include "mod/AvHMarineWeaponConstants.h"
-#include "mod/AvHMarineWeapon.h"
+#include "../util/nowarnings.h"
+#include "../dlls/weapons.h"
+#include "AvHBasePlayerWeapon.h"
+#include "AvHConstants.h"
+#include "AvHMarineWeaponConstants.h"
+#include "AvHMarineWeapon.h"
 
 //extern "C"
 //{

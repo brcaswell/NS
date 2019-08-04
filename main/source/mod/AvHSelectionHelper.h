@@ -1,7 +1,7 @@
 #ifndef AVH_SELECTION_HELPER_H
 #define AVH_SELECTION_HELPER_H
 
-#include "mod/AvHConstants.h"
+#include "AvHConstants.h"
 
 // Selection stuff shared between client and server
 // Queues up selection requests, executes them after prediction, once all values are set up

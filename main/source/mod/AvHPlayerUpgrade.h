@@ -23,9 +23,9 @@
 #ifndef AVH_PLAYER_UPGRADE_H
 #define AVH_PLAYER_UPGRADE_H
 
-#include "util/nowarnings.h"
-#include "types.h"
-#include "mod/AvHSpecials.h"
+#include "../util/nowarnings.h"
+#include "../types.h"
+#include "AvHSpecials.h"
 
 class AvHPlayerUpgrade
 {

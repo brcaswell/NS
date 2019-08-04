@@ -29,9 +29,9 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "mod/AvHVoiceHelper.h"
-#include "mod/AvHGamerules.h"
-#include "pm_shared/pm_shared.h"
+#include "AvHVoiceHelper.h"
+#include "AvHGamerules.h"
+#include "../pm_shared/pm_shared.h"
 
 AvHVoiceHelper gVoiceHelper;
 

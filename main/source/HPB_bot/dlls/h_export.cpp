@@ -14,7 +14,7 @@
 
 #include "bot.h"
 #include "HPB_bot/engine/engine.h"
-#include "types.h"
+#include "../types.h"
 
 #ifndef __linux__
 

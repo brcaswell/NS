@@ -1,0 +1,11 @@
+gfx/env/metal_bk.tga
+gfx/env/metal_dn.tga
+gfx/env/metal_ft.tga
+gfx/env/metal_lf.tga
+gfx/env/metal_rt.tga
+gfx/env/metal_up.tga
+maps/ns_metal.bsp
+maps/ns_metal.txt 
+sprites/minimaps/ns_metal.spr
+sprites/ns_metal/flare3metal.spr
+ns_metal.wad

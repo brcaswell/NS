@@ -38,25 +38,29 @@ extern "C"
 {
 #include "kbutton.h"
 }
-#include "common/cvardef.h"
-#include "common/usercmd.h"
-#include "common/const.h"
+#include "cvardef.h"
+#include "usercmd.h"
+#include "const.h"
 #include "camera.h"
 #include "in_defs.h"
 #include "view.h"
+#include "bench.h"
 #include <string.h>
 #include <ctype.h>
 #include "engine/keydefs.h"
+#include "Exports.h"
 
 #include "vgui_TeamFortressViewport.h"
 #include "mod/AvHServerVariables.h"// should we go ahead and just make a SharedVariables.h instead?
 #include "mod/AvHClientVariables.h"
 #include "mod/AvHMessage.h"
+#include "winsani_in.h"
 #include "fmod.h"
+#include "winsani_out.h"
 #include "mod/AvHScriptManager.h"
 #include "mod/AvHScrollHandler.h"
 #include "mod/AvHCommanderModeHandler.h"
-#include "Util/Mat3.h"
+#include "util/Mat3.h"
 
 #include "engine/APIProxy.h"
 #include "Exports.h"
@@ -90,7 +94,7 @@ float gWorldViewAngles[3] = { 0, 0, 0 };
 float anglemod( float a );
 
 void IN_Init (void);
-void IN_Move ( float frametime, float ioRotationDeltas[3], float ioTranslationDeltas[3]);
+void IN_Move ( float frametime, usercmd_t *cmd);
 void IN_Shutdown( void );
 void V_Init( void );
 void VectorAngles( const float *forward, float *angles );
@@ -109,9 +113,12 @@ cvar_t	*m_side;
 
 cvar_t	*lookstrafe;
 cvar_t	*lookspring;
-//cvar_t	*cl_pitchup;
-//cvar_t	*cl_pitchdown;
+cvar_t	*cl_pitchup;
+cvar_t	*cl_pitchdown;
 cvar_t	*cl_upspeed;
+cvar_t	*cl_forwardspeed;
+cvar_t	*cl_backspeed;
+cvar_t	*cl_sidespeed;
 cvar_t	*cl_movespeedkey;
 cvar_t	*cl_yawspeed;
 cvar_t	*cl_pitchspeed;
@@ -130,6 +137,11 @@ cvar_t	*cl_forcedefaultfov;
 cvar_t	*cl_dynamiclights;
 cvar_t	*cl_buildmessages;
 cvar_t	*cl_particleinfo;
+cvar_t	*cl_widescreen;
+cvar_t	*cl_ambientsound;
+cvar_t	*senslock;
+cvar_t	*hud_style;
+cvar_t	*cl_chatbeep;
 
 /*
 ===============================================================================
@@ -277,7 +289,7 @@ Allows the engine to get a kbutton_t directly ( so it can check +mlook state, et
 */
 struct kbutton_s CL_DLLEXPORT *KB_Find( const char *name )
 {
-	RecClFindKey(name);
+//	RecClFindKey(name);
 
 	kblist_t *p;
 	p = g_kbkeys;
@@ -353,11 +365,6 @@ void KB_Shutdown( void )
 	}
 	g_kbkeys = NULL;
 }
-
-void KeyDown (kbutton_t *b);
-void KeyUp (kbutton_t *b);
-void KeyDownForced (kbutton_t *b);
-void KeyUpForced (kbutton_t *b);
 
 /*
 ============
@@ -450,7 +457,7 @@ void KeyUp (kbutton_t *b)
 {
 	int		k;
 	char	*c;
-
+	
 	c = gEngfuncs.Cmd_Argv(1);
 	if (c[0])
 		k = atoi(c);
@@ -548,7 +555,7 @@ Return 1 to allow engine to process the key, otherwise, act on it as needed
 */
 int CL_DLLEXPORT HUD_Key_Event( int down, int keynum, const char *pszCurrentBinding )
 {
-    RecClKeyEvent(down, keynum, pszCurrentBinding);
+//    RecClKeyEvent(down, keynum, pszCurrentBinding);
 
     // Check to see if the event has any outlawed commands in it.
     float theBlockScripts = gHUD.GetServerVariableFloat(kvBlockScripts);
@@ -608,68 +615,6 @@ int CL_DLLEXPORT HUD_Key_Event( int down, int keynum, const char *pszCurrentBind
 
 				theProcessKeyBinding = 0;
 			}
-			
-//			// Else look for hotkey commands
-//			int thePrefixLength = strlen(kHotKeyPrefix);
-//			if(down && !strncmp(pszCurrentBinding, kHotKeyPrefix, thePrefixLength))
-//			{
-//				// Strip out number, pass it to HUD
-//				char theNumberString[8];
-//				memset(theNumberString, 0, 8);
-//				int theBindingLength = strlen(pszCurrentBinding);
-//				ASSERT(theBindingLength > thePrefixLength);
-//				strncpy(theNumberString, pszCurrentBinding + thePrefixLength, theBindingLength - thePrefixLength);
-//				
-//				int theBuildTech = MakeIntFromString(string(theNumberString));
-//			
-//				gHUD.HotKeyHit(theBuildTech);
-//			
-//				theProcessKeyBinding = 0;
-//			}
-//			else
-//			{
-//				// Look for top down only commands, like scrolling
-//				if(!strcmp("+forward", pszCurrentBinding))
-//				{
-//					AvHScrollHandler::ScrollUp();
-//					theProcessKeyBinding = 0;
-//				}
-//				else if(!strcmp("-forward", pszCurrentBinding))
-//				{
-//					AvHScrollHandler::StopScroll();
-//					theProcessKeyBinding = 0;
-//				}
-//				else if(!strcmp("+back", pszCurrentBinding))
-//				{
-//					AvHScrollHandler::ScrollDown();
-//					theProcessKeyBinding = 0;
-//				}
-//				else if(!strcmp("-back", pszCurrentBinding))
-//				{
-//					AvHScrollHandler::StopScroll();
-//					theProcessKeyBinding = 0;
-//				}
-//				else if(!strcmp("+moveleft", pszCurrentBinding))
-//				{
-//					AvHScrollHandler::ScrollLeft();
-//					theProcessKeyBinding = 0;
-//				}
-//				else if(!strcmp("-moveleft", pszCurrentBinding))
-//				{
-//					AvHScrollHandler::StopScroll();
-//					theProcessKeyBinding = 0;
-//				}
-//				else if(!strcmp("+moveright", pszCurrentBinding))
-//				{
-//					AvHScrollHandler::ScrollRight();
-//					theProcessKeyBinding = 0;
-//				}
-//				else if(!strcmp("-moveright", pszCurrentBinding))
-//				{
-//					AvHScrollHandler::StopScroll();
-//					theProcessKeyBinding = 0;
-//				}
-//			}
 		}
 	}
 
@@ -780,6 +725,9 @@ void IN_SpeedDown(void) {KeyDown(&in_speed);}
 void IN_SpeedUp(void) {KeyUp(&in_speed);}
 void IN_StrafeDown(void) {KeyDown(&in_strafe);}
 void IN_StrafeUp(void) {KeyUp(&in_strafe);}
+
+// needs capture by hud/vgui also
+extern void __CmdFunc_InputPlayerSpecial(void);
 void IN_Attack2Down(void) {KeyDownForced(&in_attack2);}
 void IN_Attack2Up(void) {KeyUpForced(&in_attack2);}
 void IN_UseDown (void)
@@ -791,12 +739,6 @@ void IN_UseUp (void) {KeyUp(&in_use);}
 void IN_JumpDown (void)
 {
 	KeyDown(&in_jump);
-
-	if(gHUD.GetInTopDownMode())
-	{
-		//gHUD.GotoAlert();
-	}
-	
 	gHUD.m_Spectator.HandleButtonsDown( IN_JUMP );
 
 }
@@ -878,37 +820,28 @@ void IN_Impulse (void)
 void IN_ScoreDown(void)
 {
 	KeyDown(&in_score);
-
 	if ( gViewPort )
 	{
-		//if(gHUD.SwitchUIMode(SCOREBOARD_MODE))
-		//{
-			gViewPort->ShowScoreBoard();
-		//}
+		gViewPort->ShowScoreBoard();
 	}
 }
 
 void IN_ScoreUp(void)
 {
 	KeyUp(&in_score);
-
-	// Removed because it was getting called and hiding mouse <<< cgc >>>
 	if ( gViewPort )
 	{
-		//if(gHUD.SwitchUIMode(MAIN_MODE))
-		//{
-			gViewPort->HideScoreBoard();
-		//}
+		gViewPort->HideScoreBoard();
 	}
 }
 
 void IN_MLookUp (void)
 {
-	/*KeyUp( &in_mlook );
+	KeyUp( &in_mlook );
 	if ( !( in_mlook.state & 1 ) && lookspring->value )
 	{
 		V_StartPitchDrift();
-	}*/
+	}
 }
 
 /*
@@ -1010,10 +943,10 @@ void CL_AdjustAngles ( float frametime, float *viewangles )
 	if (up || down)
 		V_StopPitchDrift ();
 		
-	if (viewangles[PITCH] > 89)
-		viewangles[PITCH] = 89;
-	if (viewangles[PITCH] < -89)
-		viewangles[PITCH] = -89;
+	if (viewangles[PITCH] > cl_pitchdown->value)
+		viewangles[PITCH] = cl_pitchdown->value;
+	if (viewangles[PITCH] < -cl_pitchup->value)
+		viewangles[PITCH] = -cl_pitchup->value;
 
 	if (viewangles[ROLL] > 50)
 		viewangles[ROLL] = 50;
@@ -1032,22 +965,27 @@ if active == 1 then we are 1) not playing back demos ( where our commands are ig
 */
 void CL_DLLEXPORT CL_CreateMove ( float frametime, struct usercmd_s *cmd, int active )
 {	
-	RecClCL_CreateMove(frametime, cmd, active);
-
+	//RecClCL_CreateMove(frametime, cmd, active);
+	//@linux Commander overview needs to be fixed!
 	float spd;
 	vec3_t viewangles;
 	static vec3_t oldangles;
 
 	if ( active && (!gViewPort || !gViewPort->IsOptionsMenuVisible()) /*&& !gHUD.GetShowingMap()*/)
 	{
-		int theButtonState = CL_ButtonBits( 1 );
+		int theButtonState = CL_ButtonBits(1);
+		//memset( viewangles, 0, sizeof( vec3_t ) );
+		//viewangles[ 0 ] = viewangles[ 1 ] = viewangles[ 2 ] = 0.0;
+		//gEngfuncs.GetViewAngles( (float *)viewangles );
 
-        memset (cmd, 0, sizeof(*cmd));
+		//CL_AdjustAngles ( frametime, viewangles );
 
-		float theRotationDeltas[3] = {0,0,0};
-		float theTranslationDeltas[3] = {0,0,0};
+		memset (cmd, 0, sizeof(*cmd));
+		//@ linux void IN_Move ( float frametime, usercmd_t *cmd)
+		float theRotationDeltas[3] = {0,0,0}; //{90,0,90} --> top down --> 	viewangles[YAW] 
+		float theTranslationDeltas[3] = {0,0,0}; //--> cmd->sidemove
 
-		IN_Move(frametime,theRotationDeltas,theTranslationDeltas);
+		IN_Move ( frametime, cmd );
 
 		if(gResetViewAngles)
 		{
@@ -1240,23 +1178,23 @@ void CL_DLLEXPORT CL_CreateMove ( float frametime, struct usercmd_s *cmd, int ac
 		// else process move normally
 		if(!theProcessedMove)
 		{
-			if ( in_strafe.state & 1 )
+		if ( in_strafe.state & 1 )
 			{
-				cmd->sidemove += kSideSpeed * CL_KeyState (&in_right);
-				cmd->sidemove -= kSideSpeed * CL_KeyState (&in_left);
+				cmd->sidemove += cl_sidespeed->value * CL_KeyState (&in_right);
+				cmd->sidemove -= cl_sidespeed->value * CL_KeyState (&in_left);
 			}
-			
-			cmd->sidemove += kSideSpeed * CL_KeyState (&in_moveright);
-			cmd->sidemove -= kSideSpeed * CL_KeyState (&in_moveleft);
-			
+
+			cmd->sidemove += cl_sidespeed->value * CL_KeyState (&in_moveright);
+			cmd->sidemove -= cl_sidespeed->value * CL_KeyState (&in_moveleft);
+
 			cmd->upmove += cl_upspeed->value * CL_KeyState (&in_up);
 			cmd->upmove -= cl_upspeed->value * CL_KeyState (&in_down);
-			
+
 			if ( !(in_klook.state & 1 ) )
 			{	
-				cmd->forwardmove += kForwardSpeed * CL_KeyState (&in_forward);
-				cmd->forwardmove -= kBackSpeed * CL_KeyState (&in_back);
-			}	
+				cmd->forwardmove += cl_forwardspeed->value * CL_KeyState (&in_forward);
+				cmd->forwardmove -= cl_backspeed->value * CL_KeyState (&in_back);
+			}		
 		}
 		
 		if(!theIsSendingSpecialEvent)
@@ -1287,9 +1225,7 @@ void CL_DLLEXPORT CL_CreateMove ( float frametime, struct usercmd_s *cmd, int ac
 			}
 
 			// Allow mice and other controllers to add their inputs
-			cmd->forwardmove += theTranslationDeltas[0];
-			cmd->sidemove += theTranslationDeltas[1];
-			cmd->upmove += theTranslationDeltas[2];
+			IN_Move ( frametime, cmd );
 			
 			if(!theOverrideImpulse)
 			{
@@ -1328,6 +1264,7 @@ void CL_DLLEXPORT CL_CreateMove ( float frametime, struct usercmd_s *cmd, int ac
 	}
 	
 	gEngfuncs.GetViewAngles( (float *)viewangles );
+	// Set current view angles.
 
 	// Set current view angles but not if frozen (this still allows you to rotate in first-person, but player model won't change)
 	int theUser4 = gHUD.GetLocalUpgrades();
@@ -1342,6 +1279,8 @@ void CL_DLLEXPORT CL_CreateMove ( float frametime, struct usercmd_s *cmd, int ac
 	{
 		VectorCopy( oldangles, cmd->viewangles );
 	}
+
+	//Bench_SetViewAngles( 1, (float *)&cmd->viewangles, frametime, cmd );
 }
 
 /*
@@ -1582,9 +1521,12 @@ void InitInput (void)
 	cl_yawspeed			= gEngfuncs.pfnRegisterVariable ( "cl_yawspeed", "210", 0 );
 	cl_pitchspeed		= gEngfuncs.pfnRegisterVariable ( "cl_pitchspeed", "225", 0 );
 	cl_upspeed			= gEngfuncs.pfnRegisterVariable ( "cl_upspeed", "320", 0 );
+	cl_forwardspeed		= gEngfuncs.pfnRegisterVariable ( "cl_forwardspeed", "400", FCVAR_ARCHIVE );
+	cl_backspeed		= gEngfuncs.pfnRegisterVariable ( "cl_backspeed", "400", FCVAR_ARCHIVE );
+	cl_sidespeed		= gEngfuncs.pfnRegisterVariable ( "cl_sidespeed", "400", 0 );
 	cl_movespeedkey		= gEngfuncs.pfnRegisterVariable ( "cl_movespeedkey", "0.3", 0 );
-	//cl_pitchup			= gEngfuncs.pfnRegisterVariable ( "cl_pitchup", "89", 0 );
-	//cl_pitchdown		= gEngfuncs.pfnRegisterVariable ( "cl_pitchdown", "89", 0 );
+	cl_pitchup			= gEngfuncs.pfnRegisterVariable ( "cl_pitchup", "89", 0 );
+	cl_pitchdown		= gEngfuncs.pfnRegisterVariable ( "cl_pitchdown", "89", 0 );
 
 	cl_vsmoothing		= gEngfuncs.pfnRegisterVariable ( "cl_vsmoothing", "0.05", FCVAR_ARCHIVE );
 
@@ -1595,7 +1537,7 @@ void InitInput (void)
 
 	cl_autohelp			= gEngfuncs.pfnRegisterVariable ( kvAutoHelp, "1.0", FCVAR_ARCHIVE );
 	cl_centerentityid	= gEngfuncs.pfnRegisterVariable ( kvCenterEntityID, "0.0", FCVAR_ARCHIVE );
-	cl_musicenabled		= gEngfuncs.pfnRegisterVariable ( kvMusicEnabled, "1.0", FCVAR_ARCHIVE );
+	cl_musicenabled		= gEngfuncs.pfnRegisterVariable ( kvMusicEnabled, "0", FCVAR_ARCHIVE );
 	cl_musicvolume		= gEngfuncs.pfnRegisterVariable ( kvMusicVolume, "155", FCVAR_ARCHIVE );
 	cl_musicdir			= gEngfuncs.pfnRegisterVariable ( kvMusicDirectory, "", FCVAR_ARCHIVE);
 	cl_musicdelay		= gEngfuncs.pfnRegisterVariable ( kvMusicDelay, "90", FCVAR_ARCHIVE);
@@ -1607,6 +1549,11 @@ void InitInput (void)
 	cl_cmhotkeys		= gEngfuncs.pfnRegisterVariable ( kvCMHotkeys, "qwerasdfzxcv", FCVAR_ARCHIVE );
 	cl_forcedefaultfov	= gEngfuncs.pfnRegisterVariable ( kvForceDefaultFOV, "0", FCVAR_ARCHIVE );
 	cl_particleinfo		= gEngfuncs.pfnRegisterVariable ( kvParticleInfo, "0", FCVAR_ARCHIVE );
+	cl_widescreen		= gEngfuncs.pfnRegisterVariable	( kvWidescreen, "1", FCVAR_ARCHIVE );
+	cl_ambientsound		= gEngfuncs.pfnRegisterVariable	( kvAmbientSound, "2", FCVAR_ARCHIVE);
+	senslock			= gEngfuncs.pfnRegisterVariable	("senslock", "0", FCVAR_ARCHIVE);
+	hud_style			= gEngfuncs.pfnRegisterVariable	("hud_style", "1", FCVAR_ARCHIVE);
+	cl_chatbeep			= gEngfuncs.pfnRegisterVariable	("cl_chatbeep", "1", FCVAR_ARCHIVE);
 
 	// Initialize third person camera controls.
 	CAM_Init();
@@ -1628,10 +1575,10 @@ void ShutdownInput (void)
 	IN_Shutdown();
 	KB_Shutdown();
 }
-
+#include "interface.h"
 void CL_DLLEXPORT HUD_Shutdown( void )
 {
-	RecClShutdown();
+//	RecClShutdown();
 
 	ShutdownInput();
 

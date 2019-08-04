@@ -1,6 +1,6 @@
 /***
 *
-*	Copyright (c) 1999, 2000, Valve LLC. All rights reserved.
+*	Copyright (c) 1996-2002, Valve LLC. All rights reserved.
 *	
 *	This product contains software technology licensed from Id 
 *	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc. 
@@ -85,7 +85,6 @@ color24 gTracerColors[] =
 #define FTENT_NOMODEL			0x00040000 // Doesn't have a model, never try to draw ( it just triggers other things )
 #define FTENT_CLIENTCUSTOM		0x00080000 // Must specify callback.  Callback function is responsible for killing tempent and updating fields ( unless other flags specify how to do things )
 
-typedef struct tempent_s	TEMPENTITY;
 typedef struct tempent_s
 {
 	int			flags;
@@ -99,7 +98,7 @@ typedef struct tempent_s
 	int			hitSound;
 	void		( *hitcallback )	( struct tempent_s *ent, struct pmtrace_s *ptr );
 	void		( *callback )		( struct tempent_s *ent, float frametime, float currenttime );
-	TEMPENTITY	*next;
+	struct tempent_s	*next;
 	int			priority;
 	short		clientIndex;	// if attached, this is the index of the client to stick to
 								// if COLLIDEALL, this is the index of the client to ignore

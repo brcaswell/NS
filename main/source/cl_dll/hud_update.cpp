@@ -41,8 +41,42 @@ int CHud::UpdateClientData(client_data_t *cdata, float time)
 
 	Think();
 
-	cdata->fov = m_iFOV;
-	
+	//cdata->fov = m_iFOV;
+
+	float width = ScreenWidth();
+	float height = ScreenHeight();
+
+	//horizontal+ widescreen view correction - engine uses vertical-
+	bool wstoggle = CVAR_GET_FLOAT("cl_widescreen") != 0;
+	if (wstoggle)
+	{
+			m_wsFOV = atanf(tan(m_iFOV * M_PI / 360) * 0.75 * width / height) * 360 / M_PI;
+
+			//clamp for game balance
+			if (m_iFOV == 105 && m_wsFOV > 121)
+			{
+				m_wsFOV = 120;
+			}
+			else if (m_iFOV == 100 && m_wsFOV > 117)
+			{
+				m_wsFOV = 116;
+			}
+			else if (m_iFOV == 90 && m_wsFOV > 107)
+			{
+				m_wsFOV = 106;
+			}
+			else if (m_wsFOV < 90)
+			{
+				m_wsFOV = 90;
+			}
+	}
+	else
+	{
+		m_wsFOV = m_iFOV;
+	}
+
+	cdata->fov = m_wsFOV;
+
 	CL_ResetButtonBits( m_iKeyBits );
 
 	// return 1 if in anything in the client_data struct has been changed, 0 otherwise

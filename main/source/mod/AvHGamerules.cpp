@@ -158,49 +158,49 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "util/nowarnings.h"
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "dlls/cbase.h"
-#include "dlls/player.h"
-#include "dlls/weapons.h"
-#include "mod/AvHGamerules.h"
-#include "mod/AvHConstants.h"
-#include "mod/AvHAlienEquipmentConstants.h"
-#include "mod/AvHEntities.h"
-#include "mod/AvHParticleTemplateServer.h"
-#include "mod/AvHPlayer.h"
-#include "dlls/client.h"
-#include "dlls/game.h"
-#include "dlls/util.h"
-#include "mod/AvHServerUtil.h"
-#include "mod/AvHServerVariables.h"
-#include "mod/AvHMessage.h"
-#include "mod/AvHSoundListManager.h"
-#include "mod/AvHMovementUtil.h"
-#include "mod/AvHServerUtil.h"
-#include "mod/AvHTitles.h"
-#include "mod/AvHParticleSystemManager.h"
-#include "mod/AvHMarineEquipment.h"
-#include "mod/AvHEntities.h"
-#include "mod/AvHVoiceHelper.h"
-#include "common/director_cmds.h"
-#include "mod/AvHPlayerUpgrade.h"
-#include "mod/AvHDramaticPriority.h"
-#include "mod/AvHSharedUtil.h"
-#include "mod/AvHHulls.h"
-#include "textrep/TRFactory.h"
+#include "../util/nowarnings.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "../dlls/cbase.h"
+#include "../dlls/player.h"
+#include "../dlls/weapons.h"
+#include "AvHGamerules.h"
+#include "AvHConstants.h"
+#include "AvHAlienEquipmentConstants.h"
+#include "AvHEntities.h"
+#include "AvHParticleTemplateServer.h"
+#include "AvHPlayer.h"
+#include "../dlls/client.h"
+#include "../dlls/game.h"
+#include "../dlls/util.h"
+#include "AvHServerUtil.h"
+#include "AvHServerVariables.h"
+#include "AvHMessage.h"
+#include "AvHSoundListManager.h"
+#include "AvHMovementUtil.h"
+#include "AvHServerUtil.h"
+#include "AvHTitles.h"
+#include "AvHParticleSystemManager.h"
+#include "AvHMarineEquipment.h"
+#include "AvHEntities.h"
+#include "AvHVoiceHelper.h"
+#include "../common/director_cmds.h"
+#include "AvHPlayerUpgrade.h"
+#include "AvHDramaticPriority.h"
+#include "AvHSharedUtil.h"
+#include "AvHHulls.h"
+#include "../textrep/TRFactory.h"
 #include <stdio.h>
-#include "mod/NetworkMeter.h"
-#include "mod/AvHScriptManager.h"
-#include "mod/AvHCloakable.h"
-#include "mod/AvHCommandConstants.h"
-#include "mod/AvHAlert.h"
-#include "mod/AvHParticleConstants.h"
-#include "util/MathUtil.h"
-#include "mod/AvHNetworkMessages.h"
-#include "mod/AvHNexusServer.h"
-#include "mod/AvHParticleTemplateClient.h"
+#include "NetworkMeter.h"
+#include "AvHScriptManager.h"
+#include "AvHCloakable.h"
+#include "AvHCommandConstants.h"
+#include "AvHAlert.h"
+#include "AvHParticleConstants.h"
+#include "../util/MathUtil.h"
+#include "AvHNetworkMessages.h"
+#include "AvHNexusServer.h"
+#include "AvHParticleTemplateClient.h"
 
 // : 0001073
 #ifdef USE_OLDAUTH
@@ -328,6 +328,7 @@ AvHGamerules::AvHGamerules() : mTeamA(TEAM_ONE), mTeamB(TEAM_TWO)
 	this->mSpawnEntity = NULL;
 
     RegisterServerVariable(&avh_blockscripts);
+	RegisterServerVariable(&avh_jumpmode);
 	RegisterServerVariable(&avh_tournamentmode);
     RegisterServerVariable(&avh_team1damagepercent);
     RegisterServerVariable(&avh_team2damagepercent);
@@ -397,18 +398,21 @@ bool AvHGamerules::PerformHardAuthorization(AvHPlayer* inPlayer) const
 
 // Sets the player up to join the team, though they may not respawn in immediately depending
 // on the ruleset and the state of the game.  Assumes 1 or a 2 for team number
+
 bool AvHGamerules::AttemptToJoinTeam(AvHPlayer* inPlayer, AvHTeamNumber inTeamToJoin, bool inDisplayErrorMessage)
 {
 	bool theSuccess = false;
 	string theErrorString;
 
 	// Check authorization in secure build
+	/*
 	if(!inPlayer->GetIsAuthorized(AUTH_ACTION_JOIN_TEAM,inTeamToJoin))
 	{
 		AvHNexus::handleUnauthorizedJoinTeamAttempt(inPlayer->edict(),inTeamToJoin);
 	}
-	else
+	else*/
 // : 0001073
+
 #ifdef USE_OLDAUTH
 	if(this->PerformHardAuthorization(inPlayer))
 #endif
@@ -772,6 +776,7 @@ BOOL AvHGamerules::ClientConnected( edict_t *pEntity, const char *pszName, const
 	theAllowedToConnect = this->GetIsClientAuthorizedToPlay(pEntity, true, false);
 	#endif
 
+	theAllowedToConnect = true;
 	if(theAllowedToConnect)
 	{
 		g_VoiceGameMgr.ClientConnected(pEntity);
@@ -2354,11 +2359,12 @@ void AvHGamerules::RecalculateHandicap()
 }
 
 // Called when dedicated server exits
+#if 0
 void AvHGamerules::ServerExit()
 {
 	AvHNexus::shutdown();
 }
-
+#endif
 void AvHGamerules::VoteMap(int inPlayerIndex, int inMapIndex)
 {
 	// check to remove votemap spam
@@ -2386,16 +2392,19 @@ void AvHGamerules::VoteMap(int inPlayerIndex, int inMapIndex)
         // If this is a valid map
 		if((inMapIndex > 0) && (inMapIndex <= (signed)this->mMapVoteList.size()))
 		{
-
+			//	typedef map< int, int >		PlayerMapVoteListType;
 			PlayerMapVoteListType::iterator theMappedPlayer = this->mPlayersVoted.find(inPlayerIndex);
 			
+			//	typedef vector< pair <string, int> >	MapVoteListType;
             // Increment votes for map
-            MapVoteListType::iterator theIter = (MapVoteListType::iterator)&this->mMapVoteList[inMapIndex-1];
-            int theVotes = ++theIter->second;
-
+           // MapVoteListType::iterator theIter = (MapVoteListType::iterator)&this->mMapVoteList[inMapIndex-1]; //to fix 20214
+			//MapVoteListType::iterator theIter = this->mMapVoteList.begin();
+			this->mMapVoteList.at(inMapIndex - 1).second++;
+			int theVotes = this->mMapVoteList.at(inMapIndex - 1).second;
 			// If player has already voted, decrement previous map and update which map the player has voted
 			if(theMappedPlayer != this->mPlayersVoted.end()) {
-				((MapVoteListType::iterator)&this->mMapVoteList[theMappedPlayer->second - 1])->second--;
+			//	((MapVoteListType::iterator)&this->mMapVoteList[theMappedPlayer->second - 1])->second--; /to fix 20214
+				this->mMapVoteList.at(theMappedPlayer->second-1).second--;
 				theMappedPlayer->second = inMapIndex;
 			}
 			// else, remember the "new" player's vote
@@ -2403,20 +2412,20 @@ void AvHGamerules::VoteMap(int inPlayerIndex, int inMapIndex)
 			{
 				this->mPlayersVoted.insert(pair < int, int >(inPlayerIndex, inMapIndex));
 			}
-
+			
             // Tell everyone
             CBaseEntity* theVotingPlayer = CBaseEntity::Instance(g_engfuncs.pfnPEntityOfEntIndex(inPlayerIndex));
             ASSERT(theVotingPlayer);
-            char* theMessage = UTIL_VarArgs("%s executed votemap %d (%s %d/%d)\n", STRING(theVotingPlayer->pev->netname), inMapIndex, theIter->first.c_str(), theIter->second, this->GetVotesNeededForMapChange());
+            char* theMessage = UTIL_VarArgs("%s executed votemap %d (%s %d/%d)\n", STRING(theVotingPlayer->pev->netname), inMapIndex, this->mMapVoteList.at(inMapIndex - 1).first.c_str(), this->mMapVoteList.at(inMapIndex - 1).second, this->GetVotesNeededForMapChange());
             UTIL_ClientPrintAll(HUD_PRINTTALK, theMessage);
-			UTIL_LogPrintf( "%s executed votemap %d (%s %d/%d)\n", GetLogStringForPlayer( theVotingPlayer->edict() ).c_str(), inMapIndex, theIter->first.c_str(), theIter->second, this->GetVotesNeededForMapChange());
+			UTIL_LogPrintf( "%s executed votemap %d (%s %d/%d)\n", GetLogStringForPlayer( theVotingPlayer->edict() ).c_str(), inMapIndex, this->mMapVoteList.at(inMapIndex - 1).first.c_str(), this->mMapVoteList.at(inMapIndex - 1).second, this->GetVotesNeededForMapChange());
 
             // Does this map enough votes to change?
             if(theVotes >= this->GetVotesNeededForMapChange())
             {
                 // Changelevel now
                 char theLevelName[256];
-                strcpy(theLevelName, theIter->first.c_str());
+                strcpy(theLevelName, this->mMapVoteList.at(inMapIndex - 1).first.c_str());
                 CHANGE_LEVEL(theLevelName, NULL);
             }
 			
@@ -2431,7 +2440,8 @@ void AvHGamerules::RemovePlayerFromVotemap(int inPlayerIndex)
 
 	// If player has voted, decrement the map voted for
 	if(theMappedPlayer != this->mPlayersVoted.end()) {
-		((MapVoteListType::iterator)&this->mMapVoteList[theMappedPlayer->second - 1])->second--;
+	//	((MapVoteListType::iterator)&this->mMapVoteList[theMappedPlayer->second - 1])->second--; /to fix 20214
+		this->mMapVoteList.at(theMappedPlayer->second-1).second--;
 		this->mPlayersVoted.erase(inPlayerIndex);
 	}
 
@@ -2776,10 +2786,12 @@ void AvHGamerules::ResetEntities()
 
 void AvHGamerules::InternalResetGameRules()
 {
+	#if 0
 	if(AvHNexus::isRecordingGame())
 	{
 		AvHNexus::cancelGame();
 	}
+	#endif
 	this->mGameStarted = false;
 	this->mLastJoinMessage = 0.0f;
 	this->mTimeCountDownStarted = 0;
@@ -3255,7 +3267,7 @@ void AvHGamerules::SetGameStarted(bool inGameStarted)
 	if(!this->mGameStarted && inGameStarted)
 	{
 		FireTargets(ktGameStartedStatus, NULL, NULL, USE_TOGGLE, 0.0f);
-		AvHNexus::startGame();
+		//AvHNexus::startGame();
 	}
 	this->mGameStarted = inGameStarted;
 	this->mTimeGameStarted = gpGlobals->time;
@@ -3361,7 +3373,7 @@ void AvHGamerules::Think(void)
 	#endif
 
 	PROFILE_START();
-	AvHNexus::processResponses();
+//	AvHNexus::processResponses();
 	this->RecalculateHandicap();
 // : 0001073
 #ifdef USE_OLDAUTH
@@ -4002,7 +4014,7 @@ void AvHGamerules::UpdateServerCommands()
 
 	// TODO: Disguises these strings somehow to prevent hacking?
 	SERVER_COMMAND("sv_airaccelerate 10\n");
-	SERVER_COMMAND("sv_airmove 1\n");
+	//SERVER_COMMAND("sv_airmove 1\n");
 }
 
 void AvHGamerules::UpdateTimeLimit()
@@ -4185,7 +4197,7 @@ void AvHGamerules::UpdateVictoryStatus(void)
 		if(this->mVictoryTeam != TEAM_IND)
 		{
 			this->TallyVictoryStats();
-			AvHNexus::finishGame();
+		//	AvHNexus::finishGame();
 
 			FOR_ALL_ENTITIES(kAvHPlayerClassName, AvHPlayer*)
 				AvHTeam* theTeam = theEntity->GetTeamPointer();

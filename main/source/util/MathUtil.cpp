@@ -22,23 +22,18 @@
 #include <cmath>
 #include "stdio.h"
 #include "stdlib.h"
-#include "math.h"
+#include <math.h>
 
 //#include "hud.h"
 //#include "cl_util.h"
 #include <string.h>
 #include "nowarnings.h"
-#include "util/MathUtil.h"
+#include "MathUtil.h"
 #include "common/vec_op.h"
 #include "common/mathlib.h"
 
-#ifndef max
 #define max(a,b)    (((a) > (b)) ? (a) : (b))
-#endif
-
-#ifndef min
 #define min(a,b)    (((a) < (b)) ? (a) : (b))
-#endif
 
 // Ignore "double to float possible loss of data" warning
 #pragma warning (disable: 4244)
@@ -144,49 +139,6 @@ bool IsVectorBetweenBoundingVectors(const float* inOrigin, const float* inRay, c
 	return theSuccess;
 }
 
-void AngleMatrix(const float* angles, float matrix[3][4])
-{
-	float		angle;
-	float		sr, sp, sy, cr, cp, cy;
-	
-	angle = angles[2] * (M_PI*2 / 360);
-	sy = sin(angle);
-	cy = cos(angle);
-	angle = angles[1] * (M_PI*2 / 360);
-	sp = sin(angle);
-	cp = cos(angle);
-	angle = angles[0] * (M_PI*2 / 360);
-	sr = sin(angle);
-	cr = cos(angle);
-	
-	// matrix = (Z * Y) * X
-	matrix[0][0] = cp*cy;
-	matrix[1][0] = cp*sy;
-	matrix[2][0] = -sp;
-	matrix[0][1] = sr*sp*cy+cr*-sy;
-	matrix[1][1] = sr*sp*sy+cr*cy;
-	matrix[2][1] = sr*cp;
-	matrix[0][2] = (cr*sp*cy+-sr*-sy);
-	matrix[1][2] = (cr*sp*sy+-sr*cy);
-	matrix[2][2] = cr*cp;
-	matrix[0][3] = 0.0;
-	matrix[1][3] = 0.0;
-	matrix[2][3] = 0.0;
-}
-
-float Length(const float *v)
-{
-	int		i;
-	float	length;
-	
-	length = 0;
-	for (i=0 ; i< 3 ; i++)
-		length += v[i]*v[i];
-	length = sqrt (length);		// FIXME
-	
-	return length;
-}
-
 void RotateFloatValuesByVector(float& ioX, float& ioY, float& ioZ, /*const float* inBaseVector,*/ const float* inVector)
 {
 	// Get rotation vector
@@ -289,7 +241,7 @@ void RotateValuesByVector(int32& ioX, int32& ioY, int32& ioZ, /*const float* inB
 	ioY = (int32)ioFloatY;
 	ioZ = (int32)ioFloatZ;
 }
-
+//#ifndef AVH_SERVER
 void VectorAngles( const float *forward, float *angles )
 {
 	float	tmp, yaw, pitch;
@@ -333,6 +285,19 @@ void VectorMA (const float *veca, float scale, const float *vecb, float *vecc)
 	vecc[2] = veca[2] + scale*vecb[2];
 }
 
+float Length(const float *v)
+{
+	int		i;
+	float	length;
+	
+	length = 0;
+	for (i=0 ; i< 3 ; i++)
+		length += v[i]*v[i];
+	length = sqrt (length);		// FIXME
+	
+	return length;
+}
+
 float VectorNormalize (float *v)
 {
 	float	length, ilength;
@@ -352,18 +317,19 @@ float VectorNormalize (float *v)
 	
 }
 
-void VectorRotate (const float* in1, const float in2[3][4], float* out)
-{
-	out[0] = DotProduct(in1, in2[0]);
-	out[1] = DotProduct(in1, in2[1]);
-	out[2] = DotProduct(in1, in2[2]);
-}
-
 void VectorScale (const float *in, float scale, float *out)
 {
 	out[0] = in[0]*scale;
 	out[1] = in[1]*scale;
 	out[2] = in[2]*scale;
+}
+//#endif
+
+void VectorRotate (const float* in1, const float in2[3][4], float* out)
+{
+	out[0] = DotProduct(in1, in2[0]);
+	out[1] = DotProduct(in1, in2[1]);
+	out[2] = DotProduct(in1, in2[2]);
 }
 
 double VectorDistance(const float* in1, const float* in2)
@@ -384,6 +350,7 @@ double VectorDistance2D(const float* in1, const float* in2)
 }
 
 // Added by mmcguire.
+
 void VectorsToAngles(const float forward[3], const float right[3], const float up[3], float angles[3])
 {
    

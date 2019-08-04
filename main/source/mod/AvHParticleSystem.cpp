@@ -37,45 +37,47 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "mod/AvHParticleSystem.h"
-#include "mod/AvHParticleTemplate.h"
+#include "AvHParticleSystem.h"
+#include "AvHParticleTemplate.h"
+#include "winsani_in.h"
 #include <papi.h>
+#include "winsani_out.h"
 
 #ifdef AVH_CLIENT
   #include "cl_dll/cl_util.h"
   #include "cl_dll/util_vector.h"
-  #include "common/renderingconst.h"
-  #include "common/const.h"
-  #include "engine/progdefs.h"
-  #include "engine/edict.h"
-  #include "pm_shared/pm_defs.h"
-  #include "engine/cdll_int.h"
-  #include "common/event_api.h"
-  #include "common/cl_entity.h"
+  #include "../common/renderingconst.h"
+  #include "../common/const.h"
+  #include "../engine/progdefs.h"
+  #include "../engine/edict.h"
+  #include "../pm_shared/pm_defs.h"
+  #include "../engine/cdll_int.h"
+  #include "../common/event_api.h"
+  #include "../common/cl_entity.h"
   #include <particledefs.h>
   #include <p_vector.h>
-  #include "common/usercmd.h"
-  #include "pm_shared/pm_shared.h"
-  #include "pm_shared/pm_movevars.h"
-  #include "pm_shared/pm_debug.h"
-  #include "mod/AvHParticleSystemManager.h"
+  #include "../common/usercmd.h"
+  #include "../pm_shared/pm_shared.h"
+  #include "../pm_shared/pm_movevars.h"
+  #include "../pm_shared/pm_debug.h"
+  #include "AvHParticleSystemManager.h"
   #include "cl_dll/ev_hldm.h"
-  #include "mod/AvHParticleTemplateClient.h"
+  #include "AvHParticleTemplateClient.h"
   extern AvHParticleTemplateListClient	gParticleTemplateList;
-  #include "mod/AvHClientVariables.h"
+  #include "AvHClientVariables.h"
   void DrawScaledHUDSprite(int inSpriteHandle, int inMode, int inRowsInSprite, int inX, int inY, int inWidth, int inHeight, int inForceSpriteFrame, float inStartU = 0.0f, float inStartV = 0.0f, float inEndU = 1.0f, float inEndV = 1.0f, float inRotateUVRadians = 0.0f, bool inUVWrapsOverFrames = false);
-  #include "mod/AvHClientUtil.h"
+  #include "AvHClientUtil.h"
 #else
-  #include "dlls/extdll.h"
-  #include "dlls/util.h"
+  #include "../dlls/extdll.h"
+  #include "../dlls/util.h"
 
-  #ifdef WIN32
-  #include "common/cl_entity.h"
-  #endif
+  //#ifdef WIN32
+  #include "../common/cl_entity.h"
+  //#endif
 
 #endif
 
-#include "util/MathUtil.h"
+#include "../util/MathUtil.h"
 
 
 const float kDefaultParticleSystemPhysicsUpdateRate = .05f;
@@ -548,7 +550,7 @@ AvHParticleSystem::LoadSpriteIfNeeded(AvHParticleTemplate* inTemplate)
 		string theSprite = inTemplate->GetSprite();
 		if(theSprite != "")
 		{
-			this->mSprite = Safe_SPR_Load(theSprite.c_str());
+			this->mSprite = SPR_Load(theSprite.c_str());
 			if(this->mSprite != 0)
 			{
 				int theNumFrames = SPR_Frames(this->mSprite);
@@ -688,9 +690,9 @@ AvHParticleSystem::GenerateParticles(int inNumberParticles)
 				else if(theDomain == PS_Sphere)
 				{
 					float theRadius1 = fabs(this->mGenerationEntityAbsMax[0] - this->mGenerationEntityAbsMin[0])/2.0f;
-					theRadius1 = max(theRadius1 - theEdgeInset, 0);
+					theRadius1 = max(theRadius1 - theEdgeInset, 0.0f);
 					float theRadius2 = this->mGenerationEntityParam;
-					theRadius2 = max(theRadius2 - theEdgeInset, 0);
+					theRadius2 = max(theRadius2 - theEdgeInset, 0.0f);
 					theParams[3] = theRadius1;
 					theParams[4] = theRadius2;
 				}
@@ -1123,5 +1125,3 @@ AvHParticleSystem::UpdateFirst()
 ////		this->mBaseEntityPos.z = this->mOrigin[2];
 ////	}
 //}
-
-

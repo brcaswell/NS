@@ -53,7 +53,7 @@
 // - Added document header, updates for cheat protection, added constants
 //
 //===============================================================================
-#include "util/nowarnings.h"
+#include "../util/nowarnings.h"
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"
@@ -64,13 +64,13 @@
 #include "soundent.h"
 #include "decals.h"
 #include "gamerules.h"
-#include "mod/AvHConstants.h"
-#include "mod/AvHMarineEquipmentConstants.h"
-#include "mod/AvHAlienWeaponConstants.h"
-#include "mod/AvHAlienEquipmentConstants.h"
-#include "mod/AvHPlayer.h"
-#include "mod/AvHGamerules.h"
-#include "mod/AvHNetworkMessages.h"
+#include "../mod/AvHConstants.h"
+#include "../mod/AvHMarineEquipmentConstants.h"
+#include "../mod/AvHAlienWeaponConstants.h"
+#include "../mod/AvHAlienEquipmentConstants.h"
+#include "../mod/AvHPlayer.h"
+#include "../mod/AvHGamerules.h"
+#include "../mod/AvHNetworkMessages.h"
 
 extern CGraph	WorldGraph;
 extern int gEvilImpulse101;

@@ -4,8 +4,8 @@
 #include "VGUI_Panel.h"
 //#include "cl_dll/util_vector.h"
 //#include "cl_dll/wrect.h"
-//#include "engine/cdll_int.h"
-#include "mod/AvHHud.h"
+//#include "../engine/cdll_int.h"
+#include "AvHHud.h"
 
 class AvHOverviewControl : public vgui::Panel
 {
@@ -25,7 +25,7 @@ protected:
 
 private:
 
-    HSPRITE m_hsprWhite;
+	AVHHSPRITE m_hsprWhite;
 
 };
 

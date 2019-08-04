@@ -63,10 +63,10 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "mod/AvHPlayerUpgrade.h"
-#include "mod/AvHSpecials.h"
-#include "util/Balance.h"
-#include "common/damagetypes.h"
+#include "AvHPlayerUpgrade.h"
+#include "AvHSpecials.h"
+#include "../util/Balance.h"
+#include "../common/damagetypes.h"
 
 const int	kWeaponTracerDefault		= 0;
 const int	kWeaponTracerLevelOne		= 6;

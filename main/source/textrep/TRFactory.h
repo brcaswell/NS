@@ -19,7 +19,7 @@
 #ifndef TRFACTORY_H
 #define TRFACTORY_H
 
-#include "textrep/TRDescription.h"
+#include "TRDescription.h"
 #include "string.h"
 
 // Build a list of text description from a file.  The filename is relative to the mod's base directory.  

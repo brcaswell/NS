@@ -10,7 +10,7 @@
 // Order of list is identical on both client and server
 // Data and networking only, no particle behavior
 //
-#include "types.h"
+#include "../types.h"
 //#include "utils/common/mathlib.h"
 
 class AvHParticleTemplateList;
@@ -58,7 +58,7 @@ public:
 	void			SetParticleLifetime(float inNewLifetime);
 
 	string			GetSprite() const;
-	void			SetSprite(string& inSpriteName);
+	void			SetSprite(string inSpriteName); //@2014 
 
 	ShapeType		GetGenerationShape() const;
 	void			SetGenerationShape(ShapeType inShape);

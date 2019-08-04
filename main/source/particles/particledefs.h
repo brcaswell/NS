@@ -21,8 +21,8 @@
 #define PARTICLEDLL_API extern "C"
 
 // removed <<< cgc >>>
-//#else
-//#define PARTICLEDLL_API
+#else
+#define PARTICLEDLL_API
 #endif
 
 

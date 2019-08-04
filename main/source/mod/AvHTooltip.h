@@ -22,7 +22,7 @@
 #ifndef AVH_TOOLTIP_H
 #define AVH_TOOLTIP_H
 
-#include "types.h"
+#include "../types.h"
 
 const string kTooltipBoldPreString = "<b>";
 

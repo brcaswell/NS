@@ -19,11 +19,11 @@
 // - New files to control tooltips on HUD
 //
 //===============================================================================
-#include "mod/AvHTooltip.h"
+#include "AvHTooltip.h"
 #include "cl_dll/hud.h"
 #include "cl_dll/cl_util.h"
 #include "ui/UIUtil.h"
-#include "util/Tokenizer.h"
+#include "../util/Tokenizer.h"
 
 AvHTooltip::AvHTooltip()
 {

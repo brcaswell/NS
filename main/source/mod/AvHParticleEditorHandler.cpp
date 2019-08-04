@@ -1,15 +1,15 @@
-#include "util/nowarnings.h"
-#include "mod/AvHParticleEditorHandler.h"
+#include "../util/nowarnings.h"
+#include "AvHParticleEditorHandler.h"
 #include "cl_dll/chud.h"
 #include "cl_dll/hud.h"
 #include "cl_dll/cl_util.h"
-#include "mod/AvHConstants.h"
-#include "mod/AvHParticleTemplateClient.h"
-#include "mod/AvHParticleSystemManager.h"
+#include "AvHConstants.h"
+#include "AvHParticleTemplateClient.h"
+#include "AvHParticleSystemManager.h"
 #include "VGUI_Label.h"
-#include "util/STLUtil.h"
+#include "../util/STLUtil.h"
 //#include "ui/SliderPlus.h"
-#include "game_shared/vgui_slider2.h"
+#include "../game_shared/vgui_slider2.h"
 
 uint32 AvHParticleEditorHandler::sEditIndex = 0;
 bool AvHParticleEditorHandler::sInEditMode = false;

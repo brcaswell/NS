@@ -17,8 +17,8 @@
 	#include <process.h>
 #endif
 #include "stdio.h"
-#include "stacktrace.h"
-#include "zassert.h"
+#include "Stacktrace.h"
+#include "Zassert.h"
 
 // LEVEL 2 CODE
 // The following is template code which can be cut, pasted, 

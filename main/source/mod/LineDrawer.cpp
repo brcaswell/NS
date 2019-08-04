@@ -1,4 +1,4 @@
-#include "mod/LineDrawer.h"
+#include "LineDrawer.h"
 #include "cl_dll/hud.h"
 #include "cl_dll/cl_util.h"
 

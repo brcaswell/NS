@@ -1,22 +1,22 @@
-#include "mod/AvHAlienWeapons.h"
-#include "mod/AvHAlienWeaponConstants.h"
-#include "mod/AvHSpecials.h"
+#include "AvHAlienWeapons.h"
+#include "AvHAlienWeaponConstants.h"
+#include "AvHSpecials.h"
 
-#include "pm_shared/pm_defs.h"
+#include "../pm_shared/pm_defs.h"
 extern playermove_t*	pmove;
 
 #ifdef AVH_SERVER
-#include "mod/AvHPlayer.h"
+#include "AvHPlayer.h"
 #endif
 
 #ifdef AVH_CLIENT
 #include "cl_dll/hud.h"
-#include "mod/AvHHud.h"
+#include "AvHHud.h"
 extern int g_runfuncs;
 void IN_Attack2Down();
 #endif
 
-#include "mod/AvHAlienAbilities.h"
+#include "AvHAlienAbilities.h"
 
 LINK_ENTITY_TO_CLASS(kwBlinkGun, AvHBlinkGun);
 

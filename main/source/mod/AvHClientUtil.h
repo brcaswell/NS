@@ -26,11 +26,11 @@
 #include "cl_dll/cl_dll.h"
 #include "cl_dll/ammo.h"
 #include "cl_dll/chudmisc.h"
-#include "util/nowarnings.h"
-#include "common/cl_entity.h"
-#include "mod/AvHConstants.h"
-#include "mod/AvHMessage.h"
-#include "mod/AvHSpecials.h"
+#include "../util/nowarnings.h"
+#include "../common/cl_entity.h"
+#include "AvHConstants.h"
+#include "AvHMessage.h"
+#include "AvHSpecials.h"
 
 int AvHCUGetIconHeightForPlayer(AvHUser3 theUser3);
 void AvHCUGetViewAngles(cl_entity_t* inEntity, float* outViewAngles);

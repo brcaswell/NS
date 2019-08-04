@@ -1,25 +1,25 @@
+//========= Copyright © 1996-2002, Valve LLC, All rights reserved. ============
+//
+// Purpose: 
+//
+// $NoKeywords: $
+//=============================================================================
+
 #include "hud.h"
 #include "cl_util.h"
 #include "camera.h"
 #include "kbutton.h"
-#include "common/cvardef.h"
-#include "common/usercmd.h"
-#include "common/const.h"
+#include "cvardef.h"
+#include "usercmd.h"
+#include "const.h"
 #include "camera.h"
 #include "in_defs.h"
-
-#include "engine/APIProxy.h"
 #include "Exports.h"
 
-#include "windows.h"
+#include "SDL2/SDL_mouse.h"
+#include "port.h"
 
 float CL_KeyState (kbutton_t *key);
-extern "C" 
-{
-	void CL_DLLEXPORT CAM_Think( void );
-	int CL_DLLEXPORT CL_IsThirdPerson( void );
-	void CL_DLLEXPORT CL_CameraOffset( float *ofs );
-}
 
 extern cl_enginefunc_t gEngfuncs;
 
@@ -83,6 +83,15 @@ void CAM_ToFirstPerson(void);
 void CAM_StartDistance(void);
 void CAM_EndDistance(void);
 
+void SDL_GetCursorPos( POINT *p )
+{
+	gEngfuncs.GetMousePosition( (int *)&p->x, (int *)&p->y );
+//	SDL_GetMouseState( (int *)&p->x, (int *)&p->y );
+}
+
+void SDL_SetCursorPos( const int x, const int y )
+{
+}
 
 //-------------------------------------------------- Local Functions
 
@@ -90,7 +99,7 @@ float MoveToward( float cur, float goal, float maxspeed )
 {
 	if( cur != goal )
 	{
-		if( abs( cur - goal ) > 180.0 )
+		if( fabs( cur - goal ) > 180.0 )
 		{
 			if( cur < goal )
 				cur += 360.0;
@@ -143,9 +152,8 @@ extern trace_t SV_ClipMoveToEntity (edict_t *ent, vec3_t start, vec3_t mins, vec
 
 void CL_DLLEXPORT CAM_Think( void )
 {
-	RecClCamThink();
+//	RecClCamThink();
 
-#ifdef HL_CAMERA
 	vec3_t origin;
 	vec3_t ext, pnt, camForward, camRight, camUp;
 	moveclip_t	clip;
@@ -192,7 +200,7 @@ void CL_DLLEXPORT CAM_Think( void )
 	if (cam_mousemove)
 	{
 	    //get windows cursor position
-		GetCursorPos (&cam_mouse);
+		SDL_GetCursorPos (&cam_mouse);
 		//check for X delta values and adjust accordingly
 		//eventually adjust YAW based on amount of movement
 	  //don't do any movement of the cam using YAW/PITCH if we are zooming in/out the camera	
@@ -267,7 +275,7 @@ void CL_DLLEXPORT CAM_Think( void )
 			cam_old_mouse_x=cam_mouse.x;
 			cam_old_mouse_y=cam_mouse.y;
 		}
-		SetCursorPos (gEngfuncs.GetWindowCenterX(), gEngfuncs.GetWindowCenterY());
+		SDL_SetCursorPos (gEngfuncs.GetWindowCenterX(), gEngfuncs.GetWindowCenterY());
 	  }
 	}
 
@@ -325,7 +333,7 @@ void CL_DLLEXPORT CAM_Think( void )
 		//since we are done with the mouse
 		cam_old_mouse_x=cam_mouse.x*gHUD.GetSensitivity();
 		cam_old_mouse_y=cam_mouse.y*gHUD.GetSensitivity();
-		SetCursorPos (gEngfuncs.GetWindowCenterX(), gEngfuncs.GetWindowCenterY());
+		SDL_SetCursorPos (gEngfuncs.GetWindowCenterX(), gEngfuncs.GetWindowCenterY());
 	}
 #ifdef LATER
 	if( cam_contain->value )
@@ -375,7 +383,7 @@ void CL_DLLEXPORT CAM_Think( void )
 		if( camAngles[ PITCH ] - viewangles[ PITCH ] != cam_idealpitch->value )
 			camAngles[ PITCH ] = MoveToward( camAngles[ PITCH ], cam_idealpitch->value + viewangles[ PITCH ], CAM_ANGLE_SPEED );
 
-		if( abs( camAngles[ 2 ] - cam_idealdist->value ) < 2.0 )
+		if( fabs( camAngles[ 2 ] - cam_idealdist->value ) < 2.0 )
 			camAngles[ 2 ] = cam_idealdist->value;
 		else
 			camAngles[ 2 ] += ( cam_idealdist->value - camAngles[ 2 ] ) / 4.0;
@@ -403,9 +411,6 @@ void CL_DLLEXPORT CAM_Think( void )
 	cam_ofs[ 0 ] = camAngles[ 0 ];
 	cam_ofs[ 1 ] = camAngles[ 1 ];
 	cam_ofs[ 2 ] = dist;
-
-// HL_CAMERA
-#endif
 }
 
 extern void KeyDown (kbutton_t *b);	// HACK
@@ -428,7 +433,7 @@ void CAM_ToThirdPerson(void)
 { 
 	vec3_t viewangles;
 
-#if !defined( DEBUG )
+#if !defined( _DEBUG )
 	if ( gEngfuncs.GetMaxClients() > 1 )
 	{
 		// no thirdperson in multiplayer.
@@ -462,20 +467,6 @@ void CAM_ToggleSnapto( void )
 	cam_snapto->value = !cam_snapto->value;
 }
 
-void CAM_Toggle( void )
-{
-#ifdef DEBUG
-	if(cam_thirdperson)
-	{
-		CAM_ToFirstPerson();
-	}
-	else
-	{
-		CAM_ToThirdPerson();
-	}
-#endif
-}
-
 void CAM_Init( void )
 {
 	gEngfuncs.pfnAddCommand( "+campitchup", CAM_PitchUpDown );
@@ -497,9 +488,6 @@ void CAM_Init( void )
 	gEngfuncs.pfnAddCommand( "+camdistance", CAM_StartDistance );
 	gEngfuncs.pfnAddCommand( "-camdistance", CAM_EndDistance );
 	gEngfuncs.pfnAddCommand( "snapto", CAM_ToggleSnapto );
-#ifdef DEBUG
-	gEngfuncs.pfnAddCommand( "camtoggle", CAM_Toggle );
-#endif
 
 	cam_command				= gEngfuncs.pfnRegisterVariable ( "cam_command", "0", 0 );	 // tells camera to go to thirdperson
 	cam_snapto				= gEngfuncs.pfnRegisterVariable ( "cam_snapto", "0", 0 );	 // snap to thirdperson view
@@ -558,7 +546,7 @@ void CAM_StartMouseMove(void)
 		{
 			cam_mousemove=1;
 			iMouseInUse=1;
-			GetCursorPos (&cam_mouse);
+			SDL_GetCursorPos (&cam_mouse);
 
 			if ( ( flSensitivity = gHUD.GetSensitivity() ) != 0 )
 			{
@@ -605,7 +593,7 @@ void CAM_StartDistance(void)
 		  cam_distancemove=1;
 		  cam_mousemove=1;
 		  iMouseInUse=1;
-		  GetCursorPos (&cam_mouse);
+		  SDL_GetCursorPos (&cam_mouse);
 		  cam_old_mouse_x=cam_mouse.x*gHUD.GetSensitivity();
 		  cam_old_mouse_y=cam_mouse.y*gHUD.GetSensitivity();
 	  }
@@ -630,13 +618,14 @@ void CAM_EndDistance(void)
 
 int CL_DLLEXPORT CL_IsThirdPerson( void )
 {
-	RecClCL_IsThirdPerson();
+//	RecClCL_IsThirdPerson();
+
 	return (cam_thirdperson ? 1 : 0) || (g_iUser1 && (g_iUser2 == gEngfuncs.GetLocalPlayer()->index) );
 }
 
 void CL_DLLEXPORT CL_CameraOffset( float *ofs )
 {
-	RecClCL_GetCameraOffsets(ofs);
-	
+//	RecClCL_GetCameraOffsets(ofs);
+
 	VectorCopy( cam_ofs, ofs );
 }

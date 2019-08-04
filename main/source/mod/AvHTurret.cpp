@@ -50,11 +50,11 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "mod/AvHTurret.h"
-#include "mod/AvHMarineEquipmentConstants.h"
-#include "mod/AvHServerUtil.h"
-#include "mod/AvHCloakable.h"
-#include "util/MathUtil.h"
+#include "AvHTurret.h"
+#include "AvHMarineEquipmentConstants.h"
+#include "AvHServerUtil.h"
+#include "AvHCloakable.h"
+#include "../util/MathUtil.h"
 
 const float kPingInterval = 3.0f;
 const float kPingVolume = .4f;

@@ -41,10 +41,10 @@
 #ifndef AVH_TURRET_H
 #define AVH_TURRET_H
 
-#include "mod/AvHBaseBuildable.h"
-#include "util/Quat.h"
+#include "AvHBaseBuildable.h"
+#include "../util/Quat.h"
 
-//#include "mod/AvHPushableBuildable.h"
+//#include "AvHPushableBuildable.h"
 // This class behaves like CSentry does, but clean and extensible, and with a base class of AvHBaseBuildable
 //class AvHTurret : public AvHPushableBuildable//public AvHBaseBuildable
 class AvHTurret : public AvHBaseBuildable

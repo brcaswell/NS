@@ -1,8 +1,9 @@
-#include <NexusServerInterface.h>
+#if 0
+#include <mod/NexusServerInterface.h>// Does not exist
 #include "AvHNexusServer.h"
 #include "AvHNexusTunnelToClient.h"
-#include "dlls/extdll.h"
-#include "dlls/util.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -19,7 +20,7 @@ AvHNexus::TunnelToClient* AvHNexus::TunnelToClient::getInstance(void)
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+/*
 bool AvHNexus::TunnelToClient::insertMessage(const Nexus::ClientID local_id, const byte_string& message)
 {
 	std::pair<const Nexus::ClientID,const byte_string> item(local_id,message);
@@ -57,3 +58,5 @@ bool AvHNexus::TunnelToClient::send(const Nexus::ClientID local_id, const byte_s
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+#endif

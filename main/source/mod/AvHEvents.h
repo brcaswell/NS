@@ -25,7 +25,7 @@
 #ifndef AVHEVENTS_H
 #define AVHEVENTS_H
 
-#include "mod/AvHConstants.h"
+#include "AvHConstants.h"
 #include <p_vector.h>
 
 void DrawBlips(const pVector& inView);

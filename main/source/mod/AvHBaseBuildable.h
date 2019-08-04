@@ -54,16 +54,16 @@
 #ifndef AVH_BASE_BUILDABLE_H
 #define AVH_BASE_BUILDABLE_H
 
-#include "util/nowarnings.h"
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "mod/AvHConstants.h"
-#include "dlls/cbase.h"
-#include "mod/AvHMessage.h"
-#include "mod/AvHSpecials.h"
-#include "mod/AvHPlayer.h"
-#include "mod/AvHCloakable.h"
-#include "mod/AvHBuildable.h"
+#include "../util/nowarnings.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "AvHConstants.h"
+#include "../dlls/cbase.h"
+#include "AvHMessage.h"
+#include "AvHSpecials.h"
+#include "AvHPlayer.h"
+#include "AvHCloakable.h"
+#include "AvHBuildable.h"
 
 class AvHBaseBuildable : public CBaseAnimating, public AvHBuildable, public AvHCloakable
 {

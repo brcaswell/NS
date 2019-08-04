@@ -19,15 +19,15 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "util/nowarnings.h"
-#include "mod/AvHScriptManager.h"
-#include "util/Checksum.h"
-#include "util/STLUtil.h"
+#include "../util/nowarnings.h"
+#include "AvHScriptManager.h"
+#include "../util/Checksum.h"
+#include "../util/STLUtil.h"
 
 #ifdef AVH_SERVER
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "dlls/cbase.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "../dlls/cbase.h"
 #endif
 
 #ifdef AVH_CLIENT
@@ -35,8 +35,9 @@
 #include "cl_dll/cl_dll.h"
 #endif
 
-#include "mod/AvHSharedUtil.h"
+#include "AvHSharedUtil.h"
 
+#ifdef USE_LUA
 extern "C" {
 	#include <lua.h>
 }
@@ -93,3 +94,4 @@ void AvHScriptInstance::InitShared()
 	lua_register(this->mState, "getTime", getTime);
 }
 
+#endif

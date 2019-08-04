@@ -34,7 +34,7 @@ HUD_AddEntity
 */
 int CL_DLLEXPORT HUD_AddEntity( int type, struct cl_entity_s *ent, const char *modelname )
 {
-	RecClAddEntity(type, ent, modelname);
+//	RecClAddEntity(type, ent, modelname);
 
 	gHUD.ClientProcessEntity(&ent->curstate);
 
@@ -82,7 +82,7 @@ structure, we need to copy them into the state structure at this point.
 */
 void CL_DLLEXPORT HUD_TxferLocalOverrides( struct entity_state_s *state, const struct clientdata_s *client )
 {
-	RecClTxferLocalOverrides(state, client);
+//	RecClTxferLocalOverrides(state, client);
 
 	VectorCopy( client->origin, state->origin );
 
@@ -113,7 +113,7 @@ playerstate structure
 */
 void CL_DLLEXPORT HUD_ProcessPlayerState( struct entity_state_s *dst, const struct entity_state_s *src )
 {
-	RecClProcessPlayerState(dst, src);
+//	RecClProcessPlayerState(dst, src);
 
 	// Copy in network data
 	VectorCopy( src->origin, dst->origin );
@@ -199,7 +199,7 @@ Because we can predict an arbitrary number of frames before the server responds 
 */
 void CL_DLLEXPORT HUD_TxferPredictionData ( struct entity_state_s *ps, const struct entity_state_s *pps, struct clientdata_s *pcd, const struct clientdata_s *ppcd, struct weapon_data_s *wd, const struct weapon_data_s *pwd )
 {
-	RecClTxferPredictionData(ps, pps, pcd, ppcd, wd, pwd);
+//	RecClTxferPredictionData(ps, pps, pcd, ppcd, wd, pwd);
 
 	ps->oldbuttons				= pps->oldbuttons;
 	ps->flFallVelocity			= pps->flFallVelocity;
@@ -536,7 +536,7 @@ Gives us a chance to add additional entities to the render this frame
 */
 void CL_DLLEXPORT HUD_CreateEntities( void )
 {
-	RecClCreateEntities();
+//	RecClCreateEntities();
 
 	// e.g., create a persistent cl_entity_t somewhere.
 	// Load an appropriate model into it ( gEngfuncs.CL_LoadModel )
@@ -577,7 +577,7 @@ fired during this frame, handle the event by it's tag ( e.g., muzzleflash, sound
 */
 void CL_DLLEXPORT HUD_StudioEvent( const struct mstudioevent_s *event, const struct cl_entity_s *entity )
 {
-	RecClStudioEvent(event, entity);
+//	RecClStudioEvent(event, entity);
 
 	switch( event->event )
 	{
@@ -639,7 +639,7 @@ void CL_DLLEXPORT HUD_TempEntUpdate (
 	int		( *Callback_AddVisibleEntity )( cl_entity_t *pEntity ),
 	void	( *Callback_TempEntPlaySound )( TEMPENTITY *pTemp, float damp ) )
 {
-	RecClTempEntUpdate(frametime, client_time, cl_gravity, ppTempEntFree, ppTempEntActive, Callback_AddVisibleEntity, Callback_TempEntPlaySound);
+//	RecClTempEntUpdate(frametime, client_time, cl_gravity, ppTempEntFree, ppTempEntActive, Callback_AddVisibleEntity, Callback_TempEntPlaySound);
 
 	static int gTempEntFrame = 0;
 	int			i;
@@ -1024,7 +1024,7 @@ Indices must start at 1, not zero.
 */
 cl_entity_t CL_DLLEXPORT *HUD_GetUserEntity( int index )
 {
-	RecClGetUserEntity(index);
+//	RecClGetUserEntity(index);
 
 #if defined( BEAM_TEST )
 	// None by default, you would return a valic pointer if you create a client side

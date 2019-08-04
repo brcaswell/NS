@@ -13,7 +13,7 @@ public:
 	virtual void			setValue(int inValue);
 	virtual int				getValue();
 	virtual bool			isVertical();
-	virtual void			addIntChangeSignal(IntChangeSignal* inChangeSignal);
+	//virtual void			addIntChangeSignal(IntChangeSignal* inChangeSignal);
     virtual void			setRange(int inMinRange, int inMaxRange);
 	virtual void			getRange(int& outMinRange, int& outMaxRange);
 	virtual int				getRangeWindow();
@@ -45,7 +45,7 @@ private:
 	virtual void			recomputeValueFromNobPos();
 
 	bool					mDragging;
-	Dar<IntChangeSignal*>	mIntChangeSignalDar;
+	//Dar<IntChangeSignal*>	mIntChangeSignalDar;
 	int						mNobDragStartPos[2];
 	int						mDragStartPos[2];
 

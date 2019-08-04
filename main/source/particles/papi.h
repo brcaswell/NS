@@ -14,9 +14,9 @@
 #define P_VERSION 120
 
 // added <<< cgc >>>
-#include <particles/p_vector.h>
-#include <particles/general.h>
-#include <particles/particledefs.h>
+#include <p_vector.h>
+#include <general.h>
+#include <particledefs.h>
 
 // State setting calls
 

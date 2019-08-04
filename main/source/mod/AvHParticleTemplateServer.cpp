@@ -1,8 +1,8 @@
-#include "util/nowarnings.h"
-#include "mod/AvHParticleTemplateServer.h"
-#include "dlls/util.h"
-#include "util/STLUtil.h"
-#include "mod/AvHParticleConstants.h"
+#include "../util/nowarnings.h"
+#include "AvHParticleTemplateServer.h"
+#include "../dlls/util.h"
+#include "../util/STLUtil.h"
+#include "AvHParticleConstants.h"
 
 void
 AvHParticleTemplateListServer::Clear()

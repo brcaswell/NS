@@ -1,7 +1,11 @@
+#if 0
 #ifndef AVHNEXUSTUNNELTOSERVER_H
 #define AVHNEXUSTUNNELTOSERVER_H
 
 #include <queue>
+
+#include <string>
+using std::string;
 
 namespace AvHNexus
 {
@@ -12,15 +16,16 @@ namespace AvHNexus
 		virtual ~TunnelToServer(void);
 
 		virtual Nexus::TunnelToServer* clone(void) const;
-		virtual bool send(const byte_string& data);
-		virtual bool recv(byte_string& data);
+		virtual bool send(const std::string &data);
+		virtual bool recv(std::string &data);
 
-		virtual bool insertMessage(const byte_string& message);	//inserted into queue of messages from server
+		virtual bool insertMessage(const std::string &message);	//inserted into queue of messages from server
 
 	private:
 		TunnelToServer(void);
-		std::deque<const byte_string> messages;
+		std::deque<const std::string> messages;
 	};
 }
 
+#endif
 #endif

@@ -17,7 +17,7 @@
 #include "pm_shared/pm_shared.h"
 #include "vgui_TeamFortressViewport.h"
 #include "vgui_SpectatorPanel.h"
-#include "vgui_scorepanel.h"
+#include "vgui_ScorePanel.h"
 #include "mod/AvHOverviewControl.h"
 
 
@@ -161,10 +161,10 @@ void SpectatorPanel::Initialize()
 	Font* font = pSchemes->getFont(hSmallScheme);
 
 	//m_TopBorder = new CTransparentPanel(64, 0, 0, ScreenWidth, YRES(PANEL_HEIGHT));
-	m_TopBorder = new CTransparentPanel(1, 0, ScreenHeight() - YRES(32), ScreenWidth(), YRES(SPECTATOR_PANEL_HEIGHT));
+	m_TopBorder = new CTransparentPanel(128, 0, ScreenHeight() - YRES(32), ScreenWidth(), YRES(SPECTATOR_PANEL_HEIGHT));
     m_TopBorder->setParent(this);
 
-	m_BottomBorder = new CTransparentPanel(1, 0, ScreenHeight() - YRES(32), ScreenWidth(), YRES(SPECTATOR_PANEL_HEIGHT));
+	m_BottomBorder = new CTransparentPanel(128, 0, ScreenHeight() - YRES(32), ScreenWidth(), YRES(SPECTATOR_PANEL_HEIGHT));
 	m_BottomBorder->setParent(this);
 
 	setPaintBackgroundEnabled(false);
@@ -259,8 +259,8 @@ void SpectatorPanel::Initialize()
     m_overviewButton->setFont(font);
     m_overviewButton->setParent( m_BottomBorder );
     m_overviewButton->SetText("Overview");
-    m_overviewButton->setPos(XRES(10), YRES(6));
-    m_overviewButton->setSize(XRES(100), YRES(20));
+    m_overviewButton->setPos(XRES(150), YRES(6));
+    m_overviewButton->setSize(XRES(50), YRES(20));
     m_overviewButton->SetImages("gfx/vgui/640_checkset.tga", "gfx/vgui/640_checkunset.tga");
     m_overviewButton->SetHandler(new Spectator_CheckButtonHandler(this));
     m_overviewButton->SetTextColor(colorR, colorG, colorB, 0);
@@ -269,8 +269,8 @@ void SpectatorPanel::Initialize()
     m_firstPersonButton->setFont(font);
 	m_firstPersonButton->setParent( m_BottomBorder );
     m_firstPersonButton->SetText("First person");
-    m_firstPersonButton->setPos(XRES(10 + 100), YRES(6));
-    m_firstPersonButton->setSize(XRES(100), YRES(20));
+    m_firstPersonButton->setPos(XRES(150 + 50), YRES(6));
+    m_firstPersonButton->setSize(XRES(50), YRES(20));
     m_firstPersonButton->SetImages("gfx/vgui/640_checkset.tga", "gfx/vgui/640_checkunset.tga");
     m_firstPersonButton->SetHandler(new Spectator_CheckButtonHandler(this));
     m_firstPersonButton->SetTextColor(colorR, colorG, colorB, 0);
@@ -279,8 +279,8 @@ void SpectatorPanel::Initialize()
     m_autoDirectorButton->setFont(font);
     m_autoDirectorButton->setParent( m_BottomBorder );
     m_autoDirectorButton->SetText("Auto-director");
-    m_autoDirectorButton->setPos(XRES(10 + 200), YRES(6));
-    m_autoDirectorButton->setSize(XRES(100), YRES(20));
+    m_autoDirectorButton->setPos(XRES(150 + 100), YRES(6));
+    m_autoDirectorButton->setSize(XRES(50), YRES(20));
     m_autoDirectorButton->SetImages("gfx/vgui/640_checkset.tga", "gfx/vgui/640_checkunset.tga");
     m_autoDirectorButton->SetHandler(new Spectator_CheckButtonHandler(this));
     m_autoDirectorButton->SetTextColor(colorR, colorG, colorB, 0);

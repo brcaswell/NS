@@ -16,7 +16,7 @@
 // - Added document headers
 //
 //===============================================================================
-#include "mod/AvHTechImpulsePanel.h"
+#include "AvHTechImpulsePanel.h"
 #include "cl_dll/hud.h"
 #include "cl_dll/cl_util.h"
 #include "ui/UITags.h"

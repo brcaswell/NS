@@ -1,12 +1,11 @@
-#include "mod/AvHScrollHandler.h"
+#include "AvHScrollHandler.h"
 #include "cl_dll/hud.h"
 #include "cl_dll/cl_util.h"
 #include "VGUI_MouseCode.h"
 #include "ui/ColoredPanel.h"
-#include "mod/AvHScrollPanel.h"
-#include "mod/AvHActionButtons.h"
+#include "AvHScrollPanel.h"
+#include "AvHActionButtons.h"
 #include "ui/UIUtil.h"
-
 
 int AvHScrollHandler::sScrollX = 0;
 int AvHScrollHandler::sScrollY = 0;

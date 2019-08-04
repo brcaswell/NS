@@ -1,4 +1,4 @@
-//========= Copyright © 1996-2002, Valve LLC, All rights reserved. ============
+//========= Copyright ï¿½ 1996-2002, Valve LLC, All rights reserved. ============
 //
 // Purpose: 
 //
@@ -367,14 +367,14 @@ void CHudSpectator::SetSpectatorStartPosition()
 //-----------------------------------------------------------------------------
 int CHudSpectator::VidInit()
 {
-	m_hsprPlayerMarine	= Safe_SPR_Load("sprites/iplayerm.spr");
-	m_hsprPlayerAlien	= Safe_SPR_Load("sprites/iplayera.spr");
-	m_hsprPlayerDead	= Safe_SPR_Load("sprites/iplayerdead.spr");
-	m_hsprUnkownMap		= Safe_SPR_Load("sprites/tile.spr");
-	//m_hsprBeam			= Safe_SPR_Load("sprites/laserbeam.spr");
-	//m_hsprCamera		= Safe_SPR_Load("sprites/camera.spr");
-	m_hCrosshair		= Safe_SPR_Load("sprites/crosshairs.spr");
-    m_hsprWhite         = Safe_SPR_Load(kWhiteSprite);
+	m_hsprPlayerMarine	= SPR_Load("sprites/iplayerm.spr");
+	m_hsprPlayerAlien	= SPR_Load("sprites/iplayera.spr");
+	m_hsprPlayerDead	= SPR_Load("sprites/iplayerdead.spr");
+	m_hsprUnkownMap		= SPR_Load("sprites/tile.spr");
+	//m_hsprBeam			= SPR_Load("sprites/laserbeam.spr");
+	//m_hsprCamera		= SPR_Load("sprites/camera.spr");
+	m_hCrosshair		= SPR_Load("sprites/crosshairs.spr");
+    m_hsprWhite         = SPR_Load(kWhiteSprite);
 	
 	return 1;
 }
@@ -561,7 +561,6 @@ void CHudSpectator::DrawOverviewMap()
         gEngfuncs.pTriAPI->CullFace(TRI_NONE);
 
         gEngfuncs.pTriAPI->SpriteTexture((struct model_s*)(gEngfuncs.GetSpritePointer(m_hsprWhite)), 0);
-
         float gammaScale = 1.0f / gHUD.GetGammaSlope();
         
         // Draw the background.
@@ -1712,7 +1711,7 @@ void CHudSpectator::CheckOverviewEntities()
 
 bool CHudSpectator::AddOverviewEntity( int type, struct cl_entity_s *ent, const char *modelname)
 {
-	HSPRITE	hSprite = 0;
+	AVHHSPRITE	hSprite = 0;
 	double  duration = -1.0f;	// duration -1 means show it only this frame;
 	int theFrame = 0;
 	bool theSuccess = false;
@@ -1821,7 +1820,7 @@ void CHudSpectator::DeathMessage(int victim)
 		AddOverviewEntityToList(m_hsprPlayerDead, pl, gEngfuncs.GetClientTime() + 2.0f, 0, kRenderTransTexture, 1, 1, 1);
 }
 
-bool CHudSpectator::AddOverviewEntityToList(HSPRITE sprite, cl_entity_t *ent, double killTime, int inFrame, int inRenderMode, float r, float g, float b)
+bool CHudSpectator::AddOverviewEntityToList(AVHHSPRITE sprite, cl_entity_t *ent, double killTime, int inFrame, int inRenderMode, float r, float g, float b)
 {
 	for ( int i = 0; i< MAX_OVERVIEW_ENTITIES; i++ )
 	{

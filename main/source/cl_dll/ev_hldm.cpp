@@ -518,7 +518,7 @@ EV_HLDM_FireBulletsPlayer
 Client-side prediction friendly version of EV_HLDM_FireBullets
 ================
 */
-void EV_HLDM_FireBulletsPlayer( int idx, float *forward, float *right, float *up, int cShots, float *vecSrc, float *vecDirShooting, float flDistance, int iBulletType, int iTracerFreq, int *tracerCount, Vector& inSpread, int inRandomSeed)
+void EV_HLDM_FireBulletsPlayer( int idx, float *forward, float *right, float *up, int cShots, float *vecSrc, float *vecDirShooting, float flDistance, int iBulletType, int iTracerFreq, int *tracerCount, Vector inSpread, int inRandomSeed)
 {
 //	int i;
 	int iShot;
@@ -1643,6 +1643,11 @@ enum EGON_FIREMODE { FIRE_NARROW, FIRE_WIDE};
 #define EGON_SOUND_OFF			"weapons/egon_off1.wav"
 #define EGON_SOUND_RUN			"weapons/egon_run3.wav"
 #define EGON_SOUND_STARTUP		"weapons/egon_windup2.wav"
+
+//@2014
+#ifdef ARRAYSIZE
+#undef ARRAYSIZE
+#endif
 
 #define ARRAYSIZE(p)		(sizeof(p)/sizeof(p[0]))
 

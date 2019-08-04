@@ -71,20 +71,20 @@
 #include "common/cl_entity.h"
 #include "vgui_TeamFortressViewport.h"
 #include "vgui_ScorePanel.h"
-#include "..\game_shared\vgui_helpers.h"
-#include "..\game_shared\vgui_loadtga.h"
+#include "../game_shared/vgui_helpers.h"
+#include "../game_shared/vgui_loadtga.h"
 #include "mod/AvHConstants.h"
 #include "mod/AvHTitles.h"
 #include "mod/AvHBasePlayerWeaponConstants.h"
 #include "vgui_SpectatorPanel.h"
 #include "cl_dll/demo.h"
 #include "mod/AvHServerVariables.h"
-#include "util\STLUtil.h"
+#include "util/STLUtil.h"
 #include "ui/ScoreboardIcon.h"
-
-#include "common/ITrackerUser.h"
+/* @2014 
+#include "common/itrackeruser.h"
 extern ITrackerUser *g_pTrackerUser;
-
+*/
 hud_player_info_t	 g_PlayerInfoList[MAX_PLAYERS+1];	   // player info from the engine
 extra_player_info_t  g_PlayerExtraInfo[MAX_PLAYERS+1];   // additional player info sent directly to the client dll
 team_info_t			 g_TeamInfo[MAX_TEAMS+1];
@@ -261,8 +261,8 @@ ScorePanel::ScorePanel(int x,int y,int wide,int tall) : Panel(x,y,wide,tall)
 	// Setup the header (labels like "name", "class", etc..).
 	m_HeaderGrid.SetDimensions(NUM_COLUMNS, 1);
 	m_HeaderGrid.SetSpacing(0, 0);
-	
-	for(int i=0; i < NUM_COLUMNS; i++)
+	int i=0;
+	for( i=0; i < NUM_COLUMNS; i++)
 	{
 		if (g_ColumnInfo[i].m_pTitle && g_ColumnInfo[i].m_pTitle[0] == '#')
 			m_HeaderLabels[i].setText(CHudTextMessage::BufferedLocaliseTextString(g_ColumnInfo[i].m_pTitle));
@@ -401,8 +401,13 @@ bool HACK_GetPlayerUniqueID( int iPlayer, char playerID[16] )
 //-----------------------------------------------------------------------------
 // Purpose: Recalculate the internal scoreboard data
 //-----------------------------------------------------------------------------
+//@linux make snprintf work for win32
+#ifdef _WIN32
+#define snprintf _snprintf
+#endif
 void ScorePanel::Update()
 {
+	
 	// Set the title
 	char title[128];
 
@@ -411,7 +416,8 @@ void ScorePanel::Update()
 	{
 		memset(theServerName, 0, MAX_SERVERNAME_LENGTH+1);
 		int iServerNameLength = max((int)strlen(gViewPort->m_szServerName),MAX_SERVERNAME_LENGTH);
-		strncat(theServerName, gViewPort->m_szServerName, iServerNameLength);
+		//strncat(theServerName, gViewPort->m_szServerName, iServerNameLength); Buffer Overflow?
+		snprintf(theServerName, MAX_SERVERNAME_LENGTH, "%s%s",theServerName ,gViewPort->m_szServerName);
 	}
 	theServerName[MAX_SERVERNAME_LENGTH]=0;
 	char theMapName[MAX_MAPNAME_LENGTH+1];
@@ -435,6 +441,7 @@ void ScorePanel::Update()
     int theColorIndex = 0;
     
     // Set gamma-correct title color
+	
     Color gammaAdjustedTeamColor = BuildColor(kTeamColors[theColorIndex][0], kTeamColors[theColorIndex][1], kTeamColors[theColorIndex][2], gHUD.GetGammaSlope());
     
     int theR, theG, theB, theA;
@@ -454,6 +461,7 @@ void ScorePanel::Update()
 	}
 
 	// Fix for memory overrun bug
+	
 	for (i = 0; i < MAX_PLAYERS; i++)
 	{
 		m_bHasBeenSorted[i] = false;
@@ -473,7 +481,8 @@ void ScorePanel::Update()
 	{
 		 m_pCloseButton->setVisible ( false );
 	}
-}
+
+} 
 
 //-----------------------------------------------------------------------------
 // Purpose: Sort all the teams
@@ -482,11 +491,14 @@ void ScorePanel::SortTeams()
 {
 	// clear out team scores
 	float theCurrentTime = gHUD.GetTimeOfLastUpdate();
-
-	for ( int i = 1; i <= m_iNumTeams; i++ )
+	int i=0;
+	int j=0;
+	for ( i = 1; i <= m_iNumTeams; i++ )
 	{
-		if ( !g_TeamInfo[i].scores_overriden )
+		if ( !g_TeamInfo[i].scores_overriden ) 
+		{
 			g_TeamInfo[i].score =0;
+		}
 		g_TeamInfo[i].frags = g_TeamInfo[i].deaths = g_TeamInfo[i].ping = g_TeamInfo[i].packetloss = 0;
 	}
 
@@ -500,7 +512,7 @@ void ScorePanel::SortTeams()
 			continue; // skip over players who are not in a team
 
 		// find what team this player is in
-		for ( int j = 1; j <= m_iNumTeams; j++ )
+		for ( j = 1; j <= m_iNumTeams; j++ )
 		{
 			if ( !stricmp( g_PlayerExtraInfo[i].teamname, g_TeamInfo[j].name ) )
 				break;
@@ -655,7 +667,9 @@ void ScorePanel::SortPlayers( int iTeam, char *team, bool inSortByEntityIndex)
 void ScorePanel::RebuildTeams()
 {
 	// clear out player counts from teams
-	for ( int i = 1; i <= m_iNumTeams; i++ )
+	int i=0;
+	int j=0;
+	for ( i = 1; i <= m_iNumTeams; i++ )
 	{
 		g_TeamInfo[i].players = 0;
 	}
@@ -672,7 +686,7 @@ void ScorePanel::RebuildTeams()
 			continue; // skip over players who are not in a team
 
 		// is this player in an existing team?
-		for ( int j = 1; j <= m_iNumTeams; j++ )
+		for ( j = 1; j <= m_iNumTeams; j++ )
 		{
 			if ( g_TeamInfo[j].name[0] == '\0' )
 				break;
@@ -684,13 +698,12 @@ void ScorePanel::RebuildTeams()
 		if ( j > m_iNumTeams )
 		{ // they aren't in a listed team, so make a new one
 			// search through for an empty team slot
-			for ( int j = 1; j <= m_iNumTeams; j++ )
+			for ( j = 1; j <= m_iNumTeams; j++ )
 			{
 				if ( g_TeamInfo[j].name[0] == '\0' )
 					break;
 			}
 			m_iNumTeams = max( j, m_iNumTeams );
-
 			strncpy( g_TeamInfo[j].name, g_PlayerExtraInfo[i].teamname, MAX_TEAM_NAME );
 			g_TeamInfo[j].players = 0;
 		}
@@ -1044,7 +1057,7 @@ void ScorePanel::FillGrid()
 				switch (col)
 				{
 				case COLUMN_NAME:
-					
+					/*
 					if (g_pTrackerUser)
 					{
 						int playerSlot = m_iSortedRows[row];
@@ -1056,7 +1069,7 @@ void ScorePanel::FillGrid()
 							pLabel->setText2(sz);
 						}
 					}
-					
+					*/
 					if(pl_info)
 					{
 						sprintf(sz, "%s  ", pl_info->name);
@@ -1204,23 +1217,27 @@ void ScorePanel::FillGrid()
 								if(pIcon)
 									m_CustomIconList.push_back( make_pair(pIcon, theCustomIcon) );
 							}
-							
+							/* //@2014 to do 
 							if(pIcon)
 							{
 								pLabel->setImage(pIcon);
 								pLabel->setFgColorAsImageColor(false);
-
+								
 								// Parse color (last 3 bytes are the RGB values 1-9)
 								string theColor = theCustomIcon.substr( strlen(theCustomIcon.c_str())-3, 3);
+								
+
+
 								int theRed = (MakeIntFromString(theColor.substr(0, 1))/9.0f)*255;
 								int theGreen = (MakeIntFromString(theColor.substr(1, 1))/9.0f)*255;
 								int theBlue = (MakeIntFromString(theColor.substr(2, 1))/9.0f)*255;
 
+
 								pIcon->setColor(BuildColor(theRed, theGreen, theBlue, gHUD.GetGammaSlope()));
-							}
+							}*/
 						}
 					}
-					
+					/* @2014 
 					if(g_pTrackerUser)
 					{
 						int playerSlot = theSortedRow;
@@ -1232,7 +1249,7 @@ void ScorePanel::FillGrid()
 							pLabel->setFgColorAsImageColor(false);
 							m_pTrackerIcon->setColor(Color(255, 255, 255, 0));
 						}
-					}
+					}*/
 #else
 					if( theExtraPlayerInfo->icon )
 					{
@@ -1246,6 +1263,7 @@ void ScorePanel::FillGrid()
                     {
                         const float kDeltaDisplayTime = 3.0f;
                         float theTimeSinceChange = gHUD.GetTimeOfLastUpdate() - theExtraPlayerInfo->timeOfLastScoreChange;
+
                         if((theExtraPlayerInfo->score > theExtraPlayerInfo->lastScore) && (theTimeSinceChange > 0) && (theTimeSinceChange < kDeltaDisplayTime) && (theExtraPlayerInfo->teamnumber != 0))
                         {
                             // draw score with change
@@ -1343,7 +1361,7 @@ void ScorePanel::FillGrid()
 		}
 	}
 
-	for(row=0; row < NUM_ROWS; row++)
+	for(int row=0; row < NUM_ROWS; row++)
 	{
 		CGrid *pGridRow = &m_PlayerGrids[row];
 

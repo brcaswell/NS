@@ -19,15 +19,18 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "util/nowarnings.h"
+#include "../util/nowarnings.h"
 #include <string.h>
 #include <stdio.h>
-#include "util/Zassert.h"
+//@2014 is Zassert evil?
+//#include "../util/Zassert.h"
+
+
 
 #ifdef AVH_SERVER
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "dlls/cbase.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "../dlls/cbase.h"
 extern cvar_t avh_assert;
 #endif
 

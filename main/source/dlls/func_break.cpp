@@ -27,7 +27,7 @@
 #include "func_break.h"
 #include "decals.h"
 #include "explode.h"
-#include "mod/AvHSpecials.h"
+#include "../mod/AvHSpecials.h"
 
 extern DLL_GLOBAL Vector		g_vecAttackDir;
 
@@ -852,7 +852,7 @@ void CBreakable::PrecacheAll()
 	}
 }
 
-#include "dlls/cpushable.h"
+#include "cpushable.h"
 
 TYPEDESCRIPTION	CPushable::m_SaveData[] = 
 {

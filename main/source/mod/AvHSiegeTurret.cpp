@@ -51,12 +51,12 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "mod/AvHSiegeTurret.h"
-#include "mod/AvHMarineEquipment.h"
-#include "mod/AvHGamerules.h"
-#include "mod/AvHServerUtil.h"
-#include "mod/AvHPlayerUpgrade.h"
-#include "util/MathUtil.h"
+#include "AvHSiegeTurret.h"
+#include "AvHMarineEquipment.h"
+#include "AvHGamerules.h"
+#include "AvHServerUtil.h"
+#include "AvHPlayerUpgrade.h"
+#include "../util/MathUtil.h"
 
 LINK_ENTITY_TO_CLASS(kwSiegeTurret, AvHSiegeTurret);
 

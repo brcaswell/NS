@@ -37,9 +37,9 @@
 #ifndef AVHALIENABILITIES_H
 #define AVHALIENABILITIES_H
 
-#include "util/nowarnings.h"
-#include "dlls/weapons.h"
-#include "mod/AvHAlienWeapons.h" 
+#include "../util/nowarnings.h"
+#include "../dlls/weapons.h"
+#include "AvHAlienWeapons.h" 
 
 class AvHAlienAbilityWeapon : public AvHAlienWeapon
 {

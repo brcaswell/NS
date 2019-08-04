@@ -64,15 +64,15 @@
 #ifndef AVHMARINEEQUIPMENT_H
 #define AVHMARINEEQUIPMENT_H
 
-#include "util/nowarnings.h"
-#include "dlls/weapons.h"
-#include "mod/AvHBasePlayerWeapon.h"
-#include "mod/AvHConstants.h"
-#include "mod/AvHMarineWeapons.h"
-#include "dlls/turret.h"
-#include "mod/AvHEntities.h"
-#include "dlls/ctripmine.h"
-#include "mod/AvHReinforceable.h"
+#include "../util/nowarnings.h"
+#include "../dlls/weapons.h"
+#include "AvHBasePlayerWeapon.h"
+#include "AvHConstants.h"
+#include "AvHMarineWeapons.h"
+#include "../dlls/turret.h"
+#include "AvHEntities.h"
+#include "../dlls/ctripmine.h"
+#include "AvHReinforceable.h"
 
 class AvHDeployedMine : public CBasePlayerItem
 {

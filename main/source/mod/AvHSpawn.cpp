@@ -13,7 +13,7 @@
 //-------------------------------------------------------------------------------
 // $Log: $
 //===============================================================================
-#include "mod/AvHSpawn.h"
+#include "AvHSpawn.h"
 
 AvHSpawn::AvHSpawn(const string& inClassName, const Vector& inOrigin, const Vector& inAngles, const AvHTeamNumber inTeamNumber) : mClassName(inClassName), mOrigin(inOrigin), mAngles(inAngles), mTeamNumber(inTeamNumber)
 {

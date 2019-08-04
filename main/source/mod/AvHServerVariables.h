@@ -64,9 +64,10 @@
 #ifndef AVH_SERVERVARIABLES_H
 #define AVH_SERVERVARIABLES_H
 
-#include "common/cvardef.h"
+#include "../common/cvardef.h"
 
 extern cvar_t avh_blockscripts;
+extern cvar_t avh_jumpmode;
 extern cvar_t avh_combattime;
 extern cvar_t *avh_cheats;
 extern cvar_t avh_defaultteam;
@@ -143,5 +144,6 @@ float	ns_cvar_float(const cvar_t *cvar);
 #define kvMapVoteRatio              "mp_mapvoteratio"
 
 #define kvBlockScripts              "mp_blockscripts"
+#define kvJumpMode					"sv_jumpmode"
 
 #endif

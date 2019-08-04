@@ -23,20 +23,20 @@
 #ifndef HL_HUD_H
 #define HL_HUD_H
 
-#include "CHud.h"
+#include "chud.h"
 
 class TeamFortressViewport;
 
 class AvHHud;
-#include "mod/AvHHud.h"
+#include "AvHHud.h"
 extern AvHHud gHUD;
 
 #include "wrect.h"
 #include "cl_dll.h"
 #include "ammo.h"
-#include "cl_dll/chudmisc.h"
+#include "chudmisc.h"
 
-#include "..\game_shared\voice_status.h"
+#include "voice_status.h"
 #include "hud_spectator.h"
 
 /*
@@ -73,7 +73,7 @@ private:
 //-----------------------------------------------------
 //
 
-#include "cl_dll/chud.h"
+#include "chud.h"
 
 extern TeamFortressViewport *gViewPort;
 

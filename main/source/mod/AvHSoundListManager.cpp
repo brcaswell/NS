@@ -28,12 +28,12 @@
 // - Added debug code, added document headers
 //
 //===============================================================================
-#include "mod/AvHSoundListManager.h"
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "dlls/cbase.h"
-#include "mod/AvHConstants.h"
-#include "util/STLUtil.h"
+#include "AvHSoundListManager.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "../dlls/cbase.h"
+#include "AvHConstants.h"
+#include "../util/STLUtil.h"
 
 #define kMaxNumberLists 200
 

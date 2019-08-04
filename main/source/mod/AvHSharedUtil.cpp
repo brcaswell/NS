@@ -81,9 +81,9 @@
 //===============================================================================
 
 #ifdef AVH_SERVER
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "types.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "../types.h"
 #endif
 
 #ifdef AVH_CLIENT
@@ -91,54 +91,54 @@
 #include "cl_dll/cl_util.h"
 #endif
 
-#include "mod/AvHSharedUtil.h"
-#include "mod/AvHSelectionHelper.h"
-#include "mod/AvHConstants.h"
+#include "AvHSharedUtil.h"
+#include "AvHSelectionHelper.h"
+#include "AvHConstants.h"
 
 #ifdef AVH_SERVER
-#include "mod/AvHPlayer.h"
-#include "mod/AvHServerUtil.h"
-#include "mod/AvHEntities.h"
-#include "mod/AvHWeldable.h"
-#include "mod/AvHGamerules.h"
-#include "dlls/cfuncwall.h"
-//#include "common/com_model.h"
+#include "AvHPlayer.h"
+#include "AvHServerUtil.h"
+#include "AvHEntities.h"
+#include "AvHWeldable.h"
+#include "AvHGamerules.h"
+#include "../dlls/cfuncwall.h"
+//#include "../common/com_model.h"
 //int NS_PointContents(const hull_t *hull, int num, float p[3]);
 #endif
 
-#include "pm_shared/pm_defs.h"
-#include "pm_shared/pm_shared.h"
+#include "../pm_shared/pm_defs.h"
+#include "../pm_shared/pm_shared.h"
 
 #ifdef AVH_CLIENT
-#include "pm_shared/pm_debug.h"
+#include "../pm_shared/pm_debug.h"
 //extern DebugPointListType				gTriDebugLocations;
 //extern DebugPointListType				gSquareDebugLocations;
 #endif
 
-#include "util/MathUtil.h"
-#include "util/STLUtil.h"
+#include "../util/MathUtil.h"
+#include "../util/STLUtil.h"
 
-#include "common/vector_util.h"
+#include "../common/vector_util.h"
 
 #ifdef AVH_CLIENT
 #include "cl_dll/eventscripts.h"
 
-#include "common/r_efx.h"
-#include "common/event_api.h"
-#include "common/event_args.h"
+#include "../common/r_efx.h"
+#include "../common/event_api.h"
+#include "../common/event_args.h"
 #include "cl_dll/in_defs.h"
 #endif
 
-#include "common/com_model.h"
+#include "../common/com_model.h"
 
-#include "mod/AvHSpecials.h"
-#include "mod/AvHMarineEquipmentConstants.h"
-#include "dlls/turretconst.h"
-#include "mod/AvHMarineWeaponConstants.h"
-#include "mod/AvHHulls.h"
-#include "mod/AvHAlienEquipmentConstants.h"
+#include "AvHSpecials.h"
+#include "AvHMarineEquipmentConstants.h"
+#include "../dlls/turretconst.h"
+#include "AvHMarineWeaponConstants.h"
+#include "AvHHulls.h"
+#include "AvHAlienEquipmentConstants.h"
 
-#include "mod/CollisionUtil.h"
+#include "CollisionUtil.h"
 /*
 bool NS_BoxesOverlap(float origin1[3], float size1[3], float origin2[3], float size2[3]);
 int  NS_PointContents(const hull_t *hull, int num, float p[3]);

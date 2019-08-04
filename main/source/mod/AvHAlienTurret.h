@@ -19,8 +19,8 @@
 #ifndef AVH_ALIEN_TURRET_H
 #define AVH_ALIEN_TURRET_H
 
-#include "mod/AvHTurret.h"
-#include "mod/AvHAlienEquipmentConstants.h"
+#include "AvHTurret.h"
+#include "AvHAlienEquipmentConstants.h"
 
 #ifdef AVH_SERVER
 class AvHSpike : public CBaseEntity

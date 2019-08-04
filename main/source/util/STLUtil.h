@@ -29,9 +29,10 @@
 #ifndef STL_UTIL_H
 #define STL_UTIL_H
 
-#include "util/nowarnings.h"
-#include "util/CString.h"
-#include "types.h"
+#include <string.h>
+#include "nowarnings.h"
+#include "CString.h"
+#include "../types.h"
 
 const int kMaxStrLen = 2056;
 

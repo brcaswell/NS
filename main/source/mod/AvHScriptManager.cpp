@@ -22,23 +22,27 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "util/nowarnings.h"
-#include "mod/AvHScriptManager.h"
-#include "util/Checksum.h"
-#include "util/STLUtil.h"
-#include "mod/AvHConstants.h"
+#include "../util/nowarnings.h"
+#include "AvHScriptManager.h"
+#include "../util/Checksum.h"
+#include "../util/STLUtil.h"
+#include "AvHConstants.h"
 
+#ifdef USE_LUA
 extern "C" {
 	#include <lua.h>
 	#include <lualib.h>
 	#include <lauxlib.h>
 }
+#endif
 
 AvHScriptInstance* gRunningScript = NULL;
 
 AvHScriptInstance::AvHScriptInstance(string inScriptName)
 {
+#ifdef USE_LUA
 	this->mState = NULL;
+#endif
 	
 	this->Init();
 
@@ -70,10 +74,12 @@ void AvHScriptInstance::CallSimpleFunction(const string& inFunctionName)
 {
 	gRunningScript = this;
 	
+#ifdef USE_LUA
 	// Execute callback
 	lua_getglobal(this->mState, inFunctionName.c_str());
 	//lua_pushstring(this->mState, inFunctionName.c_str());
 	lua_call(this->mState, 0, 0);
+#endif
 	
 	gRunningScript = NULL;
 }
@@ -83,16 +89,21 @@ void AvHScriptInstance::Cleanup()
 	ASSERT(!this->CallbacksPending());
 	ASSERT(this->mState);
 
+#ifdef USE_LUA
 	lua_close(this->mState);
+#endif
 }
 
+#ifdef USE_LUA
 lua_State* AvHScriptInstance::GetState()
 {
 	return this->mState;
 }
+#endif
 
 void AvHScriptInstance::Init()
 {
+#ifdef USE_LUA
 	this->mState = lua_open();
 	
 	lua_baselibopen(this->mState);
@@ -107,6 +118,7 @@ void AvHScriptInstance::Init()
 	#else
 	this->InitClient();
 	#endif
+#endif
 }
 
 void AvHScriptInstance::Reset()
@@ -127,7 +139,9 @@ void AvHScriptInstance::Run()
 	// Set global current script so it's accessible statically (needed for setting callbacks)
 	gRunningScript = this;
 
+#ifdef USE_LUA
 	lua_dofile(this->mState, this->mScriptName.c_str());
+#endif
 
 	gRunningScript = NULL;
 }
@@ -235,6 +249,7 @@ void AvHScriptManager::Update(float inTime)
 #ifdef AVH_CLIENT
 void AvHScriptManager::ClientUpdate(float inTimePassed)
 {
+#ifdef USE_LUA
 	// For all scripts
 	for(AvHScriptInstanceListType::iterator theIter = this->mScriptList.begin(); theIter != this->mScriptList.end(); /* no increment */)
 	{
@@ -269,6 +284,7 @@ void AvHScriptManager::ClientUpdate(float inTimePassed)
 			theIter++;
 		}
 	}
+#endif
 }
 
 void AvHScriptManager::DrawNormal()
@@ -301,6 +317,7 @@ void AvHScriptManager::DrawNoZBuffering()
 bool AvHScriptManager::GetClientMove(int& outButtonBits, int& outImpulse)
 {
 	bool theSuccess = false;
+#ifdef USE_LUA
 
 	#ifdef DEBUG
 
@@ -335,6 +352,7 @@ bool AvHScriptManager::GetClientMove(int& outButtonBits, int& outImpulse)
 
 	#endif
 
+#endif
 	return theSuccess;
 }
 

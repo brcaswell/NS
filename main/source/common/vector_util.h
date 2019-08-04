@@ -1,7 +1,7 @@
 #ifndef VECTOR_UTIL_H
 #define VECTOR_UTIL_H
 
-#include "common/vec_op.h"
+#include "vec_op.h"
 
 float Length(const float *v);
 void VectorMA (const float *veca, float scale, const float *vecb, float *vecc);

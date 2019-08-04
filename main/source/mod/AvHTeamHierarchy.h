@@ -3,9 +3,9 @@
 
 #include "ui/UIComponents.h"
 #include "VGUI_TextPanel.h"
-#include "mod/AvHEntityHierarchy.h"
+#include "AvHEntityHierarchy.h"
 #include "ui/StaticLabel.h"
-#include "mod/AvHMapExtents.h"
+#include "AvHMapExtents.h"
 
 using vgui::Panel;
 using vgui::TextPanel;

@@ -8,8 +8,8 @@
 #include <string.h>
 #include <stdio.h>
 #include "voice_banmgr.h"
-#include "dlls/extdll.h"
-#include "localassert.h"
+#include "../dlls/extdll.h"
+#include "../localassert.h"
 #define BANMGR_FILEVERSION	1
 char const *g_pBanMgrFilename = "voice_ban.dt";
 

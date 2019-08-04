@@ -22,7 +22,7 @@
 #include "cl_dll/hud.h"
 #include "cl_dll/cl_util.h"
 
-void UIDrawVariableBarSpriteHoles(int inSprite, int inX, int inY, float inPercentage, float inGammaSlope, bool inTrueHolesFalseAdditive, float inSecondaryPercentage)
+void UIDrawVariableBarSpriteHoles(AVHHSPRITE inSprite, int inX, int inY, float inPercentage, float inGammaSlope, bool inTrueHolesFalseAdditive, float inSecondaryPercentage)
 {
 	// Assumes that frame 0 is the empty sprite, frame 1 is full sprite
 	const int kEmptyFrame = 0;

@@ -1,16 +1,16 @@
 #include <vector>
 
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "dlls/cbase.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "../dlls/cbase.h"
 
-#include "common/const.h"
-#include "common/com_model.h"
-#include "pm_shared/pm_defs.h"
-#include "common/vector_util.h"
-#include "mod/AvHHulls.h"
-#include "types.h"
-#include "util/MathUtil.h"
+#include "../common/const.h"
+#include "../common/com_model.h"
+#include "../pm_shared/pm_defs.h"
+#include "../common/vector_util.h"
+#include "AvHHulls.h"
+#include "../types.h"
+#include "../util/MathUtil.h"
 
 #include "CollisionChecker.h"
 

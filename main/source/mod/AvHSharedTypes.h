@@ -1,6 +1,6 @@
 #ifndef AVH_SHARED_TYPES_H
 #define	AVH_SHARED_TYPES_H
-#include "types.h"
+#include "../types.h"
 
 const int kHiveInfoStatusUnbuilt = 0;
 const int kHiveInfoStatusBuildingStage1 = 1;

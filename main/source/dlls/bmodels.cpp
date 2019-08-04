@@ -24,8 +24,8 @@
 #include "util.h"
 #include "cbase.h"
 #include "doors.h"
-#include "mod/AvHSpecials.h"
-#include "mod/AvHServerVariables.h"
+#include "../mod/AvHSpecials.h"
+#include "../mod/AvHServerVariables.h"
 
 extern DLL_GLOBAL Vector		g_vecAttackDir;
 
@@ -49,7 +49,7 @@ Vector VecBModelOrigin( entvars_t* pevBModel )
 
 // =================== FUNC_WALL ==============================================
 
-#include "dlls/cfuncwall.h"
+#include "cfuncwall.h"
 
 LINK_ENTITY_TO_CLASS( func_wall, CFuncWall );
 

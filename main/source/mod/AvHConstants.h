@@ -106,8 +106,8 @@
 #ifndef AVHCONSTANTS_H
 #define AVHCONSTANTS_H
 
-#include "types.h"
-#include "game_shared/teamconst.h"
+#include "../types.h"
+#include "../game_shared/teamconst.h"
 
 // Basic constants
 const   int								kMaxPlayers = 32;
@@ -174,6 +174,8 @@ typedef vector<int>							IntList;
 #define kMaxAlienHives					3
 #define kMaxAlienEnergy					100
 #define kMaxAlienResources				100
+
+
 
 typedef enum
 {
@@ -426,6 +428,7 @@ extern const char* getModName(void);
 #define kSpriteDirectory			"sprites"
 #define kMiniMapSpritesDirectory	"sprites/minimaps"
 #define	kTechTreeSpriteDirectory	"sprites/techtree"
+#define	kTechTreeSpriteDirectoryNL	"sprites/nl/techtree"
 #define kTechTreeSpritePrefix		"tech"
 #define kScriptsDirectory			"scripts"
 #define kSoundDirectory				"sound"

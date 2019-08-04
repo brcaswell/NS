@@ -71,40 +71,40 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "util/nowarnings.h"
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "dlls/cbase.h"
-#include "dlls/player.h"
-#include "dlls/weapons.h"
-#include "mod/AvHGamerules.h"
-#include "mod/AvHConstants.h"
-#include "mod/AvHMarineEquipmentConstants.h"
-#include "mod/AvHEntities.h"
-#include "mod/AvHParticleTemplateServer.h"
-#include "mod/AvHPlayer.h"
-#include "dlls/client.h"
-#include "dlls/game.h"
-#include "dlls/util.h"
-#include "mod/AvHServerUtil.h"
-#include "mod/AvHServerVariables.h"
-#include "mod/AvHMessage.h"
-#include "mod/AvHSoundListManager.h"
-#include "mod/AvHServerUtil.h"
-#include "mod/AvHTitles.h"
-#include "mod/AvHParticleSystemManager.h"
-#include "mod/AvHMarineEquipment.h"
-#include "mod/AvHMovementUtil.h"
-#include "mod/AvHSharedUtil.h"
-#include "textrep/TRFactory.h"
-#include "mod/AvHEntities.h"
-#include "mod/AvHScriptManager.h"
-#include "mod/AvHCommandConstants.h"
-#include "mod/AvHPlayerUpgrade.h"
+#include "../util/nowarnings.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "../dlls/cbase.h"
+#include "../dlls/player.h"
+#include "../dlls/weapons.h"
+#include "AvHGamerules.h"
+#include "AvHConstants.h"
+#include "AvHMarineEquipmentConstants.h"
+#include "AvHEntities.h"
+#include "AvHParticleTemplateServer.h"
+#include "AvHPlayer.h"
+#include "../dlls/client.h"
+#include "../dlls/game.h"
+#include "../dlls/util.h"
+#include "AvHServerUtil.h"
+#include "AvHServerVariables.h"
+#include "AvHMessage.h"
+#include "AvHSoundListManager.h"
+#include "AvHServerUtil.h"
+#include "AvHTitles.h"
+#include "AvHParticleSystemManager.h"
+#include "AvHMarineEquipment.h"
+#include "AvHMovementUtil.h"
+#include "AvHSharedUtil.h"
+#include "../textrep/TRFactory.h"
+#include "AvHEntities.h"
+#include "AvHScriptManager.h"
+#include "AvHCommandConstants.h"
+#include "AvHPlayerUpgrade.h"
 #include <stdio.h>
-#include "game_shared/voice_gamemgr.h"
-#include "mod/AvHNetworkMessages.h"
-#include "mod/AvHNexusServer.h"
+#include "../game_shared/voice_gamemgr.h"
+#include "AvHNetworkMessages.h"
+#include "AvHNexusServer.h"
 
 extern AvHParticleTemplateListServer	gParticleTemplateList;
 extern CVoiceGameMgr					g_VoiceGameMgr;
@@ -1434,14 +1434,14 @@ BOOL AvHGamerules::ClientCommand( CBasePlayer *pPlayer, const char *pcmd )
 	else if ( FStrEq( pcmd, kcSpectate ) )
 	{
 		if(theAvHPlayer)
-		{
+		{	/*
 			if( !theAvHPlayer->GetIsAuthorized(AUTH_ACTION_JOIN_TEAM, TEAM_SPECT) )
 			{
 				AvHNexus::handleUnauthorizedJoinTeamAttempt(theAvHPlayer->edict(),TEAM_SPECT);
-			}
+			}*/
 // : 0001073
 #ifdef USE_OLDAUTH			 
-			else if(allow_spectators.value && GetGameRules()->PerformHardAuthorization(theAvHPlayer))
+			if(allow_spectators.value && GetGameRules()->PerformHardAuthorization(theAvHPlayer))
 #else
 			else if(allow_spectators.value)
 #endif

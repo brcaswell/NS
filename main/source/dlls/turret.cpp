@@ -30,9 +30,9 @@
 #include "monsters.h"
 #include "weapons.h"
 #include "effects.h"
-#include "dlls/turret.h"
-#include "mod/AvHMarineEquipmentConstants.h"
-#include "mod/AvHSpecials.h"
+#include "turret.h"
+#include "../mod/AvHMarineEquipmentConstants.h"
+#include "../mod/AvHSpecials.h"
 
 extern Vector VecBModelOrigin( entvars_t* pevBModel );
 

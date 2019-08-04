@@ -1,7 +1,12 @@
+#ifdef _WIN32
 #ifndef AVH_DEBUG_UTIL_H
 #define AVH_DEBUG_UTIL_H
 
+#ifdef _WIN32
+#include "winsani_in.h"
 #include <windows.h>
+#include "winsani_out.h"
+#endif
 #include <iostream>
 
 /**
@@ -22,4 +27,5 @@ void LogException(std::ostream& stream, EXCEPTION_POINTERS* pExp);
 bool SendMail(const char* serverName, const char* fromAddress, const char* fromName,
     const char* toAddress, const char* subject, const char* message);
 
+#endif
 #endif

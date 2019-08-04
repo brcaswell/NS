@@ -47,17 +47,17 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "mod/AvHMarineWeapons.h"
-#include "mod/AvHMarineEquipmentConstants.h"
-#include "mod/AvHWeldable.h"
-#include "mod/AvHSpecials.h"
+#include "AvHMarineWeapons.h"
+#include "AvHMarineEquipmentConstants.h"
+#include "AvHWeldable.h"
+#include "AvHSpecials.h"
 
 #ifdef AVH_SERVER
-#include "mod/AvHPlayerUpgrade.h"
+#include "AvHPlayerUpgrade.h"
 #include "AvHServerUtil.h"
-#include "mod/AvHPlayer.h"
-#include "mod/AvHMarineEquipment.h"
-#include "mod/AvHGamerules.h"
+#include "AvHPlayer.h"
+#include "AvHMarineEquipment.h"
+#include "AvHGamerules.h"
 
 extern int	gWelderConstEventID;
 #endif

@@ -67,11 +67,11 @@
 #ifndef TRDESCRIPTION_H
 #define TRDESCRIPTION_H
 
-#include "types.h"
-#include "textrep/TRTag.h"
-#include "textrep/TRTagValuePair.h"
-#include "util/CString.h"
-#include "util/StringVector.h"
+#include "../types.h"
+#include "TRTag.h"
+#include "TRTagValuePair.h"
+#include "../util/CString.h"
+#include "../util/StringVector.h"
 
 class TRDescription
 {

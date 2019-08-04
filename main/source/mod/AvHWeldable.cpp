@@ -19,9 +19,9 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "mod/AvHWeldable.h"
-#include "mod/AvHSharedUtil.h"
-#include "mod/AvHServerUtil.h"
+#include "AvHWeldable.h"
+#include "AvHSharedUtil.h"
+#include "AvHServerUtil.h"
 
 LINK_ENTITY_TO_CLASS(keWeldable, AvHWeldable);
 

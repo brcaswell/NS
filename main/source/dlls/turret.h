@@ -2,7 +2,7 @@
 #define TURRET_H
 
 #include "effects.h"
-#include "dlls/turretconst.h"
+#include "turretconst.h"
 
 class CBaseTurret : public CBaseMonster
 {

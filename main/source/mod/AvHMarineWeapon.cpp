@@ -25,10 +25,10 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "mod/AvHMarineWeapon.h"
-#include "mod/AvHMarineWeaponConstants.h"
-#include "mod/AvHSpecials.h"
-#include "util/Balance.h"
+#include "AvHMarineWeapon.h"
+#include "AvHMarineWeaponConstants.h"
+#include "AvHSpecials.h"
+#include "../util/Balance.h"
 
 bool AvHMarineWeapon::GetAllowedForUser3(AvHUser3 inUser3)
 {

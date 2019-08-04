@@ -16,20 +16,20 @@
 #ifndef TECHSLOTMANAGER_H
 #define TECHSLOTMANAGER_H
 
-#include "util/nowarnings.h"
-#include "types.h"
-#include "mod/AvHMessage.h"
-#include "mod/AvHSpecials.h"
+#include "../util/nowarnings.h"
+#include "../types.h"
+#include "AvHMessage.h"
+#include "AvHSpecials.h"
 
 #ifdef AVH_CLIENT
 #include "cl_dll/util_vector.h"
-#include "common/const.h"
-#include "engine/progdefs.h"
+#include "../common/const.h"
+#include "../engine/progdefs.h"
 #endif
 
 #ifdef AVH_SERVER
-#include "dlls/extdll.h"
-#include "dlls/util.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
 #endif
 
 const int kNumTechSlots = 8;

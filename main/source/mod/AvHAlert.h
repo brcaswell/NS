@@ -16,8 +16,8 @@
 #ifndef AVH_ALERT_H
 #define AVH_ALERT_H
 
-#include "types.h"
-#include "mod/AvHConstants.h"
+#include "../types.h"
+#include "AvHConstants.h"
 
 // Lookup: entity index -> time of alert, type of alert
 class AvHAlert 

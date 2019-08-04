@@ -25,31 +25,31 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "mod/AvHParticleSystemManager.h"
+#include "AvHParticleSystemManager.h"
 
 #ifdef AVH_CLIENT
   #include "cl_dll/hud.h"
   #include "cl_dll/cl_util.h"
 
   // Triangle rendering apis are in gEngfuncs.pTriAPI
-  #include "common/const.h"
-  #include "common/entity_state.h"
-  #include "common/cl_entity.h"
-  #include "common/triangleapi.h"
+  #include "../common/const.h"
+  #include "../common/entity_state.h"
+  #include "../common/cl_entity.h"
+  #include "../common/triangleapi.h"
   #include <papi.h>
-  #include "mod/AvHParticleTemplateClient.h"
+  #include "AvHParticleTemplateClient.h"
   
 #else
-  #include "mod/AvHParticleTemplate.h"
-  #include "mod/AvHParticleTemplateServer.h"
-  #include "dlls/util.h"
+  #include "AvHParticleTemplate.h"
+  #include "AvHParticleTemplateServer.h"
+  #include "../dlls/util.h"
 #endif
 
-#include "pm_shared/pm_debug.h"
+#include "../pm_shared/pm_debug.h"
 
 #ifdef AVH_CLIENT
   AvHParticleTemplateListClient		gParticleTemplateList;
-  extern DebugEntityListType		gCubeDebugEntities;
+//  extern DebugEntityListType		gCubeDebugEntities;
 #else
   //AvHParticleTemplateList			gParticleTemplateList;
   AvHParticleTemplateListServer		gParticleTemplateList;
@@ -314,7 +314,7 @@ AvHParticleSystemManager::InternalCreateParticleSystem(const QueuedParticleSyste
 			int theParentEntityIndex = inParticleSystem.GetParentEntityIndex();
 			if(theParentEntityIndex > 0)
 			{
-				gCubeDebugEntities.push_back(theParentEntityIndex);
+				//gCubeDebugEntities.push_back(theParentEntityIndex);
 			}
 		//}
 		#endif

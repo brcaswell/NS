@@ -1,7 +1,9 @@
+
+
 #ifndef GAMMATABLE_H
 #define GAMMATABLE_H
 
-#include "types.h"
+#include "../types.h"
 
 #ifdef USE_DIRECTX_8
 #include "D3d8.h"
@@ -42,3 +44,4 @@ private:
 };
 
 #endif
+

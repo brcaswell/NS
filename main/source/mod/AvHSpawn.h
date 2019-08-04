@@ -16,10 +16,10 @@
 #ifndef AVH_SPAWN_H
 #define AVH_SPAWN_H
 
-#include "util/nowarnings.h"
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "mod/AvHConstants.h"
+#include "../util/nowarnings.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "AvHConstants.h"
 #include <vector>
 
 class AvHSpawn

@@ -1,7 +1,7 @@
 #ifndef AVH_PARTICLETEMPLATECLIENT_H
 #define AVH_PARTICLETEMPLATECLIENT_H
 
-#include "mod/AvHParticleTemplate.h"
+#include "AvHParticleTemplate.h"
 
 class AvHParticleTemplateListClient : public AvHParticleTemplateList
 {

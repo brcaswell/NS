@@ -1,7 +1,6 @@
 #ifndef ANIMATION_UTIL_H
 #define ANIMATION_UTIL_H
-
-#include "engine/studio.h"
+#include "../engine/studio.h"
 
 /**
  *

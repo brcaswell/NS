@@ -12,7 +12,7 @@
 //
 //===============================================================================
 
-#include "mod/AvHTechNode.h"
+#include "AvHTechNode.h"
 
 //for use in operator==
 #define CHECK_EQUAL(x) (this->x == other.x)

@@ -95,7 +95,7 @@ Engine wants us to parse some data from the demo stream
 */
 void CL_DLLEXPORT Demo_ReadBuffer( int size, unsigned char *buffer )
 {
-	RecClReadDemoBuffer(size, buffer);
+//	RecClReadDemoBuffer(size, buffer);
 	
 	int type;
 	int i = 0;

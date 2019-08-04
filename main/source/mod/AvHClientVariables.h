@@ -22,7 +22,7 @@
 #ifndef AVH_CLIENTVARIABLES_H
 #define AVH_CLIENTVARIABLES_H
 
-#include "common/cvardef.h"
+#include "../common/cvardef.h"
 
 extern cvar_t*	cl_cmhotkeys;
 extern cvar_t*	cl_highdetail;
@@ -36,7 +36,7 @@ extern cvar_t*	cl_musicdir;
 // Variables
 #define kvAutoHelp			"cl_autohelp"
 // : 1064 The cl var that controls the display of labelled minimaps
-#define kvLabelMaps			"cl_labelmaps"
+#define kvLabelMaps			"hud_mapstyle"
 // :
 // : 0001070 - enables forced gamma ramp loading
 #define kvGammaRamp			"cl_gammaramp"
@@ -47,6 +47,8 @@ extern cvar_t*	cl_musicdir;
 // :
 #define	kvCMHotKeys			"cl_cmhotkeys"
 #define	kvForceDefaultFOV	"cl_forcedefaultfov"
+#define	kvWidescreen		"cl_widescreen"
+#define	kvAmbientSound		"cl_ambientsound"
 #define kvCenterEntityID	"cl_centerentityid"
 #define kvHighDetail		"cl_highdetail"
 #define kvCMHotkeys			"cl_cmhotkeys"

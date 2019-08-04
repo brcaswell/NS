@@ -1,8 +1,8 @@
 #ifndef AVH_BUILDABLE_H
 #define AVH_BUILDABLE_H
 
-#include "mod/AvHTechID.h"
-#include "mod/AvHConstants.h"
+#include "AvHTechID.h"
+#include "AvHConstants.h"
 
 // Interface type class, don't inherit off anything
 class AvHBuildable

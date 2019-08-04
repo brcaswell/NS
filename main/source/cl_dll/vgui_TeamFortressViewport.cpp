@@ -93,7 +93,7 @@
 #include "vgui_ServerBrowser.h"
 #include "vgui_ScorePanel.h"
 #include "vgui_SpectatorPanel.h"
-#include "game_shared\vgui_loadtga.h"
+#include "vgui_loadtga.h"
 #include "mod/AvHConstants.h"
 #include "mod/AvHTitles.h"
 #include "mod/AvHPieMenuHandler.h"
@@ -763,7 +763,7 @@ void TeamFortressViewport::Initialize( void )
 		strcpy(m_sTeamNames[i], "");
 	}
 
-	App::getInstance()->setCursorOveride( App::getInstance()->getScheme()->getCursor(Scheme::SchemeCursor::scu_none) );
+	App::getInstance()->setCursorOveride( App::getInstance()->getScheme()->getCursor(Scheme::scu_none) );
 }
 
 class CException;
@@ -796,8 +796,10 @@ int TeamFortressViewport::CreateCommandMenu( char * menuFile, int direction, int
 		return newIndex;
 	}
 
+#ifdef _WIN32
 try
 {
+#endif
 	// First, read in the localisation strings
 
 	// Detpack strings
@@ -1001,6 +1003,7 @@ try
 
 		pfile = gEngfuncs.COM_ParseFile(pfile, token);
 	}
+#ifdef _WIN32
 }
 catch( CException *e )
 {
@@ -1010,6 +1013,7 @@ catch( CException *e )
 	m_iInitialized = false;
 	return newIndex;
 }
+#endif
 
 	SetCurrentMenu( NULL );
 	SetCurrentCommandMenu( NULL );
@@ -1427,7 +1431,7 @@ void TeamFortressViewport::ShowScoreBoard( void )
 				m_pScoreBoard->Open();
 				
 				// TODO: HLSDK 2.3 requires this?
-				//UpdateCursorState();
+				UpdateCursorState();
 
 				// If cursor is visible, set squelch mode automatically (used for commander)
 				if(gHUD.GetIsInTopDownMode())
@@ -1546,6 +1550,7 @@ void TeamFortressViewport::SetCurrentCommandMenu( CCommandMenu *pNewMenu )
 
 	if (m_pCurrentCommandMenu)
 		m_pCurrentCommandMenu->MakeVisible( NULL );
+
 }
 
 void TeamFortressViewport::UpdateCommandMenu(int menuIndex)
@@ -2379,11 +2384,11 @@ bool TeamFortressViewport::SlotInput( int iSlot )
 // Direct Key Input
 int	TeamFortressViewport::KeyInput( int down, int keynum, const char *pszCurrentBinding )
 {
-
+	
     if (m_chatPanel->isVisible())
     {
-        // Don't let the game handle the input while the user is typing in the
-        // chat window.
+        // Don't let the game handle the input while the user is typing in the chat window.
+		m_chatPanel->KeyEvent();
         return 0;
     }
     
@@ -2590,7 +2595,8 @@ int TeamFortressViewport::MsgFunc_TeamScore( const char *pszName, int iSize, voi
 	NetMsg_TeamScore( pbuf, iSize, team_name, score, reset);
 
 	// find the team matching the name
-	for ( int i = 1; i <= m_pScoreBoard->m_iNumTeams; i++ )
+	int i;
+	for ( i = 1; i <= m_pScoreBoard->m_iNumTeams; i++ )
 	{
 		if ( !stricmp( team_name.c_str(), g_TeamInfo[i].name ) )
 			break;

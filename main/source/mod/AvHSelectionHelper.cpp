@@ -1,9 +1,9 @@
-#include "util/nowarnings.h"
+#include "../util/nowarnings.h"
 
 #ifdef AVH_SERVER
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "types.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "../types.h"
 #endif
 
 #ifdef AVH_CLIENT
@@ -11,41 +11,41 @@
 #include "cl_dll/cl_util.h"
 #endif
 
-#include "mod/AvHSelectionHelper.h"
-#include "mod/AvHConstants.h"
+#include "AvHSelectionHelper.h"
+#include "AvHConstants.h"
 
 #ifdef AVH_SERVER
-#include "mod/AvHPlayer.h"
-#include "mod/AvHServerUtil.h"
-#include "mod/AvHEntities.h"
-#include "mod/AvHGamerules.h"
+#include "AvHPlayer.h"
+#include "AvHServerUtil.h"
+#include "AvHEntities.h"
+#include "AvHGamerules.h"
 #endif
 
-#include "pm_shared/pm_defs.h"
-#include "pm_shared/pm_shared.h"
+#include "../pm_shared/pm_defs.h"
+#include "../pm_shared/pm_shared.h"
 
 #ifdef AVH_CLIENT
-#include "pm_shared/pm_debug.h"
-extern DebugPointListType				gTriDebugLocations;
+#include "../pm_shared/pm_debug.h"
+//extern DebugPointListType				gTriDebugLocations;
 #endif
 
-#include "util/MathUtil.h"
+#include "../util/MathUtil.h"
 
 extern playermove_t *pmove;
-#include "mod/AvHSharedUtil.h"
+#include "AvHSharedUtil.h"
 
-#include "common/vector_util.h"
+#include "../common/vector_util.h"
 
 #ifdef AVH_CLIENT
 #include "cl_dll/eventscripts.h"
 
-#include "common/r_efx.h"
-#include "common/event_api.h"
-#include "common/event_args.h"
+#include "../common/r_efx.h"
+#include "../common/event_api.h"
+#include "../common/event_args.h"
 #include "cl_dll/in_defs.h"
 #endif
 
-#include "mod/AvHSpecials.h"
+#include "AvHSpecials.h"
 
 AvHSelectionHelper::AvHSelectionHelper()
 {

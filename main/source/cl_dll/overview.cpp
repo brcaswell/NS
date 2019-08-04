@@ -15,6 +15,9 @@
 #include "com_model.h"
 #include "studio_util.h"
 
+#include "MathUtil.h"
+#include "chudmisc.h"
+
 #pragma warning(disable: 4244)
 
 //-----------------------------------------------------------------------------
@@ -34,8 +37,8 @@ int CHudOverview::Init()
 //-----------------------------------------------------------------------------
 int CHudOverview::VidInit()
 {
-	m_hsprPlayer = Safe_SPR_Load("sprites/ring.spr");
-	m_hsprViewcone = Safe_SPR_Load("sprites/camera.spr");
+	m_hsprPlayer = gEngfuncs.pfnSPR_Load("sprites/ring.spr");
+	m_hsprViewcone = gEngfuncs.pfnSPR_Load("sprites/camera.spr");
 
 	return 1;
 }

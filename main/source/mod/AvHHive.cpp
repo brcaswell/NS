@@ -78,20 +78,20 @@
 //
 //===============================================================================
 
-#include "mod/AvHHive.h"
-#include "mod/AvHGamerules.h"
-#include "mod/AvHServerUtil.h"
-#include "mod/AvHSharedUtil.h"
-#include "mod/AvHAlienAbilityConstants.h"
-#include "mod/AvHAlienEquipmentConstants.h"
-#include "mod/AvHHulls.h"
-#include "mod/AvHMovementUtil.h"
-#include "mod/AvHSoundListManager.h"
-#include "mod/AvHServerVariables.h"
-#include "mod/AvHParticleConstants.h"
-#include "mod/AvHSpecials.h"
-#include "mod/AvHPlayerUpgrade.h"
-#include "util/MathUtil.h"
+#include "AvHHive.h"
+#include "AvHGamerules.h"
+#include "AvHServerUtil.h"
+#include "AvHSharedUtil.h"
+#include "AvHAlienAbilityConstants.h"
+#include "AvHAlienEquipmentConstants.h"
+#include "AvHHulls.h"
+#include "AvHMovementUtil.h"
+#include "AvHSoundListManager.h"
+#include "AvHServerVariables.h"
+#include "AvHParticleConstants.h"
+#include "AvHSpecials.h"
+#include "AvHPlayerUpgrade.h"
+#include "../util/MathUtil.h"
 #include <vector>
 
 extern AvHSoundListManager				gSoundListManager;

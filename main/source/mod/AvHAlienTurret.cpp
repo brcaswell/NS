@@ -37,24 +37,24 @@
 // - Offensive chamber that shoots spit
 //
 //===============================================================================
-#include "mod/AvHAlienTurret.h"
-#include "mod/AvHConstants.h"
-#include "mod/AvHPlayerUpgrade.h"
-#include "mod/AvHAlienEquipmentConstants.h"
-#include "mod/AvHAlienWeaponConstants.h"
-#include "mod/AvHAlienWeapons.h"
-#include "common/hldm.h"
-#include "common/event_api.h"
-#include "common/event_args.h"
-#include "common/vector_util.h"
-#include "mod/AvHGamerules.h"
-#include "util/MathUtil.h"
+#include "AvHAlienTurret.h"
+#include "AvHConstants.h"
+#include "AvHPlayerUpgrade.h"
+#include "AvHAlienEquipmentConstants.h"
+#include "AvHAlienWeaponConstants.h"
+#include "AvHAlienWeapons.h"
+#include "../common/hldm.h"
+#include "../common/event_api.h"
+#include "../common/event_args.h"
+#include "../common/vector_util.h"
+#include "AvHGamerules.h"
+#include "../util/MathUtil.h"
 
 // Temporary
-#include "mod/AvHMarineTurret.h"
-#include "mod/AvHMarineEquipment.h"
-#include "mod/AvHConstants.h"
-#include "mod/AvHPlayerUpgrade.h"
+#include "AvHMarineTurret.h"
+#include "AvHMarineEquipment.h"
+#include "AvHConstants.h"
+#include "AvHPlayerUpgrade.h"
 
 
 

@@ -16,8 +16,8 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "util/Checksum.h"
-#include "util/STLUtil.h"
+#include "Checksum.h"
+#include "STLUtil.h"
 
 const string kFormattedStringDelimiter = " -> ";
 const string kFormattedStringEOL = "\n";

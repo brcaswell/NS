@@ -18,7 +18,7 @@
 #ifndef CHALFLIFETEAMPLAY_H
 #define CHALFLIFETEAMPLAY_H
 
-#include "game_shared/teamconst.h"
+#include "../game_shared/teamconst.h"
 
 class CHalfLifeTeamplay : public CHalfLifeMultiplay
 {

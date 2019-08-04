@@ -32,10 +32,10 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "util/nowarnings.h"
-#include "mod/AvHSpecials.h"
-#include "localassert.h"
-#include "mod/AvHConstants.h"
+#include "../util/nowarnings.h"
+#include "AvHSpecials.h"
+#include "../localassert.h"
+#include "AvHConstants.h"
 
 void InitializeBuildable(int& inUser3, int& inUser4, float& inFuser1, int inUser3ID)
 {

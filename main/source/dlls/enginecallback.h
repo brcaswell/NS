@@ -17,7 +17,7 @@
 
 #pragma once
 
-#include "common/event_flags.h"
+#include "event_flags.h"
 
 // Must be provided by user of this code
 extern enginefuncs_t g_engfuncs;
@@ -56,7 +56,11 @@ extern enginefuncs_t g_engfuncs;
 #define TRACE_HULL		(*g_engfuncs.pfnTraceHull)
 #define GET_AIM_VECTOR	(*g_engfuncs.pfnGetAimVector)
 #define SERVER_COMMAND	(*g_engfuncs.pfnServerCommand)
+#ifdef SERVER_EXECUTE
+#undef SERVER_EXECUTE
+#endif
 #define SERVER_EXECUTE	(*g_engfuncs.pfnServerExecute)
+
 #define CLIENT_COMMAND	(*g_engfuncs.pfnClientCommand)
 #define PARTICLE_EFFECT	(*g_engfuncs.pfnParticleEffect)
 #define LIGHT_STYLE		(*g_engfuncs.pfnLightStyle)
@@ -68,10 +72,12 @@ extern enginefuncs_t g_engfuncs;
 #define CRC32_FINAL          (*g_engfuncs.pfnCRC32_Final)
 #define RANDOM_LONG		(*g_engfuncs.pfnRandomLong)
 #define RANDOM_FLOAT	(*g_engfuncs.pfnRandomFloat)
-
+//#define AvHSUGetPlayerAuthIDString (*g_engfuncs.pfnGetPlayerAuthId) // 23.04.2014 added
 // Note: Use AvHSUGetPlayerAuthIDString instead
 //#define GETPLAYERAUTHID	(*g_engfuncs.pfnGetPlayerAuthId)
 //#define GETPLAYERAUTHID		(*g_engfuncs.pfnGetPlayerWONId)
+
+
 
 #ifdef AVH_SERVER
 #define PRECACHE_UNMODIFIED_MODEL(s)	\

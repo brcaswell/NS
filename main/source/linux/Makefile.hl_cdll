@@ -1,0 +1,334 @@
+#
+# launcher Makefile for x86 Linux
+#
+#
+VGUI_INCLUDE_DIR = $(SOURCE_DIR)/includes/vgui/include
+UI_INCLUDE_DIR = $(SOURCE_DIR)/ui
+
+UTIL_SRC_DIR=$(SOURCE_DIR)/util
+UI_SRC_DIR=$(SOURCE_DIR)/ui
+NS_MOD_SRC_DIR=$(SOURCE_DIR)/mod
+HL_SRC_DIR=$(SOURCE_DIR)/cl_dll
+HL_SERVER_SRC_DIR=$(SOURCE_DIR)/dlls
+GAME_SHARED_SRC_DIR=$(SOURCE_DIR)/game_shared
+PM_SHARED_SRC_DIR=$(SOURCE_DIR)/pm_shared
+TEXTREP_SRC_DIR=$(SOURCE_DIR)/textrep
+PARTICLES_SRC_DIR=$(SOURCE_DIR)/particles
+
+TEXTREP_OBJ_DIR=$(HL1_OBJ_DIR)/textrep
+UTIL_OBJ_DIR=$(HL1_OBJ_DIR)/util
+UI_OBJ_DIR =$(HL1_OBJ_DIR)/ui
+NS_MOD_OBJ_DIR=$(HL1_OBJ_DIR)/mod
+HL1_OBJ_DIR=$(BUILD_OBJ_DIR)/hl1_client
+PUBLIC_OBJ_DIR=$(HL1_OBJ_DIR)/public
+COMMON_OBJ_DIR=$(HL1_OBJ_DIR)/common
+GAME_SHARED_OBJ_DIR=$(HL1_OBJ_DIR)/game_shared
+PM_SHARED_OBJ_DIR=$(HL1_OBJ_DIR)/pm_shared
+HL1_SERVER_OBJ_DIR=$(HL1_OBJ_DIR)/server
+
+CFLAGS=$(BASE_CFLAGS) $(ARCH_CFLAGS) -DCLIENT_DLL -I/usr/include/malloc -D_snwprintf=swprintf -DAVH_CLIENT -DUSE_OLDAUTH -DAVH_NO_NEXUS -DNDEBUG -DASSERT=assert -Dsprintf_s=snprintf -DDISABLE_VEC_FUNCS -DDISABLE_VEC_ORIGIN
+		 
+INCLUDEDIRS= -I$(HL_SRC_DIR) -I$(NS_MOD_SRC_DIR) -I$(COMMON_SRC_DIR) -I$(PUBLIC_SRC_DIR) -I$(PM_SHARED_SRC_DIR) -I../engine -I$(GAME_SHARED_SRC_DIR) -I../external/ -I../particles -I../includes/fmodapi375linux/api/inc -I$(HL_SERVER_SRC_DIR) -I$(HL_SRC_DIR)/cl_dll -I$(VGUI_INCLUDE_DIR) -I$(UI_INCLUDE_DIR) -I$(UTIL_SRC_DIR) -I../ -I../includes/fmodapi375linux/api -I../includes/lpng1251
+
+ifeq ($(OS),Darwin)
+LDFLAGS=$(SHLIBLDFLAGS) $(CPP_LIB) -L. libpng12.dylib -lz -framework Carbon -framework OpenGL vgui.dylib -L. -lSDL2-2.0.0 -L. libparticleMP.a
+else
+LDFLAGS=$(SHLIBLDFLAGS) $(CPP_LIB) -lpng -lz -lfmod-3.75 -L$(CFG) vgui.so -L. libSDL2-2.0.so.0 -L. libparticleMP.a 
+endif
+
+DO_CC=$(CPLUS) $(INCLUDEDIRS) $(CFLAGS) -o $@ -c $<
+DO_PUBLIC_CC=$(CPLUS) $(COMMON_INCLUDEDIRS) $(CFLAGS) $(SHLIBCFLAGS) -o $@ -c $<
+DO_COMMON_CC=$(CPLUS) $(INCLUDEDIRS)  $(CFLAGS) $(SHLIBCFLAGS) -o $@ -c $<
+DO_PM_SHARED_CC=$(CPLUS) $(INCLUDEDIRS)  $(CFLAGS) $(SHLIBCFLAGS) -o $@ -c $<
+#####################################################################
+
+HL1_OBJS = \
+	$(HL1_OBJ_DIR)/hl/hl_baseentity.o \
+	$(HL1_OBJ_DIR)/hl/hl_objects.o \
+	$(HL1_OBJ_DIR)/hl/hl_weapons.o \
+	$(HL1_OBJ_DIR)/ammo.o  \
+	$(HL1_OBJ_DIR)/cdll_int.o \
+	$(HL1_OBJ_DIR)/ammo_secondary.o \
+	$(HL1_OBJ_DIR)/ammohistory.o \
+	$(HL1_OBJ_DIR)/battery.o \
+	$(HL1_OBJ_DIR)/com_weapons.o \
+	$(HL1_OBJ_DIR)/death.o \
+	$(HL1_OBJ_DIR)/entity.o \
+	$(HL1_OBJ_DIR)/ev_common.o \
+	$(HL1_OBJ_DIR)/events.o \
+	$(HL1_OBJ_DIR)/flashlight.o \
+	$(HL1_OBJ_DIR)/GameStudioModelRenderer.o \
+	$(HL1_OBJ_DIR)/geiger.o \
+	$(HL1_OBJ_DIR)/hud.o \
+	$(HL1_OBJ_DIR)/hud_crosshairs.o \
+	$(HL1_OBJ_DIR)/hud_msg.o \
+	$(HL1_OBJ_DIR)/hud_redraw.o \
+	$(HL1_OBJ_DIR)/hud_servers.o \
+	$(HL1_OBJ_DIR)/hud_spectator.o \
+	$(HL1_OBJ_DIR)/hud_update.o \
+	$(HL1_OBJ_DIR)/hudgl.o \
+	$(HL1_OBJ_DIR)/in_camera.o \
+	$(HL1_OBJ_DIR)/input.o \
+	$(HL1_OBJ_DIR)/inputw32.o \
+	$(HL1_OBJ_DIR)/menu.o \
+	$(HL1_OBJ_DIR)/vgui_SpectatorPanel.o \
+	$(HL1_OBJ_DIR)/vgui_TeamFortressViewport.o \
+	$(HL1_OBJ_DIR)/vgui_teammenu.o \
+	$(HL1_OBJ_DIR)/view.o \
+	$(HL1_OBJ_DIR)/message.o \
+	$(HL1_OBJ_DIR)/parsemsg.o \
+	$(HL1_OBJ_DIR)/saytext.o \
+	$(HL1_OBJ_DIR)/status_icons.o \
+	$(HL1_OBJ_DIR)/statusbar.o \
+	$(HL1_OBJ_DIR)/studio_util.o \
+	$(HL1_OBJ_DIR)/StudioModelRenderer.o \
+	$(HL1_OBJ_DIR)/text_message.o \
+	$(HL1_OBJ_DIR)/train.o \
+	$(HL1_OBJ_DIR)/tri.o \
+	$(HL1_OBJ_DIR)/vgui_int.o \
+	$(HL1_OBJ_DIR)/cl_util.o \
+	$(HL1_OBJ_DIR)/ev_hldm.o \
+	$(HL1_OBJ_DIR)/vgui_MOTDWindow.o \
+	$(HL1_OBJ_DIR)/vgui_SchemeManager.o \
+	$(HL1_OBJ_DIR)/vgui_ScorePanel.o \
+	$(HL1_OBJ_DIR)/vgui_ClassMenu.o \
+	$(HL1_OBJ_DIR)/vgui_ConsolePanel.o \
+	$(HL1_OBJ_DIR)/vgui_ControlConfigPanel.o \
+	$(HL1_OBJ_DIR)/vgui_CustomObjects.o \
+	$(HL1_OBJ_DIR)/vgui_ServerBrowser.o \
+	$(HL1_OBJ_DIR)/util.o \
+	$(HL1_OBJ_DIR)/health.o \
+	$(HL1_OBJ_DIR)/demo.o \
+
+MOD_OBJS = \
+	$(NS_MOD_OBJ_DIR)/AvHAcidRocketGun.o \
+	$(NS_MOD_OBJ_DIR)/AvHAlienAbilities.o \
+	$(NS_MOD_OBJ_DIR)/AvHBasePlayerWeapon.o \
+	$(NS_MOD_OBJ_DIR)/AvHBileBombGun.o \
+	$(NS_MOD_OBJ_DIR)/AvHBite.o \
+	$(NS_MOD_OBJ_DIR)/AvHBite2.o \
+	$(NS_MOD_OBJ_DIR)/AvHBlink.o \
+	$(NS_MOD_OBJ_DIR)/AvHClaws.o \
+	$(NS_MOD_OBJ_DIR)/AvHDevour.o \
+	$(NS_MOD_OBJ_DIR)/AvHGrenade.o \
+	$(NS_MOD_OBJ_DIR)/AvHDivineWind.o \
+	$(NS_MOD_OBJ_DIR)/AvHGrenadeGun.o \
+	$(NS_MOD_OBJ_DIR)/AvHHealingSpray.o \
+	$(NS_MOD_OBJ_DIR)/AvHHeavyMachineGun.o \
+	$(NS_MOD_OBJ_DIR)/AvHItemInfo.o \
+	$(NS_MOD_OBJ_DIR)/AvHKnife.o \
+	$(NS_MOD_OBJ_DIR)/AvHMachineGun.o \
+	$(NS_MOD_OBJ_DIR)/AvHMarineWeapon.o \
+	$(NS_MOD_OBJ_DIR)/AvHMetabolize.o \
+	$(NS_MOD_OBJ_DIR)/AvHMine.o \
+	$(NS_MOD_OBJ_DIR)/AvHParasiteGun.o \
+	$(NS_MOD_OBJ_DIR)/AvHPistol.o \
+	$(NS_MOD_OBJ_DIR)/AvHPrimalScream.o \
+	$(NS_MOD_OBJ_DIR)/AvHSonicGun.o \
+	$(NS_MOD_OBJ_DIR)/AvHSpikeGun.o \
+	$(NS_MOD_OBJ_DIR)/AvHSpitGun.o \
+	$(NS_MOD_OBJ_DIR)/AvHSpores.o \
+	$(NS_MOD_OBJ_DIR)/AvHStomp.o \
+	$(NS_MOD_OBJ_DIR)/AvHSwipe.o \
+	$(NS_MOD_OBJ_DIR)/AvHUmbraGun.o \
+	$(NS_MOD_OBJ_DIR)/AvHWebSpinner.o \
+	$(NS_MOD_OBJ_DIR)/AvHWelder.o \
+	$(NS_MOD_OBJ_DIR)/AnimationUtil.o \
+	$(NS_MOD_OBJ_DIR)/AvHActionButtons.o \
+	$(NS_MOD_OBJ_DIR)/AvHAlienWeapon.o \
+	$(NS_MOD_OBJ_DIR)/AvHAmbientSound.o \
+	$(NS_MOD_OBJ_DIR)/AvHAssert.o \
+	$(NS_MOD_OBJ_DIR)/AvHBaseInfoLocation.o \
+	$(NS_MOD_OBJ_DIR)/AvHClientUtil.o \
+	$(NS_MOD_OBJ_DIR)/AvHCommanderModeHandler.o \
+	$(NS_MOD_OBJ_DIR)/AvHConstants.o \
+	$(NS_MOD_OBJ_DIR)/AvHEntityHierarchy.o \
+	$(NS_MOD_OBJ_DIR)/AvHEvents.o \
+	$(NS_MOD_OBJ_DIR)/AvHFont.o \
+	$(NS_MOD_OBJ_DIR)/AvHHelp.o \
+	$(NS_MOD_OBJ_DIR)/AvHHud.o \
+	$(NS_MOD_OBJ_DIR)/AvHHudRender.o \
+	$(NS_MOD_OBJ_DIR)/AvHLogoutComponent.o \
+	$(NS_MOD_OBJ_DIR)/AvHMapExtents.o \
+	$(NS_MOD_OBJ_DIR)/AvHMiniMap.o \
+	$(NS_MOD_OBJ_DIR)/AvHMovementUtil.o \
+	$(NS_MOD_OBJ_DIR)/AvHNetworkMessages.o \
+	$(NS_MOD_OBJ_DIR)/AvHNexusClient.o \
+	$(NS_MOD_OBJ_DIR)/AvHNexusTunnelToServer.o \
+	$(NS_MOD_OBJ_DIR)/AvHOrder.o \
+	$(NS_MOD_OBJ_DIR)/AvHOverviewControl.o \
+	$(NS_MOD_OBJ_DIR)/AvHOverviewMap.o \
+	$(NS_MOD_OBJ_DIR)/AvHParticleEditorHandler.o \
+	$(NS_MOD_OBJ_DIR)/AvHPieMenuHandler.o \
+	$(NS_MOD_OBJ_DIR)/AvHPlayerUpgrade.o \
+	$(NS_MOD_OBJ_DIR)/AvHScriptClient.o \
+	$(NS_MOD_OBJ_DIR)/AvHScriptManager.o \
+	$(NS_MOD_OBJ_DIR)/AvHScriptShared.o \
+	$(NS_MOD_OBJ_DIR)/AvHScrollHandler.o \
+	$(NS_MOD_OBJ_DIR)/AvHScrollPanel.o \
+	$(NS_MOD_OBJ_DIR)/AvHSharedMovementInfo.o \
+	$(NS_MOD_OBJ_DIR)/AvHSharedUtil.o \
+	$(NS_MOD_OBJ_DIR)/AvHSpecials.o \
+	$(NS_MOD_OBJ_DIR)/AvHSpriteAPI.o \
+	$(NS_MOD_OBJ_DIR)/AvHTeamHierarchy.o \
+	$(NS_MOD_OBJ_DIR)/AvHTechImpulsePanel.o \
+	$(NS_MOD_OBJ_DIR)/AvHTechNode.o \
+	$(NS_MOD_OBJ_DIR)/AvHTechSlotManager.o \
+	$(NS_MOD_OBJ_DIR)/AvHTechTree.o \
+	$(NS_MOD_OBJ_DIR)/AvHTooltip.o \
+	$(NS_MOD_OBJ_DIR)/AvHUIFactory.o \
+	$(NS_MOD_OBJ_DIR)/AvHVisibleBlipList.o \
+	$(NS_MOD_OBJ_DIR)/CollisionChecker.o \
+	$(NS_MOD_OBJ_DIR)/CollisionUtil.o \
+	$(NS_MOD_OBJ_DIR)/AvHParticleSystem.o \
+	$(NS_MOD_OBJ_DIR)/AvHParticleSystemManager.o \
+	$(NS_MOD_OBJ_DIR)/AvHParticleTemplate.o \
+	$(NS_MOD_OBJ_DIR)/AvHParticleTemplateClient.o \
+	$(NS_MOD_OBJ_DIR)/AvHSelectionHelper.o \
+
+COMMON_OBJS = \
+	$(COMMON_OBJ_DIR)/interface.o \
+
+DLL_OBJS = \
+	$(HL1_SERVER_OBJ_DIR)/hl_wpn_glock.o \
+#PUBLIC_OBJS = \
+#	$(PUBLIC_OBJ_DIR)/dinterface.o \
+
+GAME_SHARED_OBJS = \
+	$(GAME_SHARED_OBJ_DIR)/vgui_checkbutton2.o \
+	$(GAME_SHARED_OBJ_DIR)/vgui_grid.o \
+	$(GAME_SHARED_OBJ_DIR)/vgui_helpers.o \
+	$(GAME_SHARED_OBJ_DIR)/vgui_listbox.o \
+	$(GAME_SHARED_OBJ_DIR)/vgui_loadtga.o \
+	$(GAME_SHARED_OBJ_DIR)/vgui_scrollbar2.o \
+	$(GAME_SHARED_OBJ_DIR)/vgui_slider2.o \
+	$(GAME_SHARED_OBJ_DIR)/voice_banmgr.o \
+	$(GAME_SHARED_OBJ_DIR)/voice_status.o \
+	$(GAME_SHARED_OBJ_DIR)/voice_vgui_tweakdlg.o \
+	
+PM_SHARED_OBJS = \
+	$(PM_SHARED_OBJ_DIR)/pm_debug.o \
+	$(PM_SHARED_OBJ_DIR)/pm_shared.o \
+	$(PM_SHARED_OBJ_DIR)/pm_math.o \
+	
+UI_OBJS = \
+	$(UI_OBJ_DIR)/bitmappng.o \
+	$(UI_OBJ_DIR)/ChatPanel.o \
+	$(UI_OBJ_DIR)/ColoredPanel.o \
+	$(UI_OBJ_DIR)/DummyPanel.o \
+	$(UI_OBJ_DIR)/FadingImageLabel.o \
+	$(UI_OBJ_DIR)/loadpng.o \
+	$(UI_OBJ_DIR)/MarqueeComponent.o \
+	$(UI_OBJ_DIR)/MemoryInputStream.o \
+	$(UI_OBJ_DIR)/PieMenu.o \
+	$(UI_OBJ_DIR)/PieNode.o \
+	$(UI_OBJ_DIR)/ScoreboardIcon.o \
+	$(UI_OBJ_DIR)/SliderPlus.o \
+	$(UI_OBJ_DIR)/SpritePanel.o \
+	$(UI_OBJ_DIR)/UIComponent.o \
+	$(UI_OBJ_DIR)/UIComponents.o \
+	$(UI_OBJ_DIR)/UIFactory.o \
+	$(UI_OBJ_DIR)/UIHud.o \
+	$(UI_OBJ_DIR)/UIManager.o \
+	$(UI_OBJ_DIR)/UIPieMenu.o \
+	$(UI_OBJ_DIR)/UIUtil.o \
+	$(UI_OBJ_DIR)/InvisiblePanel.o \
+	
+UTIL_OBJS = \
+	$(UTIL_OBJ_DIR)/Balance.o \
+	$(UTIL_OBJ_DIR)/Checksum.o \
+	$(UTIL_OBJ_DIR)/GammaTable.o \
+	$(UTIL_OBJ_DIR)/LinuxSupport.o \
+	$(UTIL_OBJ_DIR)/Mat3.o \
+	$(UTIL_OBJ_DIR)/MathUtil.o \
+	$(UTIL_OBJ_DIR)/Quat.o \
+	$(UTIL_OBJ_DIR)/Stacktrace.o \
+	$(UTIL_OBJ_DIR)/STLUtil.o \
+	$(UTIL_OBJ_DIR)/Tokenizer.o \
+
+TEXTREP_OBJS = \
+	$(TEXTREP_OBJ_DIR)/TRDescription.o \
+	$(TEXTREP_OBJ_DIR)/TRFactory.o \
+
+all: client.$(SHLIBEXT)
+
+client.$(SHLIBEXT): $(HL1_OBJS) $(MOD_OBJS) $(PUBLIC_OBJS) $(COMMON_OBJS) $(GAME_SHARED_OBJS) $(DLL_OBJS) $(PM_SHARED_OBJS) $(UI_OBJS) $(UTIL_OBJS) $(TEXTREP_OBJS)
+	$(CLINK) -o $(BUILD_DIR)/$@ $(HL1_OBJS) $(MOD_OBJS) $(PUBLIC_OBJS) $(COMMON_OBJS) $(GAME_SHARED_OBJS) $(DLL_OBJS) $(PM_SHARED_OBJS) $(UI_OBJS) $(UTIL_OBJS) $(TEXTREP_OBJS) $(LDFLAGS) $(CPP_LIB)
+	@echo "Done..."	
+
+$(HL1_OBJ_DIR):
+	mkdir -p $(HL1_OBJ_DIR)
+	mkdir -p $(HL1_OBJ_DIR)/hl
+	mkdir -p $(HL1_OBJ_DIR)/dlls/wpn_shared
+	mkdir -p $(HL1_OBJ_DIR)/VGUI
+
+$(NS_MOD_OBJ_DIR):
+	mkdir -p $(NS_MOD_OBJ_DIR)
+
+$(HL1_SERVER_OBJ_DIR):
+	mkdir -p $(HL1_SERVER_OBJ_DIR)
+	mkdir -p $(HL1_SERVER_OBJ_DIR)/wpn_shared
+
+$(PUBLIC_OBJ_DIR):
+	mkdir -p $(PUBLIC_OBJ_DIR)
+
+$(COMMON_OBJ_DIR):
+	mkdir -p $(COMMON_OBJ_DIR)
+
+$(GAME_SHARED_OBJ_DIR):
+	mkdir -p $(GAME_SHARED_OBJ_DIR)
+
+$(PM_SHARED_OBJ_DIR):
+	mkdir -p $(PM_SHARED_OBJ_DIR)
+
+$(UTIL_OBJ_DIR):
+	mkdir -p $(UTIL_OBJ_DIR)
+
+$(UI_OBJ_DIR):
+	mkdir -p $(UI_OBJ_DIR)
+
+$(TEXTREP_OBJ_DIR):
+	mkdir -p $(TEXTREP_OBJ_DIR)
+
+$(HL1_OBJ_DIR)/%.o: $(HL_SRC_DIR)/%.cpp $(filter-out $(wildcard  $(HL1_OBJ_DIR)),  $(HL1_OBJ_DIR))
+	$(DO_CC)
+
+$(NS_MOD_OBJ_DIR)/%.o: $(NS_MOD_SRC_DIR)/%.cpp $(filter-out $(wildcard  $(NS_MOD_OBJ_DIR)),  $(NS_MOD_OBJ_DIR))
+	$(DO_CC)
+
+$(HL1_SERVER_OBJ_DIR)/%.o: $(HL_SERVER_SRC_DIR)/%.cpp $(filter-out $(wildcard  $(HL1_SERVER_OBJ_DIR)),  $(HL1_SERVER_OBJ_DIR))
+	$(DO_CC)
+
+$(HL1_OBJ_DIR)/%.o: $(HL_SRC_DIR)/hl/%.cpp $(filter-out $(wildcard  $(HL1_OBJ_DIR)),  $(HL1_OBJ_DIR))
+	$(DO_CC)
+
+$(HL1_OBJ_DIR)/%.o: $(HL_SRC_DIR)/dlls/wpn_shared/%.cpp $(filter-out $(wildcard  $(HL1_OBJ_DIR)),  $(HL1_OBJ_DIR))
+	$(DO_CC)
+
+$(HL1_OBJ_DIR)/%.o: $(HL_SRC_DIR)/VGUI/%.cpp $(filter-out $(wildcard  $(HL1_OBJ_DIR)),  $(HL1_OBJ_DIR))
+	$(DO_CC)
+
+$(PUBLIC_OBJ_DIR)/%.o : $(PUBLIC_SRC_DIR)/%.cpp $(filter-out $(wildcard  $(PUBLIC_OBJ_DIR)),  $(PUBLIC_OBJ_DIR))
+	$(DO_PUBLIC_CC)
+
+$(COMMON_OBJ_DIR)/%.o : $(COMMON_SRC_DIR)/%.cpp $(filter-out $(wildcard  $(COMMON_OBJ_DIR)),  $(COMMON_OBJ_DIR))
+	$(DO_COMMON_CC)
+
+$(GAME_SHARED_OBJ_DIR)/%.o : $(GAME_SHARED_SRC_DIR)/%.cpp $(filter-out $(wildcard  $(GAME_SHARED_OBJ_DIR)),  $(GAME_SHARED_OBJ_DIR))
+	$(DO_COMMON_CC)
+
+$(PM_SHARED_OBJ_DIR)/%.o : $(PM_SHARED_SRC_DIR)/%.cpp $(filter-out $(wildcard  $(PM_SHARED_OBJ_DIR)),  $(PM_SHARED_OBJ_DIR))
+	$(DO_PM_SHARED_CC)
+
+$(UI_OBJ_DIR)/%.o : $(UI_INCLUDE_DIR)/%.cpp $(filter-out $(wildcard  $(UI_OBJ_DIR)),  $(UI_OBJ_DIR))
+	$(DO_CC)
+
+$(UTIL_OBJ_DIR)/%.o : $(UTIL_SRC_DIR)/%.cpp $(filter-out $(wildcard  $(UTIL_OBJ_DIR)),  $(UTIL_OBJ_DIR))
+	$(DO_CC)
+
+$(TEXTREP_OBJ_DIR)/%.o : $(TEXTREP_SRC_DIR)/%.cpp $(filter-out $(wildcard  $(TEXTREP_OBJ_DIR)),  $(TEXTREP_OBJ_DIR))
+	$(DO_CC)
+
+clean:
+	-rm -rf $(HL1_OBJ_DIR)
+	-rm -f client.$(SHLIBEXT)

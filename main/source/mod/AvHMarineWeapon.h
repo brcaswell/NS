@@ -25,7 +25,7 @@
 #ifndef AVH_MARINE_WEAPON_H
 #define AVH_MARINE_WEAPON_H
 
-#include "mod/AvHBasePlayerWeapon.h"
+#include "AvHBasePlayerWeapon.h"
 
 class AvHMarineWeapon : public AvHBasePlayerWeapon
 {

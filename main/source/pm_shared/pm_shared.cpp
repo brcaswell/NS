@@ -1,4 +1,4 @@
-//  Copyright (c) 1999, Valve LLC. All rights reserved.
+//Copyright (c) 1999, Valve LLC. All rights reserved.
 //  
 //  This product contains software technology licensed from Id 
 //  Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc. 
@@ -73,9 +73,9 @@
 //
 //===============================================================================
 #include <assert.h>
-#include "common/mathlib.h"
-#include "common/const.h"
-#include "common/usercmd.h"
+#include "mathlib.h"
+#include "const.h"
+#include "usercmd.h"
 #include "pm_defs.h"
 #include "pm_shared.h"
 #include "pm_movevars.h"
@@ -85,37 +85,33 @@
 #include <string.h> // strcpy
 #include <stdlib.h> // atoi
 #include <ctype.h>  // isspace
-#include "mod/AvHSpecials.h"
-#include "mod/AvHMarineEquipmentConstants.h"
-#include "mod/AvHMessage.h"
-#include "util/MathUtil.h"
-#include "util/Quat.h"
-#include "util/Mat3.h"
-#include "common/event_flags.h"
-#include "mod/AvHSoundConstants.h"
-#include "mod/AvHMovementUtil.h"
-#include "mod/AvHHulls.h"
-#include "mod/AvHAlienAbilityConstants.h"
-#include "mod/AvHAlienWeaponConstants.h"
-#include "mod/AvHMovementUtil.h"
-#include "mod/AvHMapExtents.h"
-#include "mod/AvHSharedMovementInfo.h"
-#include "util/Balance.h"
+#include "../mod/AvHSpecials.h"
+#include "../mod/AvHMarineEquipmentConstants.h"
+#include "../mod/AvHMessage.h"
+#include "../util/MathUtil.h"
+#include "../util/Quat.h"
+#include "../util/Mat3.h"
+#include "../common/event_flags.h"
+#include "../mod/AvHSoundConstants.h"
+#include "../mod/AvHMovementUtil.h"
+#include "../mod/AvHHulls.h"
+#include "../mod/AvHAlienAbilityConstants.h"
+#include "../mod/AvHAlienWeaponConstants.h"
+#include "../mod/AvHMovementUtil.h"
+#include "../mod/AvHMapExtents.h"
+#include "../mod/AvHSharedMovementInfo.h"
+#include "../util/Balance.h"
 
+#include "../common/com_model.h"
 
-
-#include "common/const.h"
-#include "common/com_model.h"
-#include "common/mathlib.h"
-
-#include "mod/CollisionUtil.h"
-#include "engine/studio.h"
+#include "../mod/CollisionUtil.h"
+#include "../engine/studio.h"
 
 
 //#ifdef AVH_SERVER
-#include "engine/edict.h"
-#include "engine/eiface.h"
-#include "dlls/enginecallback.h"
+#include "../engine/edict.h"
+#include "../engine/eiface.h"
+#include "../dlls/enginecallback.h"
 //#endif
 
 #ifdef AVH_SERVER
@@ -144,12 +140,13 @@ bool GetIsEntityAPlayer(int inPhysIndex);
 
 #ifdef AVH_CLIENT
 #include "pm_shared/pm_debug.h"
-#include "..\common\hltv.h"
+#include "../common/hltv.h"
+/*
 void PM_DebugLocations();
 typedef vector< DebugPoint >        PositionListType;
 DebugPointListType                  gTriDebugLocations;
 DebugPointListType                  gSquareDebugLocations;
-DebugEntityListType                 gCubeDebugEntities;
+DebugEntityListType                 gCubeDebugEntities;*/
 #endif
 
 //extern int gWallJumpEventID;
@@ -159,9 +156,10 @@ extern int gJetpackEventID;
 extern int gBlinkEffectSuccessEventID;
 
 #define Vector vec3_t
-#include "mod/AvHSelectionHelper.h"
+#include "../mod/AvHSelectionHelper.h"
 
 int gHeightLevel = 0;
+int JpEventTimer = 0;
 
 const float kMarineBackpedalSpeedScalar = .4f;
 const float kMarineSidestepSpeedScalar = 1.0f;
@@ -445,7 +443,7 @@ void NS_DrawBoundingBox(const vec3_t mins,
 #ifdef AVH_SERVER
 
     void PM_DrawRectangle(vec3_t tl, vec3_t bl, vec3_t tr, vec3_t br, int pcolor, float life);
-    extern int PM_boxpnt[6][4];
+    int PM_boxpnt[6][4];
 
     int pcolor = 132;
     float plife = 0.1;
@@ -493,7 +491,6 @@ void NS_DrawBoundingBox(const vec3_t mins,
 #endif
 
 }
-
 
 void NS_DrawBoundingBox(const OBBox& inBox)
 {
@@ -1192,7 +1189,7 @@ int NS_TestPlayerPosition(playermove_t* pmove, float* origin, pmtrace_t* trace)
 void PM_DebugLocations(int theRandomNumber)
 {
 #ifdef AVH_CLIENT
-    gTriDebugLocations.clear();
+ //   gTriDebugLocations.clear();
 #endif
     
     //int theNumEnts = pmove->numphysent;
@@ -1223,13 +1220,13 @@ void PM_DebugLocations(int theRandomNumber)
             //}
             //pmove->Con_Printf("mins(%f, %f, %f)  maxs(%f %f %f)\n", i, theEntityOrigin[0], theEntityOrigin[1], theEntityOrigin[2]);
             
-#ifdef AVH_CLIENT
+#ifdef AVH_CLIENT/*
             DebugPoint thePoint;
             thePoint.x = theEntityOrigin[0];
             thePoint.y = theEntityOrigin[1];
             thePoint.z = theEntityOrigin[2];
 
-            gTriDebugLocations.push_back(thePoint);
+            gTriDebugLocations.push_back(thePoint);*/
 #endif
 
 #ifdef AVH_SERVER
@@ -1691,7 +1688,7 @@ void PM_InitTextureTypes()
     char buffer[512];
     int i, j;
     byte *pMemFile;
-    int fileSize, filePos;
+    int fileSize = 0, filePos = 0;
     static qboolean bTextureTypeInit = false;
 
     if ( bTextureTypeInit )
@@ -5315,6 +5312,7 @@ void PM_PreventMegaBunnyJumping(bool inAir)
     
     float theCurrentSpeed = Length(pmove->velocity);
 
+
     VectorScale( pmove->velocity, fraction, pmove->velocity ); //Crop it down!.
 
 //#ifdef AVH_CLIENT
@@ -5337,12 +5335,14 @@ void PM_Jump (void)
 {
     int i;
     qboolean tfc = false;
-    
+	qboolean autojump = false;
+	qboolean queuedjump = false;
     qboolean cansuperjump = false;
     
     if (pmove->dead || GetHasUpgrade(pmove->iuser4, MASK_ENSNARED))
     {
-        pmove->oldbuttons |= IN_JUMP ;  // don't jump again until released
+		//pmove->oldbuttons |= IN_JUMP;  // don't jump again until released
+		pmove->flags |= FL_JUMPHELD;
         return;
     }
     
@@ -5452,7 +5452,7 @@ void PM_Jump (void)
         // Flag that we jumped.
         // HACK HACK HACK
         // Remove this when the game .dll no longer does physics code!!!!
-        pmove->oldbuttons |= IN_JUMP;   // don't jump again until released
+        //pmove->oldbuttons |= IN_JUMP;   // don't jump again until released
         return;     // in air, so no effect
     }
 
@@ -5462,8 +5462,21 @@ void PM_Jump (void)
 //	if ( pmove->oldbuttons & IN_JUMP && (pmove->velocity[0] == 0 || !theIsAlien  || pmove->iuser3 == AVH_USER3_ALIEN_PLAYER3) )
 		//return;     // don't pogo stick
 
-	if ( pmove->oldbuttons & IN_JUMP )
+	autojump = atoi(pmove->PM_Info_ValueForKey(pmove->physinfo, "jm2"));
+	queuedjump = atoi(pmove->PM_Info_ValueForKey(pmove->physinfo, "jm1"));
+	bool theHasJetpackUpgrade = GetHasUpgrade(pmove->iuser4, MASK_UPGRADE_7) && (pmove->iuser3 == AVH_USER3_MARINE_PLAYER);
+
+	if ((!autojump && !queuedjump) || pmove->iuser3 == AVH_USER3_ALIEN_PLAYER3 || theHasJetpackUpgrade)
+	{
+		if (pmove->oldbuttons & IN_JUMP)
 		return;     // don't pogo stick
+	}
+
+	if (queuedjump)
+	{
+		if (pmove->flags & FL_JUMPHELD)
+			return;
+	}
 
 	// In the air now.
     pmove->onground = -1;
@@ -5516,7 +5529,8 @@ void PM_Jump (void)
     PM_FixupGravityVelocity();
     
     // Flag that we jumped.
-    pmove->oldbuttons |= IN_JUMP;   // don't jump again until released
+    //pmove->oldbuttons |= IN_JUMP;   // don't jump again until released
+	pmove->flags |= FL_JUMPHELD;
 }
 
 /*
@@ -6079,11 +6093,11 @@ bool PM_TopDown()
 
         //theMaxZ = min(theMaxZ, theNewStartPos[2]);
         
-//      #ifdef AVH_CLIENT
-//      extern DebugPointListType gSquareDebugLocations;
-//      DebugPoint theDebugPoint(theNewStartPos[0], theNewStartPos[1], theMaxZ - theNewStartPos[2]);
-//      gSquareDebugLocations.push_back(theDebugPoint);
-//      #endif
+		//#ifdef AVH_CLIENT /*
+		//extern DebugPointListType gSquareDebugLocations;
+		//DebugPoint theDebugPoint(theNewStartPos[0], theNewStartPos[1], theMaxZ - theNewStartPos[2]);
+		//gSquareDebugLocations.push_back(theDebugPoint);*/
+		//#endif
         
         float       speed, drop, friction, control, newspeed;
         float       currentspeed, addspeed, accelspeed;
@@ -6225,8 +6239,8 @@ bool PM_TopDown()
         theAngles[2] = kTopDownRoll;
         
         // Set angles facing down so observer knows which way to point
-        VectorCopy(theAngles, pmove->angles);
-        
+        VectorCopy(theAngles,pmove->angles);	
+
         // Set origin
         //pmove->origin[2] = 1080;
         //pmove->origin[2] = PM_GetDesiredTopDownCameraHeight();
@@ -6359,15 +6373,25 @@ void PM_Jetpack()
 
             float theWeightScalar = kBaseScalar + (1.0f - kBaseScalar)*((pmove->clientmaxspeed - theMinMarineSpeed)/(theMaxMarineSpeed - theMinMarineSpeed));
             
-            pmove->velocity[0] += (theWishVelocity[0]/pmove->clientmaxspeed)*kJetpackLateralScalar;
-            pmove->velocity[1] += (theWishVelocity[1]/pmove->clientmaxspeed)*kJetpackLateralScalar;
+			// Old lateral jetpack code - acceleration scales with framerate
+			//pmove->velocity[0] += (theWishVelocity[0]/pmove->clientmaxspeed)*kJetpackLateralScalar;
+			//pmove->velocity[1] += (theWishVelocity[1]/pmove->clientmaxspeed)*kJetpackLateralScalar;
+
+			pmove->velocity[0] += (theWishVelocity[0] / pmove->clientmaxspeed) * (theTimePassed * theWeightScalar*kJetpackForce);
+			pmove->velocity[1] += (theWishVelocity[1] / pmove->clientmaxspeed) * (theTimePassed * theWeightScalar*kJetpackForce);
             pmove->velocity[2] += theTimePassed*theWeightScalar*kJetpackForce;
 
-            // Play an event every so often
-            if(pmove->runfuncs /*&& (pmove->RandomLong(0, 2) == 0)*/)
-            {
-                pmove->PM_PlaybackEventFull(0, pmove->player_index, gJetpackEventID, 0, (float *)pmove->origin, (float *)pmove->origin, 0.0, 0.0, /*theWeaponIndex*/ 0, 0, 0, 0 );
-            }
+			//FPS independent jetpack event. Scales with FPS without timer.
+			JpEventTimer += pmove->cmd.msec;
+			if (JpEventTimer > 7)
+			{
+				// Play an event every so often
+				if (pmove->runfuncs /*&& (pmove->RandomLong(0, 2) == 0)*/)
+				{
+					pmove->PM_PlaybackEventFull(0, pmove->player_index, gJetpackEventID, 0, (float *)pmove->origin, (float *)pmove->origin, 0.0, 0.0, /*theWeaponIndex*/ 0, 0, 0, 0);
+				}
+				JpEventTimer = 0;
+			}
         }
 
         float theJetpackEnergy = pmove->fuser3/kNormalizationNetworkFactor;
@@ -6677,6 +6701,7 @@ void PM_PlayerMove ( qboolean server )
             else
             {
                 pmove->oldbuttons &= ~IN_JUMP;
+				pmove->flags &= ~FL_JUMPHELD;
             }
 
             // Fricion is handled before we add in any base velocity. That way, if we are on a conveyor, 
@@ -7138,7 +7163,7 @@ bool PM_ViewTracePlayer(float inOriginX, float inOriginY, float inOriginZ, float
     theTraceStart[1]= inOriginY;
     theTraceStart[2] = inOriginZ;
     
-    #ifdef AVH_CLIENT
+    #ifdef AVH_CLIENT/*
     DebugPoint thePoint;
     thePoint.x = theTraceStart[0];
     thePoint.y = theTraceStart[1];
@@ -7148,7 +7173,7 @@ bool PM_ViewTracePlayer(float inOriginX, float inOriginY, float inOriginZ, float
     thePoint.x = theTraceEnd[0];
     thePoint.y = theTraceEnd[1];
     thePoint.z = theTraceEnd[2];
-    //gSquareDebugLocations.push_back(thePoint);
+    //gSquareDebugLocations.push_back(thePoint);*/
     #endif  
     
 //  pmtrace_t* theTrace = NULL;
@@ -7178,12 +7203,12 @@ bool PM_ViewTracePlayer(float inOriginX, float inOriginY, float inOriginZ, float
         //if(!theDone || theEntityIsAPlayer)
         if(theEntIndex > 0)
         {
-            #ifdef AVH_CLIENT
+            #ifdef AVH_CLIENT/*
             DebugPoint thePoint;
             thePoint.x = theTraceStruct.endpos[0];
             thePoint.y = theTraceStruct.endpos[1];
             thePoint.z = theTraceStruct.endpos[2];
-            //gSquareDebugLocations.push_back(thePoint);
+            //gSquareDebugLocations.push_back(thePoint);*/
             #endif
         }
         

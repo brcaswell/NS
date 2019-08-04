@@ -22,7 +22,7 @@
 #include "nodes.h"
 #include "player.h"
 #include "gamerules.h"
-#include "mod/AvHNetworkMessages.h"
+#include "../mod/AvHNetworkMessages.h"
 
 
 

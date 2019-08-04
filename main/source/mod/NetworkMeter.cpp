@@ -38,8 +38,8 @@
 //
 // Revision 1.2  2002/05/01 02:34:41  Charlie
 //===============================================================================
-#include "mod/NetworkMeter.h"
-#include "mod/AvHServerVariables.h"
+#include "NetworkMeter.h"
+#include "AvHServerVariables.h"
 
 ////////////////////
 // Hook functions //

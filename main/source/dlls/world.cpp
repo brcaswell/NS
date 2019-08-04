@@ -20,7 +20,7 @@
 
 */
 
-#include "util/nowarnings.h"
+#include "../util/nowarnings.h"
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"
@@ -34,8 +34,8 @@
 #include "weapons.h"
 #include "gamerules.h"
 #include "teamplay_gamerules.h"
-#include "mod/AvHGamerules.h"
-#include "mod/AvHServerVariables.h"
+#include "../mod/AvHGamerules.h"
+#include "../mod/AvHServerVariables.h"
 #include "pm_shared/pm_defs.h"
 
 extern CGraph WorldGraph;

@@ -1,19 +1,19 @@
 #ifndef AVH_ORDER_H
 #define AVH_ORDER_H
   
-#include "util/nowarnings.h"
-#include "types.h"
-#include "mod/AvHConstants.h"
-#include "mod/AvHSpecials.h"
+#include "../util/nowarnings.h"
+#include "../types.h"
+#include "AvHConstants.h"
+#include "AvHSpecials.h"
 
 #ifdef AVH_CLIENT
-#include "common/triangleapi.h"
+#include "../common/triangleapi.h"
 #include "cl_dll/wrect.h"
 #include "cl_dll/cl_dll.h"
 #endif
 
 #ifdef AVH_SERVER
-#include "dlls/extdll.h"
+#include "../dlls/extdll.h"
 class CBaseEntity;
 #endif
 

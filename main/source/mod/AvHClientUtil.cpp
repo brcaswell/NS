@@ -22,19 +22,19 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "mod/AvHClientUtil.h"
-#include "mod/AvHSpecials.h"
-#include "common/vector_util.h"
-#include "common/com_model.h"
+#include "AvHClientUtil.h"
+#include "AvHSpecials.h"
+#include "../common/vector_util.h"
+#include "../common/com_model.h"
 #include "cl_dll/studio_util.h"
 #include "cl_dll/r_studioint.h"
-#include "engine/studio.h"
+#include "../engine/studio.h"
 #include "cl_dll/hud.h"
 #include "cl_dll/cl_util.h"
-#include "common/cl_entity.h"
-#include "common/triangleapi.h"
+#include "../common/cl_entity.h"
+#include "../common/triangleapi.h"
 #include "cl_dll/vgui_TeamFortressViewport.h"
-#include "util/STLUtil.h"
+#include "../util/STLUtil.h"
 
 extern engine_studio_api_t	IEngineStudio;
 

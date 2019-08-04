@@ -49,20 +49,20 @@
 #ifndef AVHBASEPLAYERWEAPON_H
 #define AVHBASEPLAYERWEAPON_H
 
-#include "dlls/weapons.h"
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "dlls/cbase.h"
-#include "dlls/monsters.h"
-#include "dlls/weapons.h"
-#include "dlls/nodes.h"
-#include "dlls/player.h"
-#include "dlls/soundent.h"
-#include "dlls/gamerules.h"
-#include "util/CString.h"
-#include "mod/AvHBasePlayerWeaponConstants.h"
-#include "mod/AvHConstants.h"
-#include "mod/AvHSpecials.h"
+#include "../dlls/weapons.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "../dlls/cbase.h"
+#include "../dlls/monsters.h"
+#include "../dlls/weapons.h"
+#include "../dlls/nodes.h"
+#include "../dlls/player.h"
+#include "../dlls/soundent.h"
+#include "../dlls/gamerules.h"
+#include "../util/CString.h"
+#include "AvHBasePlayerWeaponConstants.h"
+#include "AvHConstants.h"
+#include "AvHSpecials.h"
 
 const int kIdleAnimationOne = 0;
 const int kIdleAnimationTwo = 1;

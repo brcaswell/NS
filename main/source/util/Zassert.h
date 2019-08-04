@@ -93,7 +93,7 @@ int emailMsgTo( char *msg, char *emailAddress );
 // function declarations for the call from the assert macro.
 // So, the ASSERTFUNC macro defines function in a portable way
 #ifdef WIN32
-	#define ASSERTFUNC _CRTIMP void __cdecl _assert( void *msg, void *file, unsigned line )
+	#define ASSERTFUNC void __cdecl _assert( void *msg, void *file, unsigned line )
 #else
 	#define ASSERTFUNC __dead void __assert __P((const char *msg,const char *file,int line)) 
 #endif

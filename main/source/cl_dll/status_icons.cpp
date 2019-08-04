@@ -73,7 +73,8 @@ int CHudStatusIcons::Draw( float flTime )
 void CHudStatusIcons::EnableIcon( char *pszIconName, unsigned char red, unsigned char green, unsigned char blue )
 {
 	// check to see if the sprite is in the current list
-	for ( int i = 0; i < MAX_ICONSPRITES; i++ )
+	int i = 0;
+	for ( i = 0; i < MAX_ICONSPRITES; i++ )
 	{
 		if ( !stricmp( m_IconList[i].szSpriteName, pszIconName ) )
 			break;
@@ -121,7 +122,7 @@ void CHudStatusIcons::DisableIcon( char *pszIconName )
 		if ( !stricmp( m_IconList[i].szSpriteName, pszIconName ) )
 		{
 			// clear the item from the list
-			memset( &m_IconList[i], 0, sizeof icon_sprite_t );
+			memset( &m_IconList[i], 0, sizeof(icon_sprite_t) );
 			return;
 		}
 	}

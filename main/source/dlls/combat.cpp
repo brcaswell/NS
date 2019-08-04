@@ -64,13 +64,13 @@
 #include "animation.h"
 #include "weapons.h"
 #include "func_break.h"
-#include "mod/AvHPlayer.h"
-#include "mod/AvHGamerules.h"
-#include "mod/AvHServerUtil.h"
-#include "mod/AvHAlienWeaponConstants.h"
-#include "mod/AvHTurret.h"
-#include "mod/AvHServerVariables.h"
-//#include "mod/AvHMovementUtil.h"
+#include "../mod/AvHPlayer.h"
+#include "../mod/AvHGamerules.h"
+#include "../mod/AvHServerUtil.h"
+#include "../mod/AvHAlienWeaponConstants.h"
+#include "../mod/AvHTurret.h"
+#include "../mod/AvHServerVariables.h"
+//#include "../mod/AvHMovementUtil.h"
 
 extern DLL_GLOBAL Vector		g_vecAttackDir;
 extern DLL_GLOBAL int			g_iSkillLevel;

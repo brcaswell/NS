@@ -53,9 +53,9 @@
 #ifndef AVH_SPECIALS_H
 #define AVH_SPECIALS_H
 
-#include "types.h"
-#include "mod/AvHMessage.h"
-#include "mod/AvHConstants.h"
+#include "../types.h"
+#include "AvHMessage.h"
+#include "AvHConstants.h"
 
 // Only one of these allowed per entity, stored in pev->iuser3.
 typedef enum

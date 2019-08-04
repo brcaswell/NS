@@ -12,6 +12,9 @@
 //
 //-------------------------------------------------------------------------------
 // $Log: AvHMarineEquipment.cpp,v $
+// Revision 1.51  2015/12/03 fmoraw
+// - observatory detection method no longer uses vector2d
+//
 // Revision 1.50  2002/11/22 21:28:16  Flayra
 // - mp_consistency changes
 //
@@ -118,30 +121,30 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "mod/AvHMarineEquipment.h"
-#include "mod/AvHPlayer.h"
-#include "mod/AvHMarineEquipmentConstants.h"
-#include "mod/AvHPlayerUpgrade.h"
-#include "mod/AvHServerUtil.h"
-#include "mod/AvHGamerules.h"
-#include "dlls/client.h"
-#include "common/vec_op.h"
-#include "common/vector_util.h"
-#include "mod/AvHSoundListManager.h"
-#include "dlls/weapons.h"
-#include "mod/AvHServerVariables.h"
-#include "mod/AvHConstants.h"
-#include "mod/AvHSharedUtil.h"
-#include "mod/AvHMovementUtil.h"
-#include "dlls/explode.h"
-#include "dlls/weapons.h"
-#include "util/MathUtil.h"
-#include "mod/AvHTitles.h"
-#include "mod/AvHServerUtil.h"
-#include "mod/AvHParticleConstants.h"
-#include "mod/AvHMarineTurret.h"
-#include "mod/AvHSiegeTurret.h"
-#include "mod/AvHHulls.h"
+#include "AvHMarineEquipment.h"
+#include "AvHPlayer.h"
+#include "AvHMarineEquipmentConstants.h"
+#include "AvHPlayerUpgrade.h"
+#include "AvHServerUtil.h"
+#include "AvHGamerules.h"
+#include "../dlls/client.h"
+#include "../common/vec_op.h"
+#include "../common/vector_util.h"
+#include "AvHSoundListManager.h"
+#include "../dlls/weapons.h"
+#include "AvHServerVariables.h"
+#include "AvHConstants.h"
+#include "AvHSharedUtil.h"
+#include "AvHMovementUtil.h"
+#include "../dlls/explode.h"
+#include "../dlls/weapons.h"
+#include "../util/MathUtil.h"
+#include "AvHTitles.h"
+#include "AvHServerUtil.h"
+#include "AvHParticleConstants.h"
+#include "AvHMarineTurret.h"
+#include "AvHSiegeTurret.h"
+#include "AvHHulls.h"
 
 //LINK_ENTITY_TO_CLASS(kwMine, AvHMine);
 //LINK_ENTITY_TO_CLASS(kwDeployedTurret, AvHDeployedTurret);
@@ -2414,7 +2417,7 @@ void AvHObservatory::ObservatoryThink()
 		if(theEntity->GetIsRelevant() && (theEntity->pev->team != this->pev->team))
 		{
 			// Check that entity is in range of scan
-			float theDistance = VectorDistance2D(theEntity->pev->origin, this->pev->origin);
+			float theDistance = VectorDistance(theEntity->pev->origin, this->pev->origin);
 			if(theDistance < BALANCE_VAR(kObservatoryXYDetectionRadius))
 			{
 				// Remove cloaking, if player has it

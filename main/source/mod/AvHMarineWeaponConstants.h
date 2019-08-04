@@ -93,7 +93,7 @@
 #ifndef AVHMARINEWEAPONCONSTANTS_H
 #define AVHMARINEWEAPONCONSTANTS_H
 
-#include "mod/AvHBasePlayerWeaponConstants.h"
+#include "AvHBasePlayerWeaponConstants.h"
 
 // I would have much preferred they weren't all #defined outside of the class
 // like this but the precaching issues that assume constant string addresses are getting to be too much.

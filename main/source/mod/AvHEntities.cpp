@@ -68,32 +68,32 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "mod/AvHEntities.h"
-#include "dlls/player.h"
-#include "dlls/gamerules.h"
-#include "dlls/explode.h"
-#include "dlls/soundent.h"
-#include "dlls/weapons.h"
-#include "dlls/cpushable.h"
-#include "mod/AvHPlayerUpgrade.h"
-#include "mod/AvHServerUtil.h"
-#include "mod/AvHGamerules.h"
-#include "mod/AvHMarineEquipmentConstants.h"
-#include "mod/AvHAlienEquipmentConstants.h"
-#include "mod/AvHServerVariables.h"
-#include "mod/AvHPlayer.h"
-#include "mod/AvHTitles.h"
-#include "mod/AvHSoundListManager.h"
-#include "mod/AvHParticleTemplateServer.h"
-#include "mod/AvHParticleConstants.h"
-#include "mod/AvHParticleSystemEntity.h"
-#include "mod/AvHSharedUtil.h"
-#include "mod/AvHHulls.h"
-#include "engine/studio.h"
-#include "mod/AvHBaseBuildable.h"
-#include "mod/AvHScriptManager.h"
-#include "dlls/animation.h"
-#include "util/MathUtil.h"
+#include "AvHEntities.h"
+#include "../dlls/player.h"
+#include "../dlls/gamerules.h"
+#include "../dlls/explode.h"
+#include "../dlls/soundent.h"
+#include "../dlls/weapons.h"
+#include "../dlls/cpushable.h"
+#include "AvHPlayerUpgrade.h"
+#include "AvHServerUtil.h"
+#include "AvHGamerules.h"
+#include "AvHMarineEquipmentConstants.h"
+#include "AvHAlienEquipmentConstants.h"
+#include "AvHServerVariables.h"
+#include "AvHPlayer.h"
+#include "AvHTitles.h"
+#include "AvHSoundListManager.h"
+#include "AvHParticleTemplateServer.h"
+#include "AvHParticleConstants.h"
+#include "AvHParticleSystemEntity.h"
+#include "AvHSharedUtil.h"
+#include "AvHHulls.h"
+#include "../engine/studio.h"
+#include "AvHBaseBuildable.h"
+#include "AvHScriptManager.h"
+#include "../dlls/animation.h"
+#include "../util/MathUtil.h"
 
 extern DLL_GLOBAL CGameRules*	g_pGameRules;
 BOOL IsSpawnPointValid( CBaseEntity *pPlayer, CBaseEntity *pSpot );
@@ -684,11 +684,18 @@ void AvHNoBuild::Spawn()
 
 
 
-
 AvHMP3Audio::AvHMP3Audio()
 {
 	this->mUseState = false;
-	this->mSoundVolume = 255;
+	//bool ambtoggle = CVAR_GET_FLOAT("cl_ambientsound") != 1;
+	//if (ambtoggle)
+	//{
+	//	this->mSoundVolume = 0;
+	//}
+	//else
+	//{
+		this->mSoundVolume = 255;
+//	}
 	this->mLooping = false;
 }
 
@@ -706,7 +713,16 @@ void AvHMP3Audio::KeyValue( KeyValueData* pkvd )
 	}
 	else if(FStrEq(pkvd->szKeyName, "soundvolume"))
 	{
-		this->mSoundVolume = atoi(pkvd->szValue);
+		bool ambtoggle = CVAR_GET_FLOAT("cl_ambientsound") != 1;
+		if (ambtoggle)
+		{
+			this->mSoundVolume = 0;
+		}
+		else
+		{
+			this->mSoundVolume = atoi(pkvd->szValue);
+		}
+		
 		pkvd->fHandled = TRUE;
 	}
 	else if(FStrEq(pkvd->szKeyName, "fadedistance"))
@@ -1211,17 +1227,17 @@ void TriggerPresence::KeyValue(KeyValueData* pkvd)
 	} 
 	else if(FStrEq(pkvd->szKeyName, "timebeforeleave"))
 	{
-		this->mTimeBeforeLeave = max(atof(pkvd->szValue), 0.0f);
+		this->mTimeBeforeLeave = max(atof(pkvd->szValue), (double)0.0f);
 		pkvd->fHandled = TRUE;
 	} 
 	else if(FStrEq(pkvd->szKeyName, "momentaryopentime"))
 	{
-		this->mMomentaryOpenTime = max(atof(pkvd->szValue), 0.01f);
+		this->mMomentaryOpenTime = max(atof(pkvd->szValue), (double)0.01f);
 		pkvd->fHandled = TRUE;
 	} 
 	else if(FStrEq(pkvd->szKeyName, "momentaryclosetime"))
 	{
-		this->mMomentaryCloseTime = max(atof(pkvd->szValue), 0.01f);
+		this->mMomentaryCloseTime = max(atof(pkvd->szValue), (double)0.01f);
 		pkvd->fHandled = TRUE;
 	} 
 	else if(FStrEq(pkvd->szKeyName, "spawnflags"))

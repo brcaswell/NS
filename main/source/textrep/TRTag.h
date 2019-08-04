@@ -19,7 +19,7 @@
 #ifndef TRTAG_H
 #define TRTAG_H
 
-#include "types.h"
+#include "../types.h"
 
 typedef string TRTag;
 

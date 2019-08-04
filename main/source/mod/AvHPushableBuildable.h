@@ -1,7 +1,7 @@
 #ifndef AVH_PUSHABLEBUILDABLE_H
 #define AVH_PUSHABLEBUILDABLE_H
 
-#include "mod/AvHBaseBuildable.h"
+#include "AvHBaseBuildable.h"
 
 class AvHPushableBuildable : public AvHBaseBuildable
 {

@@ -22,17 +22,18 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "util/nowarnings.h"
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "dlls/cbase.h"
-#include "dlls/player.h"
-#include "dlls/weapons.h"
-#include "mod/AvHScriptManager.h"
-#include "mod/AvHGamerules.h"
-#include "util/Checksum.h"
-#include "util/STLUtil.h"
+#include "../util/nowarnings.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "../dlls/cbase.h"
+#include "../dlls/player.h"
+#include "../dlls/weapons.h"
+#include "AvHScriptManager.h"
+#include "AvHGamerules.h"
+#include "../util/Checksum.h"
+#include "../util/STLUtil.h"
 
+#ifdef USE_LUA
 extern "C" {
 	#include <lua.h>
 }
@@ -545,8 +546,11 @@ static int setServerVariable(lua_State* inState)
 	return 0;
 }
 
+#endif
+
 void AvHScriptInstance::InitServer()
 {
+#ifdef USE_LUA
 	//lua_register(this->mState, LUA_ERRORMESSAGE, errormessage);
 	
 	//lua_register(this->mState, "execute", execute);
@@ -579,4 +583,6 @@ void AvHScriptInstance::InitServer()
 	lua_register(this->mState, "runClientScript", runClientScript);
 
 	lua_register(this->mState, "setServerVariable", setServerVariable);
+#endif
 }
+

@@ -8,7 +8,11 @@
 #ifndef particle_vector_h
 #define particle_vector_h
 
-#include <math.h>
+#if _MSC_VER >= 1900 // C++11 Compatible for Visual Studio 2015 and later.
+ #include <cmath>
+#else
+ #include "math.h"
+#endif
 
 #ifndef M_PI
 #define M_PI 3.1415926535897932384626433f

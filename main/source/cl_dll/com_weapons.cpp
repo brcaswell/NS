@@ -58,12 +58,7 @@ void COM_Log( char *pszFile, char *fmt, ...)
 	}
 
 	va_start (argptr,fmt);
-#ifdef WIN32
-   //overflow protection in MS version of function...
-   _vsnprintf( string, 1023, fmt, argptr );
-#else
 	vsprintf (string, fmt,argptr);
-#endif
 	va_end (argptr);
 
 	fp = fopen( pfilename, "a+t");
@@ -279,5 +274,5 @@ stub functions for such things as precaching.  So we don't have to modify weapon
 int				stub_PrecacheModel		( char* s ) { return 0; }
 int				stub_PrecacheSound		( char* s ) { return 0; }
 unsigned short	stub_PrecacheEvent		( int type, const char *s ) { return 0; }
-const char		*stub_NameForFunction	( unsigned long function ) { return "func"; }
+const char		*stub_NameForFunction	( uint32 function ) { return "func"; }
 void			stub_SetModel			( edict_t *e, const char *m ) {}

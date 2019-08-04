@@ -8,10 +8,17 @@
 #define RGB_MARINE_SELECTED 0x006EE6FF //110, 230, 255
 #define RGB_MARINE_PARASITED 0x00E3F03D //227, 240, 61
 
+
+#ifndef _WIN32
+#define _cdecl
+#else
+#undef _cdecl
+#endif
+
 #include "wrect.h"
 #include "cl_dll.h"
 #include "ammo.h"
-#include "game_shared/teamconst.h"
+#include "teamconst.h"
 
 #define DHN_DRAWZERO 1
 #define DHN_2DIGITS  2
@@ -67,7 +74,7 @@ struct HUDLIST {
 //
 //-----------------------------------------------------
 //
-#include "..\game_shared\voice_status.h"
+#include "voice_status.h"
 #include "hud_spectator.h"
 
 
@@ -180,7 +187,7 @@ public:
 	int MsgFunc_Train(const char *pszName, int iSize, void *pbuf);
 
 private:
-	HSPRITE m_hSprite;
+	AVHHSPRITE m_hSprite;
 	int m_iPos;
 
 };
@@ -336,8 +343,8 @@ public:
 	int MsgFunc_Battery(const char *pszName,  int iSize, void *pbuf );
 	
 private:
-	HSPRITE m_hSprite1;
-	HSPRITE m_hSprite2;
+	AVHHSPRITE m_hSprite1;
+	AVHHSPRITE m_hSprite2;
 	wrect_t *m_prc1;
 	wrect_t *m_prc2;
 	int	  m_iBat;	
@@ -361,9 +368,9 @@ public:
 	int MsgFunc_FlashBat(const char *pszName,  int iSize, void *pbuf );
 
 private:
-	HSPRITE m_hSprite1;
-	HSPRITE m_hSprite2;
-	HSPRITE m_hBeam;
+	AVHHSPRITE m_hSprite1;
+	AVHHSPRITE m_hSprite2;
+	AVHHSPRITE m_hBeam;
 	wrect_t *m_prc1;
 	wrect_t *m_prc2;
 	wrect_t *m_prcBeam;
@@ -485,7 +492,7 @@ private:
 	typedef struct
 	{
 		char szSpriteName[MAX_ICONSPRITENAME_LENGTH];
-		HSPRITE spr;
+		AVHHSPRITE spr;
 		wrect_t rc;
 		unsigned char r, g, b;
 	} icon_sprite_t;

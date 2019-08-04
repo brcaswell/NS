@@ -1,9 +1,9 @@
-#include "common/mathlib.h"
-#include "common/const.h"
-#include "common/com_model.h"
+#include "../common/mathlib.h"
+#include "../common/const.h"
+#include "../common/com_model.h"
 
-#include "common/vector_util.h"
-#include "engine/studio.h"
+#include "../common/vector_util.h"
+#include "../engine/studio.h"
 
 #include "CollisionUtil.h"
 
@@ -12,22 +12,22 @@
 #include <math.h>
 #include <stdlib.h>
 #include <queue>
-#include "localassert.h"
-#include "engine/progdefs.h"
+#include "../localassert.h"
+#include "../engine/progdefs.h"
 
 #ifdef AVH_SERVER
-#include "engine/edict.h"
-#include "engine/eiface.h"
-#include "dlls/enginecallback.h"
+#include "../engine/edict.h"
+#include "../engine/eiface.h"
+#include "../dlls/enginecallback.h"
 #endif
 
 #ifdef AVH_CLIENT
-#include "common/cl_entity.h"
+#include "../common/cl_entity.h"
 #endif
 
 #include "AnimationUtil.h"
 
-#include "pm_shared/pm_defs.h"
+#include "../pm_shared/pm_defs.h"
 
 const float AVH_INFINITY = -logf(0);
 const float AVH_EPSILON  = 0.001f;

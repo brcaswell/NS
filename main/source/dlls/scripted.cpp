@@ -1198,7 +1198,7 @@ BOOL CScriptedSentence :: StartSentence( CBaseMonster *pTarget )
 */
 
 
-#include "dlls/furniture.h"
+#include "furniture.h"
 
 LINK_ENTITY_TO_CLASS( monster_furniture, CFurniture );
 

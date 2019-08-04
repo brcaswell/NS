@@ -9,7 +9,7 @@
 #define SPECTATOR_H
 #pragma once
 
-#include "common/cl_entity.h"
+#include "cl_entity.h"
 
 // Removed by mmcguire.
 /*
@@ -46,7 +46,7 @@ typedef struct overviewInfo_s {
 
 typedef struct overviewEntity_s {
 
-	HSPRITE					hSprite;
+	AVHHSPRITE					hSprite;
 	struct cl_entity_s *	entity;
 	double					killTime;
 	int						mFrame;
@@ -65,7 +65,7 @@ public:
 	void Reset();
 	void CheckSettings();
 	void InitHUDData( void );
-	bool AddOverviewEntityToList( HSPRITE sprite, cl_entity_t * ent, double killTime, int inFrame, int inRenderMode, float r, float g, float b);
+	bool AddOverviewEntityToList(AVHHSPRITE sprite, cl_entity_t * ent, double killTime, int inFrame, int inRenderMode, float r, float g, float b);
 	void DeathMessage(int victim);
 	bool AddOverviewEntity( int type, struct cl_entity_s *ent, const char *modelname );
 	void CheckOverviewEntities();
@@ -120,15 +120,15 @@ public:
 
 private:
 	vec3_t		m_vPlayerPos[MAX_PLAYERS];
-	HSPRITE		m_hsprPlayerMarine;
-	HSPRITE		m_hsprPlayerAlien;
-	HSPRITE		m_hsprCamera;
-	HSPRITE		m_hsprPlayerDead;
-	HSPRITE		m_hsprViewcone;
-	HSPRITE		m_hsprUnkownMap;
-	HSPRITE		m_hsprBeam;
-	HSPRITE		m_hCrosshair;
-    HSPRITE     m_hsprWhite;
+	AVHHSPRITE	m_hsprPlayerMarine;
+	AVHHSPRITE	m_hsprPlayerAlien;
+	AVHHSPRITE	m_hsprCamera;
+	AVHHSPRITE	m_hsprPlayerDead;
+	AVHHSPRITE	m_hsprViewcone;
+	AVHHSPRITE	m_hsprUnkownMap;
+	AVHHSPRITE	m_hsprBeam;
+	AVHHSPRITE	m_hCrosshair;
+	AVHHSPRITE	m_hsprWhite;
 
 	wrect_t		m_crosshairRect;
 

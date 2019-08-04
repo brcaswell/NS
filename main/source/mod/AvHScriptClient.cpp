@@ -20,39 +20,42 @@
 //
 // Revision 1.1  2002/05/14 18:54:48  Charlie
 //===============================================================================
-#include "mod/AvHHud.h"
+#include "AvHHud.h"
 #include "cl_dll/hud.h"
 #include "cl_dll/cl_util.h"
-#include "mod/AvHConstants.h"
-#include "mod/AvHClientVariables.h"
-#include "mod/AvHSpecials.h"
-#include "common/cl_entity.h"
-#include "mod/AvHTitles.h"
-#include "pm_shared/pm_debug.h"
-#include "util/MathUtil.h"
-#include "common/r_efx.h"
+#include "AvHConstants.h"
+#include "AvHClientVariables.h"
+#include "AvHSpecials.h"
+#include "../common/cl_entity.h"
+#include "AvHTitles.h"
+#include "../pm_shared/pm_debug.h"
+#include "../util/MathUtil.h"
+#include "../common/r_efx.h"
 #include "cl_dll/eventscripts.h"
-#include "mod/AvHSprites.h"
+#include "AvHSprites.h"
 #include "ui/UIUtil.h"
-#include "types.h"
+#include "../types.h"
 #include <signal.h>
-#include "common/com_model.h"
+#include "../common/com_model.h"
 #include "cl_dll/studio_util.h"
 #include "cl_dll/r_studioint.h"
-#include "mod/AvHMiniMap.h"
-#include "mod/AvHActionButtons.h"
-#include "util/STLUtil.h"
-#include "mod/AvHSharedUtil.h"
-#include "common/event_api.h"
-#include "mod/AvHScriptManager.h"
+#include "AvHMiniMap.h"
+#include "AvHActionButtons.h"
+#include "../util/STLUtil.h"
+#include "AvHSharedUtil.h"
+#include "../common/event_api.h"
+#include "AvHScriptManager.h"
 
+#ifdef USE_LUA
 extern "C" {
 	#include <lua.h>
 }
+#endif
 
 extern void DrawScaledHUDSprite(int inSpriteHandle, int inMode, int inRowsInSprite = 1, int inX = 0, int inY = 0, int inWidth = ScreenWidth(), int inHeight = ScreenHeight(), int inForceSpriteFrame = -1, float inStartU = 0.0f, float inStartV = 0.0f, float inEndU = 1.0f, float inEndV = 1.0f, float inRotateUVRadians = 0.0f, bool inUVWrapsOverFrames = false);
 extern vec3_t v_origin;
 
+#ifdef USE_LUA
 static int errormessage(lua_State* inState)
 {
 	const char *s = lua_tostring(inState, 1);
@@ -92,6 +95,7 @@ static int print(lua_State* inState)
 	
 	return 0;
 }
+
 
 // Runs a client command, returns success
 static int clientCommand(lua_State* inState)
@@ -161,7 +165,7 @@ static int drawScaledHUDSprite(lua_State* inState)
 			theFrame = lua_tonumber(inState, 7);
 		}
 		
-		int theSpriteHandle = Safe_SPR_Load(theSpriteName.c_str());
+		int theSpriteHandle = SPR_Load(theSpriteName.c_str());
 		if(theSpriteHandle)
 		{
 			DrawScaledHUDSprite(theSpriteHandle, theRenderMode, 1, theStartX, theStartY, theWidth, theHeight, theFrame);
@@ -362,7 +366,7 @@ static int triSpriteTexture(lua_State* inState)
 	if(theNumArgs >= 1)
 	{
 		string theSpriteName = lua_tostring(inState, 1);
-		int theSpriteHandle = Safe_SPR_Load(theSpriteName.c_str());
+		int theSpriteHandle = SPR_Load(theSpriteName.c_str());
 		if(theSpriteHandle)
 		{
 			int theSpriteFrame = 0;
@@ -438,9 +442,11 @@ static int triFog(lua_State* inState)
 	return 1;
 }
 
+#endif
 
 void AvHScriptInstance::InitClient()
 {
+#ifdef USE_LUA
 	//lua_register(this->mState, LUA_ERRORMESSAGE, errormessage);
 	lua_register(this->mState, "print", print);
 	lua_register(this->mState, "clientCommand", clientCommand);
@@ -469,4 +475,5 @@ void AvHScriptInstance::InitClient()
 
 	//lua_register(this->mState, "drawScaledHUDSprite", drawScaledHUDSpriteUV);
 	//lua_register(this->mState, "drawScaledTiledHUDSprite", drawScaledTiledHUDSprite);
+#endif
 }

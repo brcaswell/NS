@@ -1,19 +1,18 @@
-#include "util/GammaTable.h"
+#include "GammaTable.h"
 
 // Include windows gamma functions
+#ifdef _WIN32
+#include "winsani_in.h"
 #include <windows.h>
 #include "winuser.h"
+#include "winsani_out.h"
+#endif
 
 GammaTable::GammaTable()
 {
 	this->mSlope = 1.0f;
-	this->InitializeToFlat();
+	//this->InitializeToFlat(); // will cause @linux client to crash at start
 	this->mDirect3DMode = false;
-
-	#ifdef USE_DIRECTX_8
-	this->m3DDevice = NULL;
-	memset(&this->mDirect3DGammaRamp, 0, sizeof(D3DGAMMARAMP));
-	#endif
 }
 
 GammaTable::~GammaTable()
@@ -24,50 +23,6 @@ float GammaTable::GetGammaSlope() const
 {
 	return this->mSlope;
 }
-
-#ifdef USE_DIRECTX_8
-IDirect3DDevice8* GammaTable::GetDirect3DDevice()
-{
-	if(!this->m3DDevice)
-	{
-		// Create DX8 object
-		IDirect3D8* theIDX8 = Direct3DCreate8(D3D_SDK_VERSION);
-		if(theIDX8)
-		{
-			//IUnknown::QueryInterface(IID_IDirectDrawGammaControl)
-			
-			HWND theHWND = (HWND)0x109823;
-
-			// Create the device
-			D3DPRESENT_PARAMETERS thePresentParameters;
-
-			thePresentParameters.Windowed = TRUE;
-			thePresentParameters.BackBufferWidth = thePresentParameters.BackBufferHeight = 0;
-			thePresentParameters.hDeviceWindow = NULL;
-
-			HRESULT theResult = theIDX8->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, theHWND, D3DCREATE_FPU_PRESERVE, &thePresentParameters, &this->m3DDevice);
-			int a = 0;
-			switch(theResult)
-			{
-			case D3DERR_INVALIDCALL: // The method call is invalid. For example, a method's parameter may have an invalid value. 
-				a = 1;
-				break;
-			case D3DERR_NOTAVAILABLE: // This device does not support the queried technique. 
-				a = 1;
-				break;
-			case D3DERR_OUTOFVIDEOMEMORY: // Direct3D does not have enough display memory to perform the operation. 
-				a = 1;
-				break;
-			case D3D_OK:
-				a = 1;
-				break;
-			}
-		}
-	}
-
-	return this->m3DDevice;
-}
-#endif
 
 void GammaTable::InitializeToFlat()
 {
@@ -86,18 +41,18 @@ void GammaTable::InitializeToFlat()
 		}
 	}
 }
-
+#ifdef _WIN32
 bool GammaTable::InitializeFromVideoState()
 {
 	bool theSuccess = false;
 
 	if(!this->mDirect3DMode)
 	{
-		HDC theDC = GetDC(NULL);
+		HDC theDC = GetDC(NULL); // evil
 		if(theDC != 0)
 		{
 			// Read current settings in
-			if(GetDeviceGammaRamp(theDC, this->mBaseData) == TRUE)
+			if(GetDeviceGammaRamp(theDC, this->mBaseData) == TRUE) // more evil
 			{
 				// Copy to base data also
 				memcpy(this->mSlopeData, this->mBaseData, kGammaTableSize*sizeof(char));
@@ -113,26 +68,7 @@ bool GammaTable::InitializeFromVideoState()
 				// emit error about leak
 			}
 		}
-	}
-	
-	// Try the DirectX way
-	if(!theSuccess)
-	{
-		#ifdef USE_DIRECTX_8
-		IDirect3DDevice8* the3DDevice = this->GetDirect3DDevice();
-		if(the3DDevice)
-		{
-			// TODO: Copy data into base data and slope data
-			the3DDevice->GetGammaRamp(&this->mDirect3DGammaRamp);
-			ASSERT(kGammaTableSize == sizeof(D3DGAMMARAMP));
-			memcpy(this->mBaseData, &this->mDirect3DGammaRamp, kGammaTableSize);
-			memcpy(this->mSlopeData, &this->mDirect3DGammaRamp, kGammaTableSize);
-
-			this->mDirect3DMode = true;
-		}
-		#endif
-	}
-	
+	}	
 	return theSuccess;
 }
 
@@ -161,23 +97,10 @@ bool GammaTable::InitializeToVideoState()
 				// emit error about leak
 			}
 		}
-	}
-
-	#ifdef USE_DIRECTX_8
-	if(this->mDirect3DMode)
-	{
-		IDirect3DDevice8* the3DDevice = this->GetDirect3DDevice();
-		if(the3DDevice)
-		{
-			memcpy(&this->mDirect3DGammaRamp, this->mSlopeData, kGammaTableSize);
-			the3DDevice->SetGammaRamp(D3DSGR_CALIBRATE, &this->mDirect3DGammaRamp);
-		}
-	}
-	#endif
-	
+	}	
 	return theSuccess;
 }
-
+#endif
 void GammaTable::ProcessSlope(float inSlope)
 {
 	this->mSlope = inSlope;

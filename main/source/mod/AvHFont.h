@@ -1,8 +1,8 @@
 #ifndef AVH_FONT_H
 #define AVH_FONT_H
 
-#include "cl_dll/wrect.h"
-#include "cl_dll/cl_dll.h"
+#include "wrect.h"
+#include "cl_dll.h"
 
 class AvHFont
 {
@@ -50,7 +50,7 @@ public:
 
 private:
 
-    HSPRITE mSprite;
+	AVHHSPRITE mSprite;
 
     int mSpriteWidth;
     int mSpriteHeight;

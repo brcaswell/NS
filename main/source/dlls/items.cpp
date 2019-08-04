@@ -29,7 +29,7 @@
 #include "items.h"
 #include "gamerules.h"
 
-#include "mod/AvHNetworkMessages.h"
+#include "../mod/AvHNetworkMessages.h"
 
 class CWorldItem : public CBaseEntity
 {

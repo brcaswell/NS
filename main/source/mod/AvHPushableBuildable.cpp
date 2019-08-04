@@ -1,13 +1,13 @@
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "dlls/cbase.h"
-#include "dlls/saverestore.h"
-#include "dlls/func_break.h"
-#include "dlls/decals.h"
-#include "dlls/explode.h"
-#include "mod/AvHSpecials.h"
-#include "mod/AvHPushableBuildable.h"
-#include "mod/AvHSharedUtil.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "../dlls/cbase.h"
+#include "../dlls/saverestore.h"
+#include "../dlls/func_break.h"
+#include "../dlls/decals.h"
+#include "../dlls/explode.h"
+#include "AvHSpecials.h"
+#include "AvHPushableBuildable.h"
+#include "AvHSharedUtil.h"
 
 char *AvHPushableBuildable :: m_soundNames[3] = { "debris/pushbox1.wav", "debris/pushbox2.wav", "debris/pushbox3.wav" };
 

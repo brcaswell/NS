@@ -22,8 +22,8 @@
 #ifndef MOVEMENT_UTIL_H
 #define MOVEMENT_UTIL_H
 
-#include "mod/AvHBasePlayerWeaponConstants.h"
-#include "mod/AvHSpecials.h"
+#include "AvHBasePlayerWeaponConstants.h"
+#include "AvHSpecials.h"
 
 int AvHMUGetHull(bool inIsDucking, int inUserVar);
 int AvHMUGetOriginOffsetForUser3(AvHUser3 inUser3);

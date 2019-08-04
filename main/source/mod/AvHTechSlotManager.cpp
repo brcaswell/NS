@@ -14,7 +14,8 @@
 // $Log: $
 //===============================================================================
 #include <stdio.h>
-#include "mod/AvHTechSlotManager.h"
+#include <string.h>
+#include "AvHTechSlotManager.h"
 
 AvHTechSlots::AvHTechSlots()
 {

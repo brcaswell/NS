@@ -82,7 +82,7 @@
 #ifndef AVHALIENWEAPONCONSTANTS_H
 #define AVHALIENWEAPONCONSTANTS_H
 
-#include "mod/AvHBasePlayerWeaponConstants.h"
+#include "AvHBasePlayerWeaponConstants.h"
 
 // Alien view models
 #define			kLevel1ViewModel		"models/v_lvl1.mdl"

@@ -1,6 +1,7 @@
-#include "util/nowarnings.h"
-#include "mod/AvHParticleTemplate.h"
-#include "common/renderingconst.h"
+#include <string.h>
+#include "../util/nowarnings.h"
+#include "AvHParticleTemplate.h"
+#include "../common/renderingconst.h"
 
 AvHParticleTemplate::AvHParticleTemplate()
 {
@@ -219,7 +220,7 @@ AvHParticleTemplate::GetSprite() const
 }
 
 void
-AvHParticleTemplate::SetSprite(string& inSpriteName)
+AvHParticleTemplate::SetSprite(string inSpriteName)
 {
 	this->mSprite = inSpriteName;
 }

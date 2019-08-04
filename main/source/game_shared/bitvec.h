@@ -12,7 +12,9 @@
 #endif
 
 
+#include "archtypes.h"     // DAL
 #include <assert.h>
+#include <string.h>
 
 
 class CBitVecAccessor

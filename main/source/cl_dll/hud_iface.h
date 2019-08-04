@@ -2,7 +2,9 @@
 #define HUD_IFACEH
 #pragma once
 
+#ifndef EXPORT
 #define EXPORT		_declspec( dllexport )
+#endif
 
 typedef int (*pfnUserMsgHook)(const char *pszName, int iSize, void *pbuf);
 #include "wrect.h"

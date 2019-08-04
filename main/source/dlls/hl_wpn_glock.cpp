@@ -13,13 +13,13 @@
 *
 ****/
 
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "dlls/cbase.h"
-#include "dlls/monsters.h"
-#include "dlls/weapons.h"
-#include "dlls/nodes.h"
-#include "dlls/player.h"
+#include "extdll.h"
+#include "util.h"
+#include "cbase.h"
+#include "monsters.h"
+#include "weapons.h"
+#include "nodes.h"
+#include "player.h"
 
 enum glock_e {
 	GLOCK_IDLE1 = 0,

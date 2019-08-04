@@ -99,29 +99,29 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "util/nowarnings.h"
-#include "mod/AvHServerUtil.h"
-#include "mod/AvHPlayer.h"
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "dlls/cbase.h"
-#include "mod/AvHPlayerUpgrade.h"
-#include "common/damagetypes.h"
-#include "mod/AvHMarineEquipment.h"
-#include "mod/AvHMarineEquipmentConstants.h"
-#include "mod/AvHGamerules.h"
-#include "mod/AvHSharedUtil.h"
-#include "util/MathUtil.h"
-#include "engine/studio.h"
-#include "mod/AvHSoundListManager.h"
-#include "mod/AvHAlienEquipmentConstants.h"
-#include "mod/AvHAlienEquipment.h"
-#include "mod/AvHAlienWeaponConstants.h"
-#include "mod/AvHParticleTemplateServer.h"
-#include "mod/AvHAlienWeapons.h"
-#include "common/com_model.h"
-#include "mod/AvHHulls.h"
-#include "mod/AnimationUtil.h"
+#include "../util/nowarnings.h"
+#include "AvHServerUtil.h"
+#include "AvHPlayer.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "../dlls/cbase.h"
+#include "AvHPlayerUpgrade.h"
+#include "../common/damagetypes.h"
+#include "AvHMarineEquipment.h"
+#include "AvHMarineEquipmentConstants.h"
+#include "AvHGamerules.h"
+#include "AvHSharedUtil.h"
+#include "../util/MathUtil.h"
+#include "../engine/studio.h"
+#include "AvHSoundListManager.h"
+#include "AvHAlienEquipmentConstants.h"
+#include "AvHAlienEquipment.h"
+#include "AvHAlienWeaponConstants.h"
+#include "AvHParticleTemplateServer.h"
+#include "AvHAlienWeapons.h"
+#include "../common/com_model.h"
+#include "AvHHulls.h"
+#include "AnimationUtil.h"
 
 int   NS_PointContents(const hull_t *hull, int num, float p[3]);
 float NS_TraceLineAgainstEntity(int inEntityIndex, float inTime, const float inRayOrigin[3], const float inRayDirection[3]);
@@ -250,7 +250,7 @@ const char* kSteamIDBot = "BOT";
 const char* kSteamIDInvalidID = "-1";
 const char* kSteamIDDefault = "STEAM_0:0:0";
 const char* kSteamIDPrefix = "STEAM_";
-bool AvHSUGetIsValidAuthID(const string& inAuthID)
+bool AvHSUGetIsValidAuthID(const string &inAuthID)
 {
 	bool theIsValid = true;
 
@@ -262,6 +262,7 @@ bool AvHSUGetIsValidAuthID(const string& inAuthID)
 
 	return theIsValid;
 }
+
 // Function that is backwards-compatible with WON ids 
 string AvHSUGetPlayerAuthIDString(edict_t* inPlayer)
 {

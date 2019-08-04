@@ -39,7 +39,7 @@
 #ifndef AVH_SIEGE_TURRET_H
 #define AVH_SIEGE_TURRET_H
 
-#include "mod/AvHMarineTurret.h"
+#include "AvHMarineTurret.h"
 
 class AvHSiegeTurret : public AvHMarineTurret
 {

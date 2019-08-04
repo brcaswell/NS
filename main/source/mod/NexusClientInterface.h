@@ -1,0 +1,6 @@
+
+namespace Nexus {
+	class TunnelToServer
+	{
+	};
+}

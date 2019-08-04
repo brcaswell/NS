@@ -112,28 +112,28 @@
 #ifndef AVHHUD_H
 #define AVHHUD_H
 
-#include "ui/UIHud.h"
-#include "mod/AvHConstants.h"
-#include "mod/AvHSpecials.h"
-#include "mod/AvHSharedTypes.h"
-#include "mod/AvHParticleSystem.h"
-#include "common/entity_state.h"
+#include "UIHud.h"
+#include "AvHConstants.h"
+#include "AvHSpecials.h"
+#include "AvHSharedTypes.h"
+#include "AvHParticleSystem.h"
+#include "entity_state.h"
 #include "VGUI_ProgressBar.h"
-#include "mod/AvHEntityHierarchy.h"
-#include "ui/MarqueeComponent.h"
-#include "mod/AvHOrder.h"
-#include "mod/AvHMessage.h"
-#include "mod/AvHAmbientSound.h"
-#include "mod/AvHTechTree.h"
-#include "mod/AvHVisibleBlipList.h"
-#include "mod/AvHMapExtents.h"
-#include "mod/AvHSpecials.h"
-#include "util/GammaTable.h"
-#include "mod/AvHBaseInfoLocation.h"
-#include "mod/AvHTooltip.h"
-#include "mod/AvHTechSlotManager.h"
-#include "mod/AvHHudConstants.h"
-#include "mod/AvHOverviewMap.h"
+#include "AvHEntityHierarchy.h"
+#include "MarqueeComponent.h"
+#include "AvHOrder.h"
+#include "AvHMessage.h"
+#include "AvHAmbientSound.h"
+#include "AvHTechTree.h"
+#include "AvHVisibleBlipList.h"
+#include "AvHMapExtents.h"
+#include "AvHSpecials.h"
+#include "GammaTable.h"
+#include "AvHBaseInfoLocation.h"
+#include "AvHTooltip.h"
+#include "AvHTechSlotManager.h"
+#include "AvHHudConstants.h"
+#include "AvHOverviewMap.h"
 
 class AvHTeamHierarchy;
 class PieMenu;
@@ -226,7 +226,7 @@ public:
     int             GetCommanderIndex() const;
 	bool			GetHasJetpack() const;
 	int				GetHelpIconFrameFromUser3(AvHUser3 inUser3);
-	HSPRITE			GetHelpSprite() const;
+	AVHHSPRITE		GetHelpSprite() const;
 	bool			GetHasAlienUpgradesAvailable() const;
 	bool			GetIsAlien() const;
 	bool			GetIsBeingDigested() const;
@@ -370,9 +370,9 @@ public:
     void            RenderMiniMap(int inX, int inY, int inWidth, int inHeight);
 
     void            RenderStructureRanges();
-    void            RenderStructureRange(vec3_t inOrigin, int inRadius, HSPRITE inSprite, int inRenderMode = kRenderNormal, int inFrame = 0, float inR = 0, float inG = 0.5, float inB = 0, float inAlpha = 1.0f);
+    void            RenderStructureRange(vec3_t inOrigin, int inRadius, AVHHSPRITE inSprite, int inRenderMode = kRenderNormal, int inFrame = 0, float inR = 0, float inG = 0.5, float inB = 0, float inAlpha = 1.0f);
 
-    void            DrawWarpedOverlaySprite(int spriteHandle, int numXFrames, int numYFrames,
+    void            DrawWarpedOverlaySprite(AVHHSPRITE spriteHandle, int numXFrames, int numYFrames,
                         float inWarpXAmount = 0.0f, float inWarpYAmount = 0.0f,
                         float inWarpXSpeed = 0.0f, float inWarpYSpeed = 0.0f);
 
@@ -383,41 +383,41 @@ public:
 	void			SetCurrentUseableEnergyLevel(float inEnergyLevel);
 	
 	// Network messages
-	int				AlienInfo(const char* pszName, int iSize, void* pbuf);
-	int				BlipList(const char* pszName, int iSize, void* pbuf);
-	int				ClScript(const char *pszName, int iSize, void *pbuf);
-	int				Countdown(const char* pszName, int iSize, void* pbuf);
-	int				DebugCSP(const char* pszName, int iSize, void* pbuf);
-	int				EditPS(const char* pszName, int iSize, void* pbuf);
-	int				DelEntHier(const char *pszName, int iSize, void *pbuf);
-	int				EntHier(const char *pszName, int iSize, void *pbuf);
-	int				Fog(const char* pszName, int iSize, void* pbuf);
-	int				SetUpgrades(const char* pszName, int iSize, void* pbuf);
-	int				ListPS(const char* pszName, int iSize, void* pbuf);
-	int				DelParts(const char *pszName, int iSize, void *pbuf);
-	int				Particles(const char *pszName, int iSize, void *pbuf);
-    int				SoundNames(const char *pszName, int iSize, void *pbuf);
-	int 			PlayHUDNot(const char* pszName, int iSize, void* pbuf);
+	int				MsgFunc_AlienInfo(const char* pszName, int iSize, void* pbuf);
+	int				MsgFunc_BlipList(const char* pszName, int iSize, void* pbuf);
+	int				MsgFunc_ClScript(const char *pszName, int iSize, void *pbuf);
+	int				MsgFunc_Countdown(const char* pszName, int iSize, void* pbuf);
+	int				MsgFunc_DebugCSP(const char* pszName, int iSize, void* pbuf);
+	int				MsgFunc_EditPS(const char* pszName, int iSize, void* pbuf);
+	int				MsgFunc_DelEntHier(const char *pszName, int iSize, void *pbuf);
+	int				MsgFunc_EntHier(const char *pszName, int iSize, void *pbuf);
+	int				MsgFunc_Fog(const char* pszName, int iSize, void* pbuf);
+	int				MsgFunc_SetUpgrades(const char* pszName, int iSize, void* pbuf);
+	int				MsgFunc_ListPS(const char* pszName, int iSize, void* pbuf);
+	int				MsgFunc_DelParts(const char *pszName, int iSize, void *pbuf);
+	int				MsgFunc_Particles(const char *pszName, int iSize, void *pbuf);
+   	int				MsgFunc_SoundNames(const char *pszName, int iSize, void *pbuf);
+	int 				MsgFunc_PlayHUDNot(const char* pszName, int iSize, void* pbuf);
 	
-	int				BalanceVar(const char* pszName, int iSize, void* pbuf);
-    int             ServerVar(const char* pszName, int iSize, void* pbuf);
+	int				MsgFunc_BalanceVar(const char* pszName, int iSize, void* pbuf);
+   	int             		MsgFunc_ServerVar(const char* pszName, int iSize, void* pbuf);
 
-	int				GameStatus(const char* pszName, int iSize, void* pbuf);
-	int				MiniMap(const char* pszName, int iSize, void* pbuf);
+	int				MsgFunc_GameStatus(const char* pszName, int iSize, void* pbuf);
+	int				MsgFunc_MiniMap(const char* pszName, int iSize, void* pbuf);
 	// : 0000971 
-	int				IssueOrder(const char* pszName, int iSize, void* pbuf);
+	int				MsgFunc_IssueOrder(const char* pszName, int iSize, void* pbuf);
 	// :
-	int				Progress(const char* pszName, int iSize, void* pbuf);
-	int				SetGmma(const char* pszName, int iSize, void* pbuf);
-	int				SetSelect(const char* pszName, int iSize, void* pbuf);
-	int				SetRequest(const char* pszName, int iSize, void* pbuf);
-	int				SetOrder(const char* pszName, int iSize, void* pbuf);
-	int				SetupMap(const char* pszName, int iSize, void* pbuf);
-	int				SetTopDown(const char* pszName, int iSize, void* pbuf);
-	int				SetTech(const char* pszName, int iSize, void* pbuf);
-	int				TechSlots(const char* pszName, int iSize, void* pbuf);
+	int				MsgFunc_Progress(const char* pszName, int iSize, void* pbuf);
+	int				MsgFunc_SetGmma(const char* pszName, int iSize, void* pbuf);
+	int				MsgFunc_SetSelect(const char* pszName, int iSize, void* pbuf);
+	int				MsgFunc_SetRequest(const char* pszName, int iSize, void* pbuf);
+	int				MsgFunc_SetOrder(const char* pszName, int iSize, void* pbuf);
+	int				MsgFunc_SetupMap(const char* pszName, int iSize, void* pbuf);
+	int				MsgFunc_SetTopDown(const char* pszName, int iSize, void* pbuf);
+	int				MsgFunc_SetTech(const char* pszName, int iSize, void* pbuf);
+	int				MsgFunc_TechSlots(const char* pszName, int iSize, void* pbuf);
 
-    void            GetSpriteForUser3(AvHUser3 inUser3, int& outSprite, int& outFrame, int& outRenderMode);
+    void            GetSpriteForUser3(AvHUser3 inUser3, AVHHSPRITE& outSprite, int& outFrame, int& outRenderMode);
 
     int             GetCurrentSquad() const;
     AvHOverviewMap& GetOverviewMap();
@@ -426,7 +426,7 @@ public:
     void            HideCrosshair();
 
     // This function should be used instead of the global SetCrosshair.
-    void            SetCurrentCrosshair(HSPRITE hspr, wrect_t rc, int r, int g, int b);
+    void            SetCurrentCrosshair(AVHHSPRITE hspr, wrect_t rc, int r, int g, int b);
 
 	static void		ResetGammaAtExit();
 	static int		ResetGammaAtExitForOnExit();
@@ -474,14 +474,14 @@ private:
 	void			DrawReticleInfo();
 	void			DrawToolTips();
 	// : 0000971 -- added inAlpha
-	void			DrawWorldSprite(int inSpriteHandle, int inRenderMode, vec3_t inWorldPosition, int inFrame, float inWorldSize, float inAlpha = 1.0f);
+	void			DrawWorldSprite(AVHHSPRITE inSpriteHandle, int inRenderMode, vec3_t inWorldPosition, int inFrame, float inWorldSize, float inAlpha = 1.0f);
 	// :
 	void			DrawOrderIcon(const AvHOrder& inOrder);
 	void			DrawOrderText(const AvHOrder& inOrder);
 	int				GetFrameForOrderType(AvHOrderType inOrderType) const;
 	void			GetReticleTextDrawingInfo(float& outNormX, float& outNormY, bool& outCentered) const;
 	void			DrawTechTreeSprite(AvHMessageID inMessageID, int inPosX, int inPosY, int inWidth, int inHeight, int inFrame);
-	int				GetTechTreeSprite(AvHMessageID inMessageID);
+	AVHHSPRITE		GetTechTreeSprite(AvHMessageID inMessageID);
 	void			GetTooltipDrawingInfo(float& outNormX, float& outNormY) const;
 	string			GetRankTitle(bool inShowUnspentLevels = false) const;
 	bool			GetShouldDisplayUser3(AvHUser3 inUser3) const;
@@ -505,7 +505,7 @@ private:
 	virtual void	ResetGame(bool inMapChanged = false);
 	
     bool			SetCursor(AvHOrderType inOrderType);
-    void            GetCursor(HSPRITE& outSprite, int& outFrame);
+    void            GetCursor(AVHHSPRITE& outSprite, int& outFrame);
 
 	void			SetSelectionEffects(EntityListType& inUnitList);
 	//void			UpdateSelectionEffects(float inTimePassed);
@@ -670,11 +670,13 @@ private:
 	bool					mInTopDownMode;
 	int						mNumLocalSelectEvents;
 	AvHMapMode				mMapMode;
-
+	//@2014 make this work for linux
 	static GammaTable		sPregameGammaTable;
 	static GammaTable		sGameGammaTable;
-	float					mDesiredGammaSlope;
 	
+	
+	float					mDesiredGammaSlope;
+
 	typedef vector<AvHAmbientSound>	AmbientSoundListType;
 	AmbientSoundListType	mAmbientSounds;
 
@@ -707,32 +709,32 @@ private:
 	AvHVisibleBlipList		mFriendlyBlips;
 	
 	bool					mMarineUIDrawUI;
-	HSPRITE					mMarineUIJetpackSprite;
+	AVHHSPRITE				mMarineUIJetpackSprite;
 
-	HSPRITE					mAlienUIEnergySprite;
-	HSPRITE					mAlienUICloakSprite;
+	AVHHSPRITE				mAlienUIEnergySprite;
+	AVHHSPRITE				mAlienUICloakSprite;
 
-	HSPRITE					mMembraneSprite;
-	HSPRITE					mDigestingSprite;
-	HSPRITE					mBackgroundSprite;
-	HSPRITE					mTopDownTopSprite;
-	HSPRITE					mTopDownBottomSprite;
-	HSPRITE					mMarineTopSprite;
-	HSPRITE					mLogoutSprite;
-	HSPRITE					mCommandButtonSprite;
-	HSPRITE					mCommandStatusSprite;
-	HSPRITE					mSelectAllSprite;
+	AVHHSPRITE				mMembraneSprite;
+	AVHHSPRITE				mDigestingSprite;
+	AVHHSPRITE				mBackgroundSprite;
+	AVHHSPRITE				mTopDownTopSprite;
+	AVHHSPRITE				mTopDownBottomSprite;
+	AVHHSPRITE				mMarineTopSprite;
+	AVHHSPRITE				mLogoutSprite;
+	AVHHSPRITE				mCommandButtonSprite;
+	AVHHSPRITE				mCommandStatusSprite;
+	AVHHSPRITE				mSelectAllSprite;
 
-	HSPRITE					mMarineOrderIndicator;
-	HSPRITE					mMarineUpgradesSprite;
+	AVHHSPRITE				mMarineOrderIndicator;
+	AVHHSPRITE				mMarineUpgradesSprite;
 
 	// : 0000971
-	HSPRITE					mTeammateOrderSprite;
+	AVHHSPRITE				mTeammateOrderSprite;
 	// :
-	typedef map<int, int>			SpriteListType;
+	typedef map<int, AVHHSPRITE>	SpriteListType;
 	SpriteListType					mActionButtonSprites;
 	//SpriteListType					mHelpSprites;
-	int						mHelpSprite;
+	AVHHSPRITE				mHelpSprite;
 
 	typedef vector< pair<vec3_t, int> >		HelpIconListType;
 	HelpIconListType						mHelpIcons;
@@ -741,30 +743,30 @@ private:
 	EntityListType							mBuildingEffectsEntityList;
 	float									mTimeOfLastEntityUpdate;
 
-	HSPRITE					mAlienUIUpgrades;
-	HSPRITE					mAlienUIUpgradeCategories;
+	AVHHSPRITE				mAlienUIUpgrades;
+	AVHHSPRITE				mAlienUIUpgradeCategories;
 
-	HSPRITE					mAlienBuildSprite;
-	HSPRITE					mMarineBuildSprite;
+	AVHHSPRITE				mAlienBuildSprite;
+	AVHHSPRITE				mMarineBuildSprite;
 
-	HSPRITE					mAlienHealthSprite;
-	HSPRITE					mMarineHealthSprite;
+	AVHHSPRITE				mAlienHealthSprite;
+	AVHHSPRITE				mMarineHealthSprite;
 
-	HSPRITE					mHealthEffectsSprite;
-	HSPRITE					mBuildCircleSprite;
+	AVHHSPRITE				mHealthEffectsSprite;
+	AVHHSPRITE				mBuildCircleSprite;
 	//HSPRITE					mSiegeTurretSprite;
 	SelectionListType		mSelectionEffects;
 
 
 	//HSPRITE					mMappingTechSprite;
 
-	HSPRITE					mHiveInfoSprite;
-	HSPRITE					mHiveHealthSprite;
-	HSPRITE					mOrderSprite;
-	HSPRITE					mCursorSprite;
-	HSPRITE					mMarineCursor;
-	HSPRITE					mAlienCursor;
-	HSPRITE					mAlienLifeformsCursor;
+	AVHHSPRITE				mHiveInfoSprite;
+	AVHHSPRITE				mHiveHealthSprite;
+	AVHHSPRITE				mOrderSprite;
+	AVHHSPRITE				mCursorSprite;
+	AVHHSPRITE				mMarineCursor;
+	AVHHSPRITE				mAlienCursor;
+	AVHHSPRITE				mAlienLifeformsCursor;
 	int						mCurrentCursorFrame;
 
 	int						mProgressBarEntityIndex;
@@ -779,8 +781,8 @@ private:
 	float					mFogStart;
 	float					mFogEnd;
 
-	HSPRITE					mExperienceBarSprite;
-	HSPRITE					mProgressBarSprite;
+	AVHHSPRITE				mExperienceBarSprite;
+	AVHHSPRITE				mProgressBarSprite;
 
 	AvHBaseInfoLocationListType		mInfoLocationList;
 	string							mLocationText;
@@ -848,7 +850,7 @@ private:
 	StructureHUDNotificationListType		mStructureNotificationList;
 
     int                     mCrosshairShowCount;
-    HSPRITE                 mCrosshairSprite;
+	AVHHSPRITE              mCrosshairSprite;
     wrect_t                 mCrosshairRect;
     int                     mCrosshairR;
     int                     mCrosshairG;

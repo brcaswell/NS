@@ -13,10 +13,10 @@
 *
 ****/
 
-#include "util/nowarnings.h"
-#include "mod/AvHBasePlayerWeapon.h"
-#include "textrep/TRFactory.h"
-#include "mod/AvHWeaponFactory.h"
+#include "../util/nowarnings.h"
+#include "AvHBasePlayerWeapon.h"
+#include "../textrep/TRFactory.h"
+#include "AvHWeaponFactory.h"
 
 AvHWeaponFactory gWeaponFactory;
 

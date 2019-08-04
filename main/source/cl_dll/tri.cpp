@@ -165,7 +165,7 @@ HUD_DrawNormalTriangles
 */
 void CL_DLLEXPORT HUD_DrawNormalTriangles( void )
 {
-	RecClDrawNormalTriangles();
+//	RecClDrawNormalTriangles();
 	
 	//	pVector			theView;
 	//	cl_entity_t*	thePlayer;
@@ -195,7 +195,7 @@ void CL_DLLEXPORT HUD_DrawNormalTriangles( void )
 void DrawHitBox(const OBBox& inBox)
 {
 
-    HSPRITE sprite = Safe_SPR_Load("sprites/white.spr");
+	AVHHSPRITE sprite = SPR_Load("sprites/white.spr");
 
     vec3_t theBoxPoint[8];
 
@@ -346,7 +346,7 @@ void DrawHitBoxes()
 */
 void CL_DLLEXPORT HUD_DrawTransparentTriangles( void )
 {
-	RecClDrawTransparentTriangles();
+//	RecClDrawTransparentTriangles();
 	
 	cl_entity_t*	thePlayer;
 	

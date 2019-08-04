@@ -19,16 +19,16 @@
 #ifndef AVH_ENTITYHIERARCHY_H
 #define AVH_ENTITYHIERARCHY_H
 
-#include "types.h"
-#include "mod/AvHConstants.h"
-#include "mod/AvHSpecials.h"
+#include "../types.h"
+#include "AvHConstants.h"
+#include "AvHSpecials.h"
 
 #ifdef AVH_SERVER
-#include "util/nowarnings.h"
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "dlls/cbase.h"
-#include "mod/AvHTeam.h"
+#include "../util/nowarnings.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "../dlls/cbase.h"
+#include "AvHTeam.h"
 #endif
 
 // Assume flags will fire once, then die out after half a second or a second.

@@ -1,4 +1,4 @@
-#include "mod/AvHLogoutComponent.h"
+#include "AvHLogoutComponent.h"
 #include "ui/UITags.h"
 
 ////////////////////////////////////

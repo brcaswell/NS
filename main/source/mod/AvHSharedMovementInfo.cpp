@@ -25,12 +25,12 @@
 #endif
 
 #ifdef AVH_SERVER
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "common/vector_util.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "../common/vector_util.h"
 #endif
 
-#include "mod/AvHSharedMovementInfo.h"
+#include "AvHSharedMovementInfo.h"
 
 
 AvHPlayerMovementInfo::AvHPlayerMovementInfo()

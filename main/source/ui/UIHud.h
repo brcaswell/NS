@@ -6,17 +6,22 @@
 #define UIHUD_H
 
 //#include "cl_dll/hud.h"
-#include "cl_dll/chud.h"
+#include "chud.h"
 #include "textrep/TRDescription.h"
-#include "ui/UIManager.h"
-#include "vgui_InputSignal.h"
-#include "vgui_Scheme.h"
-#include "vgui_BitmapTGA.h"
-#include "cl_dll/vgui_SchemeManager.h"
-
+#include "UIManager.h"
+#include "VGUI_InputSignal.h"
+#include "VGUI_Scheme.h"
+#include "VGUI_BitmapTGA.h"
+#include "vgui_SchemeManager.h"
+#include "winsani_in.h"
+#include "fmoddyn.h"
+#include "winsani_out.h"
 class UIFactory;
-struct fmod_instance_struct;
-typedef fmod_instance_struct FMOD_INSTANCE;
+
+//struct fmod_instance_struct;
+//typedef fmod_instance_struct FMOD_INSTANCE;
+
+
 typedef struct FSOUND_STREAM FSOUND_STREAM;
 
 // Initializes self from text file
@@ -83,7 +88,7 @@ public:
     
     virtual bool    UpdateInternetStream(float inCurrentTime, string& outError);
 
-    FMOD_INSTANCE*  GetFMOD();
+	FMOD_INSTANCE* GetFMOD();
 
 protected:
     virtual bool    Update(float inCurrentTime, string& outError);
@@ -123,7 +128,7 @@ private:
 protected:
 	CSchemeManager*		mSchemeManager;
 
-    FMOD_INSTANCE*      mFMOD;
+   FMOD_INSTANCE*      mFMOD;
 
 };
 

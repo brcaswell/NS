@@ -19,7 +19,7 @@
 #ifndef AVH_SHAREDMOVEMENTINFO_H
 #define AVH_SHAREDMOVEMENTINFO_H
 
-#include "types.h"
+#include "../types.h"
 
 class AvHPlayerMovementInfo
 {

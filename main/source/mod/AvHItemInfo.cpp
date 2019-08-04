@@ -56,8 +56,8 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "mod/AvHMarineWeapons.h"
-#include "mod/AvHPlayer.h"
+#include "AvHMarineWeapons.h"
+#include "AvHPlayer.h"
 
 #ifdef AVH_CLIENT
 #include "cl_dll/eventscripts.h"
@@ -66,19 +66,19 @@
 #include "cl_dll/cl_dll.h"
 #endif
 
-#include "common/hldm.h"
-#include "common/event_api.h"
-#include "common/event_args.h"
-#include "common/vector_util.h"
-#include "mod/AvHMarineWeapons.h"
-#include "mod/AvHMarineWeaponConstants.h"
-#include "mod/AvHMarineEquipmentConstants.h"
-#include "mod/AvHAlienWeapons.h"
-#include "mod/AvHAlienWeaponConstants.h"
-#include "mod/AvHMarineEquipment.h"
-#include "mod/AvHAlienAbilities.h"
-#include "mod/AvHAlienAbilityConstants.h"
-#include "util/MathUtil.h"
+#include "../common/hldm.h"
+#include "../common/event_api.h"
+#include "../common/event_args.h"
+#include "../common/vector_util.h"
+#include "AvHMarineWeapons.h"
+#include "AvHMarineWeaponConstants.h"
+#include "AvHMarineEquipmentConstants.h"
+#include "AvHAlienWeapons.h"
+#include "AvHAlienWeaponConstants.h"
+#include "AvHMarineEquipment.h"
+#include "AvHAlienAbilities.h"
+#include "AvHAlienAbilityConstants.h"
+#include "../util/MathUtil.h"
 
 typedef enum
 {

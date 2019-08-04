@@ -1,5 +1,5 @@
-#include "util/nowarnings.h"
-#include "util/Tokenizer.h"
+#include "nowarnings.h"
+#include "Tokenizer.h"
 
 int Tokenizer::split(const string& input, const string& delimiters, StringVector& result, char quoteChar)
 {

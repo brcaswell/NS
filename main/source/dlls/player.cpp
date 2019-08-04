@@ -77,22 +77,22 @@
 #include "weapons.h"
 #include "soundent.h"
 #include "monsters.h"
-#include "engine/shake.h"
+#include "../engine/shake.h"
 #include "decals.h"
 #include "gamerules.h"
-#include "mod/AvHEntities.h"
-#include "mod/AvHPlayer.h"
-#include "mod/AvHGamerules.h"
-#include "mod/AvHPlayerUpgrade.h"
-#include "mod/AvHServerUtil.h"
-#include "mod/AvHSharedUtil.h"
-#include "mod/AvHServerVariables.h"
-#include "mod/AvHHulls.h"
-#include "mod/AvHMovementUtil.h"
+#include "../mod/AvHEntities.h"
+#include "../mod/AvHPlayer.h"
+#include "../mod/AvHGamerules.h"
+#include "../mod/AvHPlayerUpgrade.h"
+#include "../mod/AvHServerUtil.h"
+#include "../mod/AvHSharedUtil.h"
+#include "../mod/AvHServerVariables.h"
+#include "../mod/AvHHulls.h"
+#include "../mod/AvHMovementUtil.h"
 #include "game.h"
-#include "common/hltv.h"
-#include "mod/AvHNetworkMessages.h"
-#include "util/MathUtil.h"
+#include "../common/hltv.h"
+#include "../mod/AvHNetworkMessages.h"
+#include "../util/MathUtil.h"
 
 // #define DUCKFIX
 
@@ -3155,6 +3155,16 @@ void CBasePlayer::Spawn( void )
 
 	g_engfuncs.pfnSetPhysicsKeyValue( edict(), "slj", "0" );
 	g_engfuncs.pfnSetPhysicsKeyValue( edict(), "hl", "1" );
+
+	if (avh_jumpmode.value == 2)
+		g_engfuncs.pfnSetPhysicsKeyValue(edict(), "jm2", "1");
+	else
+		g_engfuncs.pfnSetPhysicsKeyValue(edict(), "jm2", "0");
+
+	if (avh_jumpmode.value == 1)
+		g_engfuncs.pfnSetPhysicsKeyValue(edict(), "jm1", "1");
+	else
+		g_engfuncs.pfnSetPhysicsKeyValue(edict(), "jm1", "0");
 
 	pev->fov = m_iFOV				= 0;// init field of view.
 	m_iClientFOV		= -1; // make sure fov reset is sent

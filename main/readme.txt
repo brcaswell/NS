@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------
-- Natural Selection - http://www.naturalselection.com - v3.1 - 05/14/05 - 
+- Natural Selection - http://www.naturalselection.com - v3.2 - 20/02/06 - 
 --------------------------------------------------------------------------
 
 The NS Team
@@ -12,13 +12,7 @@ Jon Chapman
 [ "Merkaba" :: level designer, level tech R&D, 2D art - ns_hera ] 
 
 Joel Rubicam
-[ "grepdashv" :: qa lead ] 
-
-Florian Schwarzer 
-[ "Nemesis Zero" :: project manager ] 
-
-Karl Patrick 
-[ "Cagey" :: programmer ] 
+[ "grepdashv" :: tools ] 
 
 David Monks 
 [ "MaDMaXX" :: sound effects ] 
@@ -26,18 +20,14 @@ David Monks
 Harry Walsh
 [ "puzl" :: programmer ] 
 
-Mark Windle
-[ "Zunni" :: relations manager ] 
-
 Petter Rønningen
 [ "tankefugl" :: programmer ] 
 
-Joseph Stone
-[ "Alpha|UK" :: 3D art ] 
+Jim Olson
+[ "JazzX" :: QA Lead ] 
 
-Ozgur Yigit
-[ "gazOzz" :: 2D art ]
-
+Jason Lange
+[ "J" :: artist ] 
 
 Retired Members
 -------------
@@ -60,6 +50,12 @@ Alex Boylan
 Phil Mayfield
 [ "Def one" :: animator - marine and alien view models ] 
 
+Florian Schwarzer 
+[ "Nemesis Zero" :: project manager ] 
+
+Karl Patrick 
+[ "Cagey" :: programmer ] 
+
 Joe Vaughan 
 [ "joev" :: development manager, code - and server monkey ] 
 
@@ -81,6 +77,12 @@ Spencer MacDonald
 Tom Grim
 [ "ElvenThief" :: programmer ]
 
+
+Joseph Stone
+[ "Alpha|UK" :: 3D art ] 
+
+Ozgur Yigit
+[ "gazOzz" :: 2D art ]
 
 Level Designers
 -------------
@@ -139,6 +141,9 @@ Paul Traylor (edit, unpublish, )
 Craig Bryson
 [ "Drath" :: co_niveus ]
 
+
+Mark Windle
+[ "Zunni" :: relations manager ] 
 
 Other Credits
 -------------

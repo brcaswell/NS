@@ -35,10 +35,10 @@
 #define AVHCOMMANDERMODEHANDLER_H
 
 #include <VGUI_InputSignal.h>
-#include "types.h"
-#include "mod/AvHTeamHierarchy.h"
-#include "mod/AvHActionButtons.h"
-#include "mod/AvHTechSlotManager.h"
+#include "../types.h"
+#include "AvHTeamHierarchy.h"
+#include "AvHActionButtons.h"
+#include "AvHTechSlotManager.h"
 
 using namespace vgui;
 

@@ -1,11 +1,11 @@
 #ifndef AVH_VOICEHELPER_H
 #define AVH_VOICEHELPER_H
 
-#include "util/nowarnings.h"
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "dlls/cbase.h"
-#include "game_shared/voice_gamemgr.h"
+#include "../util/nowarnings.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "../dlls/cbase.h"
+#include "../game_shared/voice_gamemgr.h"
 
 class AvHVoiceHelper : public IVoiceGameMgrHelper
 {

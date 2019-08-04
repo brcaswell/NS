@@ -75,7 +75,7 @@ CHalfLifeTeamplay :: CHalfLifeTeamplay()
 
 extern cvar_t timeleft, fragsleft;
 
-#include "game_shared/voice_gamemgr.h"
+#include "../game_shared/voice_gamemgr.h"
 extern CVoiceGameMgr	g_VoiceGameMgr;
 
 void CHalfLifeTeamplay :: Think ( void )
@@ -183,7 +183,7 @@ const char *CHalfLifeTeamplay::SetDefaultPlayerTeam( CBasePlayer *pPlayer )
 	// update the current player of the team he is joining
 	const char* theTeamName = pPlayer->TeamID();
 
-	if ( theTeamName == '\0' || !IsValidTeam( theTeamName ) || defaultteam.value )
+	if ( theTeamName[0] == '\0' || !IsValidTeam( theTeamName ) || defaultteam.value )
 	{
 		const char *pTeamName = NULL;
 		
@@ -274,7 +274,7 @@ void CHalfLifeTeamplay::ClientUserInfoChanged( CBasePlayer *pPlayer, char *infob
 	// prevent skin/color/model changes
 	char *mdls = g_engfuncs.pfnInfoKeyValue( infobuffer, "model" );
 
-	if ( !stricmp( mdls, pPlayer->TeamID() ) )
+	if ( !_stricmp( mdls, pPlayer->TeamID() ) )
 		return;
 
 	if ( defaultteam.value )
@@ -380,7 +380,7 @@ int CHalfLifeTeamplay::PlayerRelationship( CBaseEntity *pPlayer, CBaseEntity *pT
 	if ( !pPlayer || !pTarget || !pTarget->IsPlayer() )
 		return GR_NOTTEAMMATE;
 
-	if ( (*GetTeamID(pPlayer) != '\0') && (*GetTeamID(pTarget) != '\0') && !stricmp( GetTeamID(pPlayer), GetTeamID(pTarget) ) )
+	if ( (*GetTeamID(pPlayer) != '\0') && (*GetTeamID(pTarget) != '\0') && !_stricmp( GetTeamID(pPlayer), GetTeamID(pTarget) ) )
 	{
 		return GR_TEAMMATE;
 	}
@@ -438,7 +438,7 @@ int CHalfLifeTeamplay::GetTeamIndex( const char *pTeamName )
 		// try to find existing team
 		for ( int tm = 0; tm < num_teams; tm++ )
 		{
-			if ( !stricmp( team_names[tm], pTeamName ) )
+			if ( !_stricmp( team_names[tm], pTeamName ) )
 				return tm;
 		}
 	}

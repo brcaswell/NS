@@ -43,21 +43,21 @@
 #ifndef AVH_ENTITIES_H
 #define AVH_ENTITIES_H
 
-#include "util/nowarnings.h"
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "dlls/cbase.h"
-#include "mod/AvHConstants.h"
-#include "dlls/func_break.h"
-#include "mod/AvHSpecials.h"
-#include "dlls/cbasedoor.h"
-#include "dlls/effects.h"
-#include "mod/AvHMapExtents.h"
-#include "mod/AvHBuildable.h"
-#include "mod/AvHPlayer.h"
-#include "mod/AvHBaseBuildable.h"
-#include "mod/AvHBaseInfoLocation.h"
-#include "mod/AvHCommandConstants.h"
+#include "../util/nowarnings.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "../dlls/cbase.h"
+#include "AvHConstants.h"
+#include "../dlls/func_break.h"
+#include "AvHSpecials.h"
+#include "../dlls/cbasedoor.h"
+#include "../dlls/effects.h"
+#include "AvHMapExtents.h"
+#include "AvHBuildable.h"
+#include "AvHPlayer.h"
+#include "AvHBaseBuildable.h"
+#include "AvHBaseInfoLocation.h"
+#include "AvHCommandConstants.h"
 
 void ExplodeEntity(CBaseEntity* inEntity, Materials inMaterial);
 

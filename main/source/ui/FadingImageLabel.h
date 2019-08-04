@@ -109,7 +109,7 @@ private:
 	string			mImageName;
 	string			mText;
 	bool			mImageMode;
-	int				mSprite;
+	AVHHSPRITE		mSprite;
 	int				mSpriteWidth;
 	int				mSpriteHeight;
 

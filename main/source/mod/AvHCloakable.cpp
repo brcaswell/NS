@@ -1,7 +1,7 @@
-#include "mod/AvHCloakable.h"
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "util/Balance.h"
+#include "AvHCloakable.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "../util/Balance.h"
 
 AvHCloakable::AvHCloakable()
 {

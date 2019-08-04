@@ -2,17 +2,25 @@
 #include "textrep/TRFactory.h"
 #include "cl_dll/cl_util.h"
 #include "cl_dll/hud.h"
-#include "vgui_Scheme.h"
-#include "vgui_Panel.h"
+#include "VGUI_Scheme.h"
+#include "VGUI_Panel.h"
 #include "mod/AvHClientVariables.h"
-#include "vgui_App.h"
-
-// for FindFirst and FindNext
+#include "VGUI_App.h"
+#include <stdio.h>
+//@linux support
+#include "../util/LinuxSupport.h"
+#ifdef _WIN32
+#include "winsani_in.h"
 #include <windows.h>
+#include "winsani_out.h"
+#endif
 #pragma warning(push)
 #pragma warning(disable: 311)
+//#include <fmoddyn.h>
+#include "winsani_in.h"
 #include <fmoddyn.h>
 #include <fmod_errors.h>
+#include "winsani_out.h"
 #pragma warning(pop)
 
 using namespace vgui;
@@ -22,7 +30,7 @@ extern BitmapTGA* LoadTGA( const char* pImageName );
 // Initialize hud from specified input file
 UIHud::UIHud(const string& inFilename, UIFactory* inFactory) : CHud(), mFilename(inFilename), mManager(inFactory)
 {
-
+	
     this->mFMOD = NULL;
 
 	// Set flag false so we load the first time
@@ -98,17 +106,21 @@ void UIHud::Init(void)
 
 void UIHud::InitializeSound(void)
 {
-
-    char theFileName[2][_MAX_PATH];
-
+    #ifdef _WIN32
+    char theFileName[2][_MAX_PATH]; // _MAX_PATH is evil
     sprintf(theFileName[0], "%s/fmod.dll", getModDirectory());
     sprintf(theFileName[1], "fmod.dll");
-    
+    #else 
+    char theFileName[2][PATH_MAX];	
+    sprintf(theFileName[0], "%s/libfmod-3.75.so", getModDirectory());
+    sprintf(theFileName[1], "libfmod-3.75.so");
+    #endif
     for (int i = 0; i < 2 && mFMOD == NULL; ++i)
     {
 
         mFMOD = FMOD_CreateInstance(theFileName[i]);
     
+		
         // Check sound version
     
         if (mFMOD != NULL && mFMOD->FSOUND_GetVersion() == FMOD_VERSION)
@@ -117,12 +129,13 @@ void UIHud::InitializeSound(void)
 		    if (mFMOD->FSOUND_Init(44100, 32, 0))
 		    {
 			    this->mSoundInitialized = true;
+				//this->PlayRandomSong();
 		    }
 		    else
 		    {
 			    char theErrorMessage[512];
 			    sprintf(theErrorMessage, "say %s", FMOD_ErrorString(mFMOD->FSOUND_GetError()));
-			    //ClientCmd(theErrorMessage);
+			    ClientCmd(theErrorMessage); // to fix
 		    }
 	    }
         else
@@ -187,14 +200,19 @@ void UIHud::LoadSchemes(void)
 //	this->InitializeScheme("Heading1", pScheme);
 }
 
+// @linux needs to be reinplementet for linux
 bool UIHud::PickRandomSong(string& outRelativeSongName) const
 {
-	WIN32_FIND_DATA		theFindData;
-	HANDLE				theFileHandle;
+	#ifdef WIN32
+	const string kDelimiter("\\");
+	#else
+	const string kDelimiter("/");
+	#endif
+	
 	StringList			theSongList;
 	bool				theFoundSong = false;
 	size_t				theNumSongs;
-
+	
 	// Find random song in directory
 	string thePath;
 	if(strcmp(cl_musicdir->string, ""))
@@ -203,16 +221,19 @@ bool UIHud::PickRandomSong(string& outRelativeSongName) const
 	}
 	else
 	{
-		thePath = string(getModDirectory()) + string("\\") + string(kMusicDirectory);
+		thePath = string(getModDirectory()) + kDelimiter + string(kMusicDirectory);
 	}
-
-	string theFileQualifier = thePath + string("\\*.mp3");
+	string theFileQualifier = thePath + kDelimiter +string("*.mp3");
+	#ifdef WIN32
+	WIN32_FIND_DATA		theFindData;
+	HANDLE				theFileHandle;
 	theFileHandle = FindFirstFile(theFileQualifier.c_str(), &theFindData);
+
 	if (theFileHandle != INVALID_HANDLE_VALUE)
 	{
 		do
 		{
-			theSongList.push_back(thePath + string("\\") + string(theFindData.cFileName));
+			theSongList.push_back(thePath + kDelimiter + string(theFindData.cFileName));
 		} 
 		while(FindNextFile(theFileHandle, &theFindData));
 	
@@ -220,7 +241,20 @@ bool UIHud::PickRandomSong(string& outRelativeSongName) const
         theFileHandle = INVALID_HANDLE_VALUE;
     
     }
+	#else
+	string theFoundFilename;
+	FIND_DATA theFindData;
+	int theRC = FindFirstFile(theFileQualifier.c_str(), &theFindData);
 
+	if(theRC != -1)
+	{
+		do
+		{
+			theSongList.push_back(thePath + kDelimiter + string(theFindData.cFileName));
+		}
+		while(FindNextFile(0, &theFindData));
+	}
+	#endif
 	// Pick a random song in the list
 	theNumSongs = theSongList.size();
 	if(theNumSongs > 0)

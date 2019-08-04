@@ -50,14 +50,14 @@
 #ifndef AVH_ALIEN_EQUIPMENT_H
 #define AVH_ALIEN_EQUIPMENT_H
 
-#include "util/nowarnings.h"
-#include "dlls/weapons.h"
-#include "mod/AvHBasePlayerWeapon.h"
-#include "mod/AvHConstants.h"
-#include "mod/AvHEntities.h"
-#include "mod/AvHBuildable.h"
-#include "mod/AvHEntities.h"
-#include "mod/AvHTurret.h"
+#include "../util/nowarnings.h"
+#include "../dlls/weapons.h"
+#include "AvHBasePlayerWeapon.h"
+#include "AvHConstants.h"
+#include "AvHEntities.h"
+#include "AvHBuildable.h"
+#include "AvHEntities.h"
+#include "AvHTurret.h"
 
 class AvHAlienResourceTower : public AvHResourceTower
 {

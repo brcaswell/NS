@@ -12,7 +12,7 @@
 #include <string>
 #include <map>
 #include <memory>
-#include "../Balance.txt"	//default balancing source - this used to be ../Balance.txt
+#include "Balance.txt"	//default balancing source - this used to be ../Balance.txt
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // BalanceValueContainerFactory -- facade that creates, stores, and 

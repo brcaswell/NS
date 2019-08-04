@@ -19,12 +19,12 @@
 #ifndef AVH_PARTICLE_SYSTEM_ENTITY_H
 #define AVH_PARTICLE_SYSTEM_ENTITY_H
 
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "dlls/cbase.h"
-#include "types.h"
-#include "mod/AvHParticleTemplate.h"
-#include "mod/AvHConstants.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "../dlls/cbase.h"
+#include "../types.h"
+#include "AvHParticleTemplate.h"
+#include "AvHConstants.h"
 
 class AvHParticleSystemEntity : public CBaseEntity
 {

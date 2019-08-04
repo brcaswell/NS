@@ -1,0 +1,257 @@
+#
+# NS game library Makefile for x86 Linux
+#
+# 11.2015 Makefile
+#
+
+HLDLL_SRC_DIR=$(SOURCE_DIR)/dlls
+HLWPN_SRC_DIR=$(HLDLL_SRC_DIR)/wpn_shared
+NS_MOD_SRC_DIR=$(SOURCE_DIR)/mod
+UTIL_SRC_DIR=$(SOURCE_DIR)/util
+TEXTREP_SRC_DIR=$(SOURCE_DIR)/textrep
+PM_SHARED_SRC_DIR=$(SOURCE_DIR)/pm_shared
+
+HLDLL_OBJ_DIR=$(BUILD_OBJ_DIR)/hldll
+HLWPN_OBJ_DIR=$(HLDLL_OBJ_DIR)/wpn_shared
+PM_OBJ_DIR=$(HLDLL_OBJ_DIR)/pm_shared
+GAME_SHARED_OBJ_DIR=$(HLDLL_OBJ_DIR)/game_shared
+NS_MOD_OBJ_DIR=$(HLDLL_OBJ_DIR)/mod
+UTIL_OBJ_DIR=$(HLDLL_OBJ_DIR)/util
+TEXTREP_OBJ_DIR=$(HLDLL_OBJ_DIR)/textrep
+
+#CFLAGS=$(BASE_CFLAGS) $(ARCH_CFLAGS) $(SHLIBCFLAGS) -DCLIENT_WEAPONS
+CFLAGS=$(BASE_CFLAGS) $(ARCH_CFLAGS) -Dstricmp=strcasecmp -D_strnicmp=strncasecmp -Dstrnicmp=strncasecmp -DAVH_SERVER -DLINUX -DVALVE_DLL -DQUIVER -DVOXEL -DQUAKE2 -DDEDICATED -DSWDS -D_STLP_USE_GLIBC -DUSE_OLDAUTH -Dsprintf_s=snprintf -D_stricmp=strcasecmp -DCURL_STATICLIB -DDISABLE_VEC_FUNCS -D_FORTIFY_SOURCE=0
+#-O3 -ffast-math -fno-strength-reduce
+
+HLDLL_INCLUDEDIRS=-I$(HLDLL_SRC_DIR) -I../ -I$(ENGINE_SRC_DIR) -I$(COMMON_SRC_DIR) -I$(PM_SRC_DIR) -I$(GAME_SHARED_SRC_DIR) -I$(PUBLIC_SRC_DIR) -I$(UTIL_SRC_DIR) -I$(NS_MOD_SRC_DIR) -I$(PM_OBJ_DIR)
+PM_INCLUDEDIRS=-I$(COMMON_SRC_DIR) -I$(PUBLIC_SRC_DIR) -I$(PM_SHARED_SRC_DIR) 
+GAME_SHARED_INCLUDEDIRS=-I$(HLDLL_SRC_DIR) -I$(ENGINE_SRC_DIR) -I$(COMMON_SRC_DIR) -I$(PM_SRC_DIR) -I$(PUBLIC_SRC_DIR) -I$(COMMON_SRC_DIR)
+MOD_INCLUDEDIRS=-I$(UTIL_SRC_DIR) -I$(GAME_SHARED_SRC_DIR) -I$(HLDLL_SRC_DIR) -I$(PUBLIC_SRC_DIR) -I$(COMMON_SRC_DIR) -I$(ENGINE_SRC_DIR) -I../particles -I../cdll/
+UTIL_INCLUDEDIRS = -I../ -I../util
+TEXTREP_INCLUDEDIRS=..
+
+ifeq ($(OS),Darwin)
+LDFLAGS=-lm -lcurl -lstdc++ -L. libparticleMP.a
+else
+LDFLAGS=-lm -lcurl -lstdc++ -L. libparticleMP.a
+endif
+
+DO_HLDLL_CC=$(CC) $(HLDLL_INCLUDEDIRS) $(CFLAGS) -o $@ -c $<
+DO_PM_CC=$(CC) $(PM_INCLUDEDIRS) $(CFLAGS) -o $@ -c $<
+DO_GAME_SHARED_CC=$(CC) $(GAME_SHARED_INCLUDEDIRS) $(CFLAGS) -o $@ -c $<
+DO_MOD_CC=$(CC) $(MOD_INCLUDEDIRS) $(CFLAGS) -o $@ -c $<
+DO_UTIL_CC=$(CC) $(UTIL_INCLUDEDIRS) $(CFLAGS) -o $@ -c $<
+DO_TEXTREP_CC=$(CC) $(TEXTREP_INCLUDEDIRS) $(CFLAGS) -o $@ -c $<
+#####################################################################
+
+HLDLL_OBJS = \
+	$(HLDLL_OBJ_DIR)/animating.o \
+	$(HLDLL_OBJ_DIR)/animation.o \
+	$(HLDLL_OBJ_DIR)/bmodels.o \
+	$(HLDLL_OBJ_DIR)/buttons.o \
+	$(HLDLL_OBJ_DIR)/cbase.o \
+	$(HLDLL_OBJ_DIR)/client.o \
+	$(HLDLL_OBJ_DIR)/combat.o \
+	$(HLDLL_OBJ_DIR)/doors.o \
+	$(HLDLL_OBJ_DIR)/effects.o \
+	$(HLDLL_OBJ_DIR)/egon.o \
+	$(HLDLL_OBJ_DIR)/explode.o \
+	$(HLDLL_OBJ_DIR)/func_break.o \
+	$(HLDLL_OBJ_DIR)/func_tank.o \
+	$(HLDLL_OBJ_DIR)/game.o \
+	$(HLDLL_OBJ_DIR)/gamerules.o \
+	$(HLDLL_OBJ_DIR)/gauss.o \
+	$(HLDLL_OBJ_DIR)/globals.o \
+	$(HLDLL_OBJ_DIR)/ggrenade.o \
+	$(HLDLL_OBJ_DIR)/h_ai.o \
+	$(HLDLL_OBJ_DIR)/h_battery.o \
+	$(HLDLL_OBJ_DIR)/h_cycler.o \
+	$(HLDLL_OBJ_DIR)/h_export.o \
+	$(HLDLL_OBJ_DIR)/items.o \
+	$(HLDLL_OBJ_DIR)/lights.o \
+	$(HLDLL_OBJ_DIR)/maprules.o \
+	$(HLDLL_OBJ_DIR)/mpstubb.o \
+	$(HLDLL_OBJ_DIR)/multiplay_gamerules.o \
+	$(HLDLL_OBJ_DIR)/observer.o \
+	$(HLDLL_OBJ_DIR)/pathcorner.o \
+	$(HLDLL_OBJ_DIR)/plane.o \
+	$(HLDLL_OBJ_DIR)/plats.o \
+	$(HLDLL_OBJ_DIR)/rpg.o \
+	$(HLDLL_OBJ_DIR)/player.o \
+	$(HLDLL_OBJ_DIR)/satchel.o \
+	$(HLDLL_OBJ_DIR)/shotgun.o \
+	$(HLDLL_OBJ_DIR)/singleplay_gamerules.o \
+	$(HLDLL_OBJ_DIR)/skill.o \
+	$(HLDLL_OBJ_DIR)/sound.o \
+	$(HLDLL_OBJ_DIR)/soundent.o \
+	$(HLDLL_OBJ_DIR)/spectator.o \
+	$(HLDLL_OBJ_DIR)/squeakgrenade.o \
+	$(HLDLL_OBJ_DIR)/subs.o \
+	$(HLDLL_OBJ_DIR)/teamplay_gamerules.o \
+	$(HLDLL_OBJ_DIR)/triggers.o \
+	$(HLDLL_OBJ_DIR)/turret.o \
+	$(HLDLL_OBJ_DIR)/util.o \
+	$(HLDLL_OBJ_DIR)/weapons.o \
+	$(HLDLL_OBJ_DIR)/world.o \
+	$(HLDLL_OBJ_DIR)/xen.o \
+
+MOD_OBJS = \
+	$(NS_MOD_OBJ_DIR)/AnimationUtil.o \
+	$(NS_MOD_OBJ_DIR)/AvHAcidRocketGun.o \
+	$(NS_MOD_OBJ_DIR)/AvHAlienAbilities.o \
+	$(NS_MOD_OBJ_DIR)/AvHAlienEquipment.o \
+	$(NS_MOD_OBJ_DIR)/AvHAlienTurret.o \
+	$(NS_MOD_OBJ_DIR)/AvHAlienWeapon.o \
+	$(NS_MOD_OBJ_DIR)/AvHAssert.o \
+	$(NS_MOD_OBJ_DIR)/AvHBaseBuildable.o \
+	$(NS_MOD_OBJ_DIR)/AvHBaseInfoLocation.o \
+	$(NS_MOD_OBJ_DIR)/AvHBasePlayerWeapon.o \
+	$(NS_MOD_OBJ_DIR)/AvHBileBombGun.o \
+	$(NS_MOD_OBJ_DIR)/AvHBite.o \
+	$(NS_MOD_OBJ_DIR)/AvHBite2.o \
+	$(NS_MOD_OBJ_DIR)/AvHBlink.o \
+	$(NS_MOD_OBJ_DIR)/AvHBuildable.o \
+	$(NS_MOD_OBJ_DIR)/AvHBuildingGun.o \
+	$(NS_MOD_OBJ_DIR)/AvHCurl.o \
+	$(NS_MOD_OBJ_DIR)/AvHClaws.o \
+	$(NS_MOD_OBJ_DIR)/AvHCloakable.o \
+	$(NS_MOD_OBJ_DIR)/AvHConsoleCommands.o \
+	$(NS_MOD_OBJ_DIR)/AvHConstants.o \
+	$(NS_MOD_OBJ_DIR)/AvHCombat.o \
+	$(NS_MOD_OBJ_DIR)/AvHDevour.o \
+	$(NS_MOD_OBJ_DIR)/AvHDivineWind.o \
+	$(NS_MOD_OBJ_DIR)/AvHEntities.o \
+	$(NS_MOD_OBJ_DIR)/AvHEntityHierarchy.o \
+	$(NS_MOD_OBJ_DIR)/AvHGamerules.o \
+	$(NS_MOD_OBJ_DIR)/AvHGrenade.o \
+	$(NS_MOD_OBJ_DIR)/AvHGrenadeGun.o \
+	$(NS_MOD_OBJ_DIR)/AvHHealingSpray.o \
+	$(NS_MOD_OBJ_DIR)/AvHHeavyMachineGun.o \
+	$(NS_MOD_OBJ_DIR)/AvHHive.o \
+	$(NS_MOD_OBJ_DIR)/AvHItemInfo.o \
+	$(NS_MOD_OBJ_DIR)/AvHKnife.o \
+	$(NS_MOD_OBJ_DIR)/AvHMachineGun.o \
+	$(NS_MOD_OBJ_DIR)/AvHMapExtents.o \
+	$(NS_MOD_OBJ_DIR)/AvHMarineEquipment.o \
+	$(NS_MOD_OBJ_DIR)/AvHMarineTurret.o \
+	$(NS_MOD_OBJ_DIR)/AvHMarineWeapon.o \
+	$(NS_MOD_OBJ_DIR)/AvHMetabolize.o \
+	$(NS_MOD_OBJ_DIR)/AvHMine.o \
+	$(NS_MOD_OBJ_DIR)/AvHMiniMap.o \
+	$(NS_MOD_OBJ_DIR)/AvHMovementUtil.o \
+	$(NS_MOD_OBJ_DIR)/AvHNetworkMessages.o \
+	$(NS_MOD_OBJ_DIR)/AvHOrder.o \
+	$(NS_MOD_OBJ_DIR)/AvHParasiteGun.o \
+	$(NS_MOD_OBJ_DIR)/AvHParticleSystem.o \
+	$(NS_MOD_OBJ_DIR)/AvHParticleSystemEntity.o \
+	$(NS_MOD_OBJ_DIR)/AvHParticleSystemManager.o \
+	$(NS_MOD_OBJ_DIR)/AvHParticleTemplate.o \
+	$(NS_MOD_OBJ_DIR)/AvHParticleTemplateServer.o \
+	$(NS_MOD_OBJ_DIR)/AvHPistol.o \
+	$(NS_MOD_OBJ_DIR)/AvHPlayer.o  \
+	$(NS_MOD_OBJ_DIR)/AvHPlayerUpgrade.o  \
+	$(NS_MOD_OBJ_DIR)/AvHPrimalScream.o \
+	$(NS_MOD_OBJ_DIR)/AvHPushableBuildable.o \
+	$(NS_MOD_OBJ_DIR)/AvHReinforceable.o \
+	$(NS_MOD_OBJ_DIR)/AvHResearchManager.o  \
+	$(NS_MOD_OBJ_DIR)/AvHScriptManager.o \
+	$(NS_MOD_OBJ_DIR)/AvHScriptServer.o \
+	$(NS_MOD_OBJ_DIR)/AvHScriptShared.o \
+	$(NS_MOD_OBJ_DIR)/AvHSelectionHelper.o \
+	$(NS_MOD_OBJ_DIR)/AvHServerPlayerData.o \
+	$(NS_MOD_OBJ_DIR)/AvHServerUtil.o \
+	$(NS_MOD_OBJ_DIR)/AvHSharedMovementInfo.o \
+	$(NS_MOD_OBJ_DIR)/AvHSharedUtil.o \
+	$(NS_MOD_OBJ_DIR)/AvHSiegeTurret.o \
+	$(NS_MOD_OBJ_DIR)/AvHSonicGun.o \
+	$(NS_MOD_OBJ_DIR)/AvHSoundListManager.o \
+	$(NS_MOD_OBJ_DIR)/AvHSpecials.o \
+	$(NS_MOD_OBJ_DIR)/AvHSpikeGun.o \
+	$(NS_MOD_OBJ_DIR)/AvHSpitGun.o \
+	$(NS_MOD_OBJ_DIR)/AvHSpores.o \
+	$(NS_MOD_OBJ_DIR)/AvHStomp.o \
+	$(NS_MOD_OBJ_DIR)/AvHSwipe.o \
+	$(NS_MOD_OBJ_DIR)/AvHTeam.o \
+	$(NS_MOD_OBJ_DIR)/AvHTechNode.o \
+	$(NS_MOD_OBJ_DIR)/AvHTurret.o \
+	$(NS_MOD_OBJ_DIR)/AvHTechTree.o \
+	$(NS_MOD_OBJ_DIR)/AvHUmbraGun.o \
+	$(NS_MOD_OBJ_DIR)/AvHVisibleBlipList.o \
+	$(NS_MOD_OBJ_DIR)/AvHVoiceHelper.o \
+	$(NS_MOD_OBJ_DIR)/AvHWebSpinner.o \
+	$(NS_MOD_OBJ_DIR)/AvHWeldable.o \
+	$(NS_MOD_OBJ_DIR)/AvHWelder.o \
+	$(NS_MOD_OBJ_DIR)/AvHWorldUpdate.o \
+	$(NS_MOD_OBJ_DIR)/AvHTechSlotManager.o \
+	$(NS_MOD_OBJ_DIR)/AvHSpawn.o \
+	$(NS_MOD_OBJ_DIR)/CollisionUtil.o \
+	$(NS_MOD_OBJ_DIR)/CollisionChecker.o \
+	$(NS_MOD_OBJ_DIR)/CollisionChecker_ServerOnly.o \
+	$(NS_MOD_OBJ_DIR)/NetworkMeter.o \
+
+PM_OBJS = \
+	$(PM_OBJ_DIR)/pm_shared.o \
+	$(PM_OBJ_DIR)/pm_math.o \
+	$(PM_OBJ_DIR)/pm_debug.o
+
+GAME_SHARED_OBJS = \
+	$(GAME_SHARED_OBJ_DIR)/voice_banmgr.o \
+	$(GAME_SHARED_OBJ_DIR)/voice_gamemgr.o \
+
+UTIL_OBJS = \
+	$(UTIL_OBJ_DIR)/Balance.o \
+	$(UTIL_OBJ_DIR)/Checksum.o \
+	$(UTIL_OBJ_DIR)/GammaTable.o \
+	$(UTIL_OBJ_DIR)/LinuxSupport.o \
+	$(UTIL_OBJ_DIR)/Mat3.o \
+	$(UTIL_OBJ_DIR)/MathUtil.o \
+	$(UTIL_OBJ_DIR)/Quat.o \
+	$(UTIL_OBJ_DIR)/Stacktrace.o \
+	$(UTIL_OBJ_DIR)/STLUtil.o \
+	$(UTIL_OBJ_DIR)/Tokenizer.o \
+
+TEXTREP_OBJS = \
+	$(TEXTREP_OBJ_DIR)/TRDescription.o \
+	$(TEXTREP_OBJ_DIR)/TRFactory.o \
+
+all: dirs ns.$(SHLIBEXT)
+
+dirs:
+	-mkdir $(BUILD_OBJ_DIR)
+	-mkdir $(HLDLL_OBJ_DIR)
+	-mkdir $(NS_MOD_OBJ_DIR)
+	-mkdir $(HLWPN_OBJ_DIR)
+	-mkdir $(PM_OBJ_DIR)
+	-mkdir $(UTIL_OBJ_DIR)
+	-mkdir $(TEXTREP_OBJ_DIR)
+	-mkdir $(GAME_SHARED_OBJ_DIR)
+
+ns.$(SHLIBEXT): $(HLDLL_OBJS) $(MOD_OBJS) $(PM_OBJS) $(GAME_SHARED_OBJS) $(UTIL_OBJS) $(TEXTREP_OBJS)
+	$(CC) $(SHLIBLDFLAGS) -o $(BUILD_DIR)/$@ $(HLDLL_OBJS) $(MOD_OBJS) $(PM_OBJS) $(GAME_SHARED_OBJS) $(UTIL_OBJS) $(TEXTREP_OBJS) $(LDFLAGS) 
+	@echo "Done..."
+
+$(NS_MOD_OBJ_DIR)/%.o: $(NS_MOD_SRC_DIR)/%.cpp
+	$(DO_MOD_CC)
+
+$(HLDLL_OBJ_DIR)/%.o : $(HLDLL_SRC_DIR)/%.cpp
+	$(DO_HLDLL_CC)
+
+$(PM_OBJ_DIR)/%.o : $(PM_SRC_DIR)/%.cpp
+	$(DO_PM_CC)
+
+$(GAME_SHARED_OBJ_DIR)/%.o : $(GAME_SHARED_SRC_DIR)/%.cpp
+	$(DO_GAME_SHARED_CC)
+
+$(UTIL_OBJ_DIR)/%.o : $(UTIL_SRC_DIR)/%.cpp
+	$(DO_UTIL_CC)
+
+$(TEXTREP_OBJ_DIR)/%.o : $(TEXTREP_SRC_DIR)/%.cpp
+	$(DO_TEXTREP_CC)
+
+clean:
+	-rm -rf $(GAME_SHARED_OBJ_DIR)
+	-rm -rf $(PM_OBJ_DIR)
+	-rm -rf $(HLWPN_OBJ_DIR)
+	-rm -rf $(HLDLL_OBJ_DIR)
+	-rm -f ns.$(SHLIBEXT)
+

@@ -19,6 +19,8 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
+
+
 #ifndef BASIC_H
 #define BASIC_H
 
@@ -38,6 +40,9 @@
 
 using namespace std;
 
+
+#include "public/steam/steamtypes.h"
+/*
 // data types
 typedef signed char			int8;
 typedef signed short		int16;
@@ -46,7 +51,7 @@ typedef signed long			int32;
 typedef unsigned char		uint8;
 typedef unsigned short		uint16;
 typedef unsigned long		uint32;
-
+*/
 typedef vector<string>					StringList;
 //typedef vector<pair<string, string> >	StringPairList;
 

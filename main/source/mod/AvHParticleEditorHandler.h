@@ -1,11 +1,15 @@
 #ifndef AVHPARTICLEEDITORHANDLER_H
 #define AVHPARTICLEEDITORHANDLER_H
 
-#include "types.h"
+#include "../types.h"
+//@2014 added these two headers
+#include <VGUI_KeyCode.h>
+#include <VGUI_MouseCode.h>
+
 #include <VGUI_InputSignal.h>
 #include <VGUI_IntChangeSignal.h>
 #include <VGUI_Slider.h>
-#include "mod/AvHParticleTemplate.h"
+#include "AvHParticleTemplate.h"
 
 using namespace vgui;
 

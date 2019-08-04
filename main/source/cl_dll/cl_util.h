@@ -18,39 +18,42 @@
 #ifndef CL_UTIL_H
 #define CL_UTIL_H
 
-#include "common/cvardef.h"
-#include "common/vector_util.h"
-#include "vgui_Panel.h"
-#include "types.h"
-#include "cl_dll/cl_dll.h"
-#include "cl_dll/hud.h"
+#include "cvardef.h"
+#include "vector_util.h"
+#include "VGUI_Panel.h"
+#include "../types.h"
+#include "cl_dll.h"
+#include "hud.h"
 
 #ifndef TRUE
 #define TRUE 1
 #define FALSE 0
 #endif
 
+#include <stdio.h> // for safe_sprintf()
+#include <stdarg.h>  // "
+#include <stdarg.h>  // "
 // Macros to hook function calls into the HUD object
 #define HOOK_MESSAGE(x) gEngfuncs.pfnHookUserMsg(#x, __MsgFunc_##x );
 
 #define DECLARE_MESSAGE(y, x) int __MsgFunc_##x(const char *pszName, int iSize, void *pbuf) \
 							{ \
-							return gHUD.##y.MsgFunc_##x(pszName, iSize, pbuf ); \
+							return gHUD.y.MsgFunc_##x(pszName, iSize, pbuf ); \
 							}
 
 
 #define HOOK_COMMAND(x, y) gEngfuncs.pfnAddCommand( x, __CmdFunc_##y );
 #define DECLARE_COMMAND(y, x) void __CmdFunc_##x( void ) \
 							{ \
-								gHUD.##y.UserCmd_##x( ); \
+								gHUD.y.UserCmd_##x( ); \
 							}
 
 inline float CVAR_GET_FLOAT( const char *x ) {	return gEngfuncs.pfnGetCvarFloat( (char*)x ); }
 inline char* CVAR_GET_STRING( const char *x ) {	return gEngfuncs.pfnGetCvarString( (char*)x ); }
 inline struct cvar_s *CVAR_CREATE( const char *cv, const char *val, const int flags ) {	return gEngfuncs.pfnRegisterVariable( (char*)cv, (char*)val, flags ); }
 
-//#define SPR_Load (*gEngfuncs.pfnSPR_Load)
-HSPRITE Safe_SPR_Load(const char* inSpriteName);
+#define SPR_Load (*gEngfuncs.pfnSPR_Load)
+//HSPRITE SPR_Load(const char* inSpriteName);
 #define SPR_Set (*gEngfuncs.pfnSPR_Set)
 #define SPR_Frames (*gEngfuncs.pfnSPR_Frames)
 #define SPR_GetList (*gEngfuncs.pfnSPR_GetList)
@@ -91,8 +94,8 @@ int ScreenWidth();
 
 
 // Gets the height & width of a sprite,  at the specified frame
-inline int SPR_Height( HSPRITE x, int f )	{ return gEngfuncs.pfnSPR_Height(x, f); }
-inline int SPR_Width( HSPRITE x, int f )	{ return gEngfuncs.pfnSPR_Width(x, f); }
+inline int SPR_Height( AVHHSPRITE x, int f )	{ return gEngfuncs.pfnSPR_Height(x, f); }
+inline int SPR_Width( AVHHSPRITE x, int f )	{ return gEngfuncs.pfnSPR_Width(x, f); }
 
 inline 	client_textmessage_t	*TextMessageGet( const char *pName ) { return gEngfuncs.pfnTextMessageGet( pName ); }
 inline 	int						TextMessageDrawChar( int x, int y, int number, int r, int g, int b ) 
@@ -118,8 +121,8 @@ void CenterPrint( const char *string );
 //inline void PlaySound( char *szSound, float vol ) { gEngfuncs.pfnPlaySoundByName( szSound, vol ); }
 //inline void PlaySound( int iSound, float vol ) { gEngfuncs.pfnPlaySoundByIndex( iSound, vol ); }
 
-#define max(a, b)  (((a) > (b)) ? (a) : (b))
-#define min(a, b)  (((a) < (b)) ? (a) : (b))
+#define max(a,b)    (((a) > (b)) ? (a) : (b))
+#define min(a,b)    (((a) < (b)) ? (a) : (b))
 #define fabs(x)	   ((x) > 0 ? (x) : 0 - (x))
 
 void ScaleColors( int &r, int &g, int &b, int a );
@@ -138,7 +141,7 @@ inline void UnpackRGB(int &r, int &g, int &b, unsigned long ulRGB)\
 
 void FillRGBAClipped(vgui::Panel* inPanel, int inStartX, int inStartY, int inWidth, int inHeight, int r, int g, int b, int a);
 
-HSPRITE LoadSprite(const char *pszName);
+AVHHSPRITE LoadSprite(const char *pszName);
 
 //bool LocalizeString(const char* inMessage, char* outBuffer, int inBufferSize);
 bool LocalizeString(const char* inMessage, string& outputString);

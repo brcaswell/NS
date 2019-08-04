@@ -22,9 +22,9 @@
 #include "util.h"
 #include "cbase.h"
 #include "doors.h"
-#include "mod/AvHConstants.h"
-#include "mod/AvHServerUtil.h"
-#include "mod/AvHMarineEquipment.h"
+#include "../mod/AvHConstants.h"
+#include "../mod/AvHServerUtil.h"
+#include "../mod/AvHMarineEquipment.h"
 
 extern void SetMovedir(entvars_t* ev);
 

@@ -77,18 +77,18 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "mod/AvHBaseBuildable.h"
-#include "mod/AvHGamerules.h"
-#include "mod/AvHSharedUtil.h"
-#include "mod/AvHServerUtil.h"
-#include "mod/AvHServerVariables.h"
-#include "mod/AvHParticleConstants.h"
-#include "mod/AvHMarineEquipmentConstants.h"
-#include "mod/AvHSoundListManager.h"
-#include "mod/AvHAlienEquipmentConstants.h"
-#include "mod/AvHPlayerUpgrade.h"
-#include "dlls/animation.h"
-#include "mod/AvHMovementUtil.h"
+#include "AvHBaseBuildable.h"
+#include "AvHGamerules.h"
+#include "AvHSharedUtil.h"
+#include "AvHServerUtil.h"
+#include "AvHServerVariables.h"
+#include "AvHParticleConstants.h"
+#include "AvHMarineEquipmentConstants.h"
+#include "AvHSoundListManager.h"
+#include "AvHAlienEquipmentConstants.h"
+#include "AvHPlayerUpgrade.h"
+#include "../dlls/animation.h"
+#include "AvHMovementUtil.h"
 
 const int kBaseBuildableSpawnAnimation = 0;
 const int kBaseBuildableDeployAnimation = 1;

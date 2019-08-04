@@ -1,10 +1,10 @@
-#include "types.h"
-#include "mod/AvHPlayer.h"
-#include "mod/AvHPlayerUpgrade.h"
-#include "mod/AvHServerUtil.h"
-#include "mod/AvHGamerules.h"
-#include "mod/AvHMarineEquipment.h"
-#include "mod/AvHSharedUtil.h"
+#include "../types.h"
+#include "AvHPlayer.h"
+#include "AvHPlayerUpgrade.h"
+#include "AvHServerUtil.h"
+#include "AvHGamerules.h"
+#include "AvHMarineEquipment.h"
+#include "AvHSharedUtil.h"
 
 extern int gLevelUpEventID;
 

@@ -50,21 +50,21 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "util/nowarnings.h"
+#include "../util/nowarnings.h"
 #include "VGUI_Panel.h"
 #include "cl_dll/chud.h"
-#include "engine/cdll_int.h"
+#include "../engine/cdll_int.h"
 #include "cl_dll/cl_util.h"
-#include "mod/AvHCommanderModeHandler.h"
-#include "mod/AvHConstants.h"
-#include "mod/AvHLogoutComponent.h"
-#include "mod/AvHSpecials.h"
-#include "mod/AvHMarineEquipmentConstants.h"
-#include "mod/AvHSharedUtil.h"
-#include "mod/AvHTitles.h"
-#include "mod/AvHTechImpulsePanel.h"
-#include "mod/AvHCommandConstants.h"
-#include "util/STLUtil.h"
+#include "AvHCommanderModeHandler.h"
+#include "AvHConstants.h"
+#include "AvHLogoutComponent.h"
+#include "AvHSpecials.h"
+#include "AvHMarineEquipmentConstants.h"
+#include "AvHSharedUtil.h"
+#include "AvHTitles.h"
+#include "AvHTechImpulsePanel.h"
+#include "AvHCommandConstants.h"
+#include "../util/STLUtil.h"
 
 AvHCommanderModeHandler::AvHCommanderModeHandler()
 {

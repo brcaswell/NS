@@ -84,7 +84,7 @@
 
 // Jetpack
 const float kJetpackForce					= 1250;
-const float	kJetpackLateralScalar			= 12;
+//const float	kJetpackLateralScalar			= 12;
 const float kJetpackEnergyGainRate			= .1f;
 const float kJetpackMinimumEnergyToJetpack	= .1f;
 const float kJetpackEnergyLossRate			= kJetpackEnergyGainRate*1.5f;

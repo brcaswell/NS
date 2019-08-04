@@ -36,7 +36,7 @@
 #ifndef AVH_MARINE_TURRET_H
 #define AVH_MARINE_TURRET_H
 
-#include "mod/AvHTurret.h"
+#include "AvHTurret.h"
 
 class AvHMarineTurret : public AvHTurret
 {

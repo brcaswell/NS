@@ -25,12 +25,12 @@ typedef int BOOL;
 // hack into header files that we can ship
 typedef int qboolean;
 typedef unsigned char byte;
-#include "util/hl/mathlib.h"
-#include "common/const.h"
-#include "engine/progdefs.h"
-#include "engine/edict.h"
-#include "engine/eiface.h"
-#include "engine/studio.h"
+#include "hl/mathlib.h"
+#include "../common/const.h"
+#include "../engine/progdefs.h"
+#include "../engine/edict.h"
+#include "../engine/eiface.h"
+#include "../engine/studio.h"
 
 #ifndef ACTIVITY_H
 #include "activity.h"
@@ -50,7 +50,7 @@ typedef unsigned char byte;
 #include "enginecallback.h"
 #endif
 
-#include "mod/AvHServerVariables.h"
+#include "../mod/AvHServerVariables.h"
 
 extern globalvars_t				*gpGlobals;
 
@@ -336,6 +336,7 @@ int GetAnimationEvent( void *pmodel, entvars_t *pev, MonsterEvent_t *pMonsterEve
 
 	if (pseqdesc->numevents == 0 || index > pseqdesc->numevents )
 		return 0;
+
 
 	if (pseqdesc->numframes > 1)
 	{

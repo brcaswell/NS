@@ -35,11 +35,11 @@
 #ifndef AVH_ALIEN_WEAPON_H
 #define AVH_ALIEN_WEAPON_H
 
-#include "util/nowarnings.h"
-#include "dlls/weapons.h"
-#include "mod/AvHBasePlayerWeapon.h"
-#include "mod/AvHConstants.h"
-#include "mod/AvHMessage.h"
+#include "../util/nowarnings.h"
+#include "../dlls/weapons.h"
+#include "AvHBasePlayerWeapon.h"
+#include "AvHConstants.h"
+#include "AvHMessage.h"
 
 class AvHAlienWeapon : public AvHBasePlayerWeapon 
 {

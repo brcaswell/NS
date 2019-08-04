@@ -19,7 +19,7 @@
 #ifndef TRTAGVALUEPAIR_H
 #define TRTAGVALUEPAIR_H
 
-#include "textrep/TRTag.h"
+#include "TRTag.h"
 
 typedef pair<string, string>    TRTagValuePair;
 

@@ -1,13 +1,13 @@
 #ifndef AVH_MINIMAP_H
 #define AVH_MINIMAP_H
 
-#include "types.h"
+#include "../types.h"
 
 #ifdef AVH_CLIENT
 #include "cl_dll/hud.h"
 #endif
 
-#include "mod/AvHMapExtents.h"
+#include "AvHMapExtents.h"
 
 const int kSpriteWidth = 512;
 const int kSpriteHeight = 512;

@@ -1,11 +1,11 @@
 #ifndef AVH_PARTICLETEMPLATESERVER_H
 #define AVH_PARTICLETEMPLATESERVER_H
 
-#include "mod/AvHParticleTemplate.h"
-#include "textrep/TRDescription.h"
-#include "dlls/extdll.h"
-#include "common/const.h"
-#include "engine/eiface.h"
+#include "AvHParticleTemplate.h"
+#include "../textrep/TRDescription.h"
+#include "../dlls/extdll.h"
+#include "../common/const.h"
+#include "../engine/eiface.h"
 
 class AvHParticleTemplateListServer : public AvHParticleTemplateList
 {

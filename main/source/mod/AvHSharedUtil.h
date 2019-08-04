@@ -51,28 +51,29 @@
 #ifdef AVH_CLIENT
 #include "cl_dll/cl_util.h"
 #include "cl_dll/util_vector.h"
-#include "common/const.h"
-#include "engine/progdefs.h"
+#include "../common/const.h"
+#include "../engine/progdefs.h"
 #include "cl_dll/ev_hldm.h"
-#include "common/vector_util.h"
+
+#include "../common/vector_util.h"
 #endif
 
 #ifdef AVH_SERVER
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "common/vector_util.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "../common/vector_util.h"
 #endif
 
-#include "pm_shared/pm_defs.h"
-#include "pm_shared/pm_shared.h"
-#include "pm_shared/pm_movevars.h"
-#include "pm_shared/pm_debug.h"
-#include "mod/AvHMessage.h"
-#include "mod/AvHConstants.h"
-#include "mod/AvHMapExtents.h"
-#include "mod/AvHSpecials.h"
-#include "mod/AvHBaseInfoLocation.h"
-#include "mod/AvHBasePlayerWeaponConstants.h"
+#include "../pm_shared/pm_defs.h"
+#include "../pm_shared/pm_shared.h"
+#include "../pm_shared/pm_movevars.h"
+#include "../pm_shared/pm_debug.h"
+#include "AvHMessage.h"
+#include "AvHConstants.h"
+#include "AvHMapExtents.h"
+#include "AvHSpecials.h"
+#include "AvHBaseInfoLocation.h"
+#include "AvHBasePlayerWeaponConstants.h"
 
 const int kHitOffsetAmount = 10;
 #define kNoBuildTexture		"nobuild"

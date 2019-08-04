@@ -52,7 +52,7 @@ extern AvHHud gHUD;
 #include "mod/AvHBlipConstants.h"
 #include "mod/AvHParticleConstants.h"
 #include "util/MathUtil.h"
-#include "types.h"
+#include "../types.h"
 #include "mod/AvHNetworkMessages.h"
 #include "mod/AvHNexusServer.h"
 #include "dlls/cbase.h"

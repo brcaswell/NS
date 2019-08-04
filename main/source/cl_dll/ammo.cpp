@@ -103,14 +103,14 @@ void WeaponsResource :: LoadAllWeaponSprites( void )
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-inline void LoadWeaponSprite( client_sprite_t* ptr, HSPRITE& sprite, wrect_t& bounds )
+inline void LoadWeaponSprite( client_sprite_t* ptr, AVHHSPRITE& sprite, wrect_t& bounds )
 {
 	if( ptr )
 	{
 		string name( "sprites/" );
 		name.append( ptr->szSprite );
 		name.append( ".spr" );
-		sprite = Safe_SPR_Load(name.c_str());
+		sprite = SPR_Load(name.c_str());
 		bounds = ptr->rc;
 	}
 	else
@@ -300,7 +300,7 @@ void WeaponsResource::SetAmmo( int iId, int iCount )
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-HSPRITE* WeaponsResource::GetAmmoPicFromWeapon( int iAmmoId, wrect_t& rect )
+AVHHSPRITE* WeaponsResource::GetAmmoPicFromWeapon( int iAmmoId, wrect_t& rect )
 {
 	for ( int i = 0; i < MAX_WEAPONS; i++ )
 	{
@@ -533,7 +533,7 @@ void WeaponsResource :: SelectSlot( int iSlot, int fAdvance, int iDirection )
 
 int giBucketHeight, giBucketWidth, giABHeight, giABWidth; // Ammo Bar width and height
 
-HSPRITE ghsprBuckets;					// Sprite for top row of weapons menu
+AVHHSPRITE ghsprBuckets;					// Sprite for top row of weapons menu
 
 DECLARE_MESSAGE(m_Ammo, CurWeapon );	// Current weapon and clip
 DECLARE_MESSAGE(m_Ammo, WeaponList);	// new weapon type

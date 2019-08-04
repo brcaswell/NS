@@ -1,6 +1,8 @@
 #ifndef AVHSCROLLHANDLER_H
 #define AVHSCROLLHANDLER_H
-
+//@2014 added these two headers
+#include <VGUI_KeyCode.h>
+#include <VGUI_MouseCode.h>
 #include <VGUI_InputSignal.h>
 
 using namespace vgui;

@@ -20,8 +20,8 @@
 #include "cbase.h"
 #include "player.h"
 #include "pm_shared/pm_shared.h"
-#include "mod/AvHPlayer.h"
-#include "mod/AvHGamerules.h"
+#include "../mod/AvHPlayer.h"
+#include "../mod/AvHGamerules.h"
 
 const float kNextTargetInterval = .2f;
 

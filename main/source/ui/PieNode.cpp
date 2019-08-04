@@ -187,7 +187,8 @@ void PieNode::DisableNodesNotInMessageList(const MessageIDList& inList)
 
 void PieNode::DisableNodesWhoseChildrenAreDisabled()
 {
-    for(int i = 0; i < kNumNodes; i++)
+	int i;
+    for( i = 0; i < kNumNodes; i++)
     {
         PieNode* theCurrentPieNode = this->mArray[i];
         if(theCurrentPieNode)
@@ -659,7 +660,7 @@ void PieNode::paintBackground()
 
 						if(this->mConnectorSprite == 0 && (this->mConnectorSpriteName != ""))
 						{
-							this->mConnectorSprite = Safe_SPR_Load(this->mConnectorSpriteName.c_str());
+							this->mConnectorSprite = SPR_Load(this->mConnectorSpriteName.c_str());
 						}
 
 						if(this->mConnectorSprite > 0)

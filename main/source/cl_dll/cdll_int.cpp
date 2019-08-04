@@ -20,24 +20,42 @@
 
 #include "hud.h"
 #include "cl_util.h"
-#include "common/netadr.h"
-#include "vgui_schememanager.h"
+#include "netadr.h"
+#undef INTERFACE_H
+#include "../common/interface.h"
+#include "vgui_SchemeManager.h"
 #include <papi.h>
-
-#include "pm_shared/pm_shared.h"
+/*
+extern "C"
+{
+#include "pm_shared.h"
+}*/
+#include "pm_shared.h"
 
 #include <string.h>
 #include "hud_servers.h"
 #include "vgui_int.h"
-#include "mod\AvHHud.h"
-#include "mod\AvHUIFactory.h"
-#include "mod\AvHParticleSystemManager.h"
-#include "mod\AvHHulls.h"
-#include "common/interface.h"
-#include "common/ITrackerUser.h"
 
-#include "engine/APIProxy.h"
-#include "cl_dll/Exports.h"
+#include "AvHHud.h"
+#include "AvHUIFactory.h"
+#include "AvHParticleSystemManager.h"
+#include "AvHHulls.h"
+#include "interface.h"
+//#include "itrackeruser.h"
+
+#ifdef _WIN32
+#include "winsani_in.h"
+#include <windows.h>
+#include "winsani_out.h"
+#endif
+#include "Exports.h"
+#
+#include "tri.h"
+#include "vgui_TeamFortressViewport.h"
+#include "interface.h"
+
+#include "APIProxy.h"
+//#include "cl_dll/Exports.h"
 
 cl_enginefunc_t gEngfuncs;
 
@@ -49,7 +67,7 @@ AvHHud gHUD((string(getModDirectory()) + "/ui.txt").c_str(), new AvHUIFactory())
 TeamFortressViewport *gViewPort = NULL;
 
 HINTERFACEMODULE g_hTrackerModule = NULL;
-ITrackerUser *g_pTrackerUser = NULL;
+//ITrackerUser *g_pTrackerUser = NULL;
 
 void InitInput (void);
 void EV_HookEvents( void );
@@ -64,7 +82,7 @@ HUD_GetHullBounds
 */
 int CL_DLLEXPORT HUD_GetHullBounds( int hullnumber, float *mins, float *maxs )
 {
-	RecClGetHullBounds(hullnumber, mins, maxs);
+//	RecClGetHullBounds(hullnumber, mins, maxs);
 	
 	int iret = 0;
 
@@ -108,7 +126,7 @@ HUD_ConnectionlessPacket
 */
 int	CL_DLLEXPORT HUD_ConnectionlessPacket( const struct netadr_s *net_from, const char *args, char *response_buffer, int *response_buffer_size )
 {
-	RecClConnectionlessPacket(net_from, args, response_buffer, response_buffer_size);
+	//RecClConnectionlessPacket(net_from, args, response_buffer, response_buffer_size);
 
 	// Parse stuff from args
 	int max_buffer_size = *response_buffer_size;
@@ -124,21 +142,21 @@ int	CL_DLLEXPORT HUD_ConnectionlessPacket( const struct netadr_s *net_from, cons
 
 void CL_DLLEXPORT HUD_PlayerMoveInit( struct playermove_s *ppmove )
 {
-	RecClClientMoveInit(ppmove);
+	//RecClClientMoveInit(ppmove);
 
 	PM_Init( ppmove );
 }
 
 char CL_DLLEXPORT HUD_PlayerMoveTexture( char *name )
 {
-	RecClClientTextureType(name);
+//	RecClClientTextureType(name);
 
 	return PM_FindTextureType( name );
 }
 
 void CL_DLLEXPORT HUD_PlayerMove( struct playermove_s *ppmove, int server )
 {
-	RecClClientMove(ppmove, server);
+	//RecClClientMove(ppmove, server);
 
 	PM_Move( ppmove, server );
 }
@@ -147,7 +165,7 @@ int CL_DLLEXPORT Initialize( cl_enginefunc_t *pEnginefuncs, int iVersion )
 {
 	gEngfuncs = *pEnginefuncs;
 
-	RecClInitialize(pEnginefuncs, iVersion);
+	//RecClInitialize(pEnginefuncs, iVersion);
 
 	if (iVersion != CLDLL_INTERFACE_VERSION)
 		return 0;
@@ -157,25 +175,6 @@ int CL_DLLEXPORT Initialize( cl_enginefunc_t *pEnginefuncs, int iVersion )
 	EV_HookEvents();
 	gHUD.InitExploitPrevention();
 
-	// get tracker interface, if any
-	char szDir[512];
-	if (!gEngfuncs.COM_ExpandFilename("Bin/TrackerUI.dll", szDir, sizeof(szDir)))
-	{
-		g_pTrackerUser = NULL;
-		g_hTrackerModule = NULL;
-		return 1;
-	}
-
-	g_hTrackerModule = Sys_LoadModule(szDir);
-	CreateInterfaceFn trackerFactory = Sys_GetFactory(g_hTrackerModule);
-	if (!trackerFactory)
-	{
-		g_pTrackerUser = NULL;
-		g_hTrackerModule = NULL;
-		return 1;
-	}
-
-	g_pTrackerUser = (ITrackerUser *)trackerFactory(TRACKERUSER_INTERFACE_VERSION, NULL);
 	return 1;
 }
 
@@ -193,7 +192,7 @@ so the HUD can reinitialize itself.
 int CL_DLLEXPORT HUD_VidInit( void )
 {
 	gHUD.InitExploitPrevention();
-	RecClHudVidInit();
+//	RecClHudVidInit();
 	gHUD.VidInit();
 
 	VGui_Startup();
@@ -213,13 +212,13 @@ HUD_Init
 
 void CL_DLLEXPORT HUD_Init( void )
 {
-	RecClHudInit();
+//	RecClHudInit();
 	InitInput();
 	gHUD.Init();
 	Scheme_Init();
 }
 
-
+/*
 void UIDrawVariableBarSpriteHoles(int inSprite, int inX, int inY, float inPercentage)
 {
 	// Assumes that frame 0 is the empty sprite, frame 1 is full sprite
@@ -247,31 +246,9 @@ void UIDrawVariableBarSpriteHoles(int inSprite, int inX, int inY, float inPercen
 	
 	SPR_DisableScissor();
 }
-
+*/
 // Demonstrates black lines around the edge of sprites (both using tri API and SPR_* calls)
 // Demonstrates scissor not working properly
-void Direct3DTest()
-{
-	static int theSprite = 0;
-	
-	if(!theSprite)
-	{
-		theSprite = Safe_SPR_Load("sprites/640a-energy.spr");
-	}
-
-	// Draw alien energy
-	if(theSprite)
-	{
-		int theFrame = 0;
-		
-		int theX = ScreenWidth() - SPR_Width(theSprite, theFrame);
-		int theY = ScreenHeight() - SPR_Height(theSprite, theFrame);
-
-		// 0-1, depending how much to draw
-		float theFactor = .5f;
-		UIDrawVariableBarSpriteHoles(theSprite, theX, theY, theFactor);
-	}
-}
 
 /*
 ==========================
@@ -284,7 +261,7 @@ HUD_Redraw
 
 int CL_DLLEXPORT HUD_Redraw( float time, int intermission )
 {
-	RecClHudRedraw(time, intermission);
+//	RecClHudRedraw(time, intermission);
 
 	gHUD.Redraw( time, intermission );
 
@@ -311,7 +288,7 @@ returns 1 if anything has been changed, 0 otherwise.
 
 int CL_DLLEXPORT HUD_UpdateClientData(client_data_t *pcldata, float flTime )
 {
-	RecClHudUpdateClientData(pcldata, flTime);
+//	RecClHudUpdateClientData(pcldata, flTime);
 
 	IN_Commands();
 
@@ -328,7 +305,7 @@ Called at start and end of demos to restore to "non"HUD state.
 
 void CL_DLLEXPORT HUD_Reset( void )
 {
-	RecClHudReset();
+//	RecClHudReset();
 
 	gHUD.VidInit();
 	AvHParticleSystemManager::Instance()->Reset();
@@ -344,7 +321,7 @@ HUD_Frame
 
 void CL_DLLEXPORT HUD_Frame( double time )
 {
-	RecClHudFrame(time);
+//	RecClHudFrame(time);
 	
 	ServersThink( time );
 	
@@ -362,7 +339,7 @@ HUD_VoiceStatus
 
 void CL_DLLEXPORT HUD_VoiceStatus(int entindex, qboolean bTalking)
 {
-	RecClVoiceStatus(entindex, bTalking);
+//	RecClVoiceStatus(entindex, bTalking);
 	
 	GetClientVoiceMgr()->UpdateSpeakerStatus(entindex, bTalking);
 }
@@ -377,20 +354,19 @@ HUD_DirectorEvent
 
 void CL_DLLEXPORT HUD_DirectorMessage( int iSize, void *pbuf )
 {
-	RecClDirectorMessage(iSize, pbuf);
+//	RecClDirectorMessage(iSize, pbuf);
     gHUD.m_Spectator.DirectorMessage( iSize, pbuf );
 }
 
 
 
-#ifdef FINAL_VAC_BUILD
-
 cldll_func_dst_t *g_pcldstAddrs;
 
-extern "C" void __declspec( dllexport ) F(void *pv)
+extern "C" void CL_DLLEXPORT F(void *pv)
 {
 	cldll_func_t *pcldll_func = (cldll_func_t *)pv;
 
+	// Hack!
 	g_pcldstAddrs = ((cldll_func_dst_t *)pcldll_func->pHudVidInitFunc);
 
 	cldll_func_t cldll_func = 
@@ -435,9 +411,53 @@ extern "C" void __declspec( dllexport ) F(void *pv)
 	HUD_VoiceStatus,
 	HUD_DirectorMessage,
 	HUD_GetStudioModelInterface,
+	//HUD_ChatInputPosition,
 	};
 
 	*pcldll_func = cldll_func;
 }
 
-#endif // FINAL_VAC_BUILD
+#include "cl_dll/IGameClientExports.h"
+
+//-----------------------------------------------------------------------------
+// Purpose: Exports functions that are used by the gameUI for UI dialogs
+//-----------------------------------------------------------------------------
+class CClientExports : public IGameClientExports
+{
+public:
+	// returns the name of the server the user is connected to, if any
+	virtual const char *GetServerHostName()
+	{
+		/*if (gViewPortInterface)
+		{
+			return gViewPortInterface->GetServerName();
+		}*/
+		return "";
+	}
+
+	// ingame voice manipulation
+	virtual bool IsPlayerGameVoiceMuted(int playerIndex)
+	{
+		if (GetClientVoiceMgr())
+			return GetClientVoiceMgr()->IsPlayerBlocked(playerIndex);
+		return false;
+	}
+
+	virtual void MutePlayerGameVoice(int playerIndex)
+	{
+		if (GetClientVoiceMgr())
+		{
+			GetClientVoiceMgr()->SetPlayerBlockedState(playerIndex, true);
+		}
+	}
+
+	virtual void UnmutePlayerGameVoice(int playerIndex)
+	{
+		if (GetClientVoiceMgr())
+		{
+			GetClientVoiceMgr()->SetPlayerBlockedState(playerIndex, false);
+		}
+	}
+};
+
+EXPOSE_SINGLE_INTERFACE(CClientExports, IGameClientExports, GAMECLIENTEXPORTS_INTERFACE_VERSION);

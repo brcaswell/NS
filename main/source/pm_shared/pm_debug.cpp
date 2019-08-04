@@ -1,6 +1,6 @@
 /***
 *
-*	Copyright (c) 1999, 2000, Valve LLC. All rights reserved.
+*	Copyright (c) 1996-2002, Valve LLC. All rights reserved.
 *	
 *	This product contains software technology licensed from Id 
 *	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc. 
@@ -13,14 +13,13 @@
 *
 ****/
 
-#include "common/mathlib.h"
-#include "common/const.h"
-#include "common/usercmd.h"
+#include "mathlib.h"
+#include "const.h"
+#include "usercmd.h"
 #include "pm_defs.h"
 #include "pm_shared.h"
 #include "pm_movevars.h"
 #include "pm_debug.h"
-#include "util/MathUtil.h"
 
 #include <string.h>
 
@@ -32,7 +31,7 @@ extern playermove_t *pmove;
 // Expand debugging BBOX particle hulls by this many units.
 #define BOX_GAP 0.0f               
 
-int PM_boxpnt[6][4] =
+static int PM_boxpnt[6][4] =
 {
 	{ 0, 4, 6, 2 }, // +X
 	{ 0, 1, 5, 4 }, // +Y
@@ -47,22 +46,22 @@ void PM_ShowClipBox( void )
 #if defined( _DEBUG )
 	vec3_t org;
 	vec3_t offset = { 0, 0, 0 };
-	
+
 	if ( !pmove->runfuncs )
 		return;
-	
+
 	// More debugging, draw the particle bbox for player and for the entity we are looking directly at.
 	//  aslo prints entity info to the console overlay.
 	//if ( !pmove->server )
 	//	return;
-	
+
 	// Draw entity in center of view
 	// Also draws the normal to the clip plane that intersects our movement ray.  Leaves a particle
 	//  trail at the intersection point.
 	PM_ViewEntity();
-	
+
 	VectorCopy( pmove->origin, org );
-	
+
 	if ( pmove->server )
 	{
 		VectorAdd( org, offset, org );
@@ -71,23 +70,23 @@ void PM_ShowClipBox( void )
 	{
 		VectorSubtract( org, offset, org );
 	}
-	
+
 	// Show our BBOX in particles.
 	PM_DrawBBox( pmove->player_mins[pmove->usehull], pmove->player_maxs[pmove->usehull], org, pmove->server ? 132 : 0, 0.1 );
-	
+
 	PM_ParticleLine( org, org, pmove->server ? 132 : 0, 0.1, 5.0 );
-	/*
+/*
 	{
-	int i;
-	for ( i = 0; i < pmove->numphysent; i++ )
-	{
-	if ( pmove->physents[ i ].info >= 1 && pmove->physents[ i ].info <= 4 )
-	{
-	PM_DrawBBox( pmove->player_mins[pmove->usehull], pmove->player_maxs[pmove->usehull], pmove->physents[i].origin, 132, 0.1 );
+		int i;
+		for ( i = 0; i < pmove->numphysent; i++ )
+		{
+			if ( pmove->physents[ i ].info >= 1 && pmove->physents[ i ].info <= 4 )
+			{
+			 	PM_DrawBBox( pmove->player_mins[pmove->usehull], pmove->player_maxs[pmove->usehull], pmove->physents[i].origin, 132, 0.1 );
+			}
+		}
 	}
-	}
-	}
-	*/
+*/
 #endif
 }
 
@@ -304,8 +303,7 @@ void PM_ViewEntity( void )
 		end[i] = origin[i] + raydist * forward[i];
 	}
 
-	//trace = pmove->PM_PlayerTrace( origin, end, PM_STUDIO_BOX, -1 );
-	trace = pmove->PM_PlayerTrace( origin, end, PM_NORMAL, -1 );
+	trace = pmove->PM_PlayerTrace( origin, end, PM_STUDIO_BOX, -1 );
 
 	if (trace.ent > 0)  // Not the world
 	{

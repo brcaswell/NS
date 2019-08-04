@@ -15,6 +15,6 @@
 #ifndef VECTOR2D_H
 #define VECTOR2D_H
 
-#include "common/vectorclasses.h"
+#include "../common/vectorclasses.h"
 
 #endif

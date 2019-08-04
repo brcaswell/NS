@@ -214,7 +214,8 @@ void CHudSayText :: SayTextPrint( const char *pszBuf, int iBufSize, int clientIn
 	}
 
 	// find an empty string slot
-	for ( int i = 0; i < MAX_LINES; i++ )
+	int i = 0;
+	for ( i = 0; i < MAX_LINES; i++ )
 	{
 		if ( ! *g_szLineBuffer[i] )
 			break;
@@ -261,11 +262,15 @@ void CHudSayText :: SayTextPrint( const char *pszBuf, int iBufSize, int clientIn
 	}
 
 	m_iFlags |= HUD_ACTIVE;
-	//PlaySound( "misc/talk.wav", 1 );
-	gHUD.PlayHUDSound("misc/talk.wav", 1);
+
+	if (CVAR_GET_FLOAT("cl_chatbeep") != 0.0f)
+	{
+		//PlaySound( "misc/talk.wav", 1 );
+		gHUD.PlayHUDSound("misc/talk.wav", 1);
+	}
 
     Y_START = ScreenHeight()*.7f;
-
+    
     ChatPanel* theChatPanel = gViewPort->GetChatPanel();
 
     if (theChatPanel != NULL)
@@ -283,7 +288,7 @@ void CHudSayText :: SayTextPrint( const char *pszBuf, int iBufSize, int clientIn
 		//KGP: then move the viewport
         Y_START = theY + theHeight + 5;
     }
-
+	
 }
 
 void CHudSayText :: EnsureTextFitsInOneLineAndWrapIfHaveTo( int line )

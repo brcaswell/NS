@@ -22,19 +22,19 @@
 #ifndef AVH_PARTICLESYSTEM_H
 #define AVH_PARTICLESYSTEM_H
 
-#include "util/nowarnings.h"
-#include "types.h"
+#include "../util/nowarnings.h"
+#include "../types.h"
 
 #ifdef AVH_CLIENT
-#include "common/triangleapi.h"
+#include "../common/triangleapi.h"
 #include "cl_dll/wrect.h"
 #include "cl_dll/cl_dll.h"
 #elif defined AVH_SERVER
-  #include "dlls/extdll.h"
+  #include "../dlls/extdll.h"
 #endif
 
 #include <p_vector.h>
-#include "mod/AvHParticleTemplate.h"
+#include "AvHParticleTemplate.h"
 
 typedef uint32 ParticleSystemHandle;
 
@@ -134,7 +134,7 @@ private:
 	pVector					mBaseEntityPos;
 
 	#ifdef AVH_CLIENT
-	HSPRITE					mSprite;
+	AVHHSPRITE					mSprite;
 	bool					mIsVisible;
 	float					mLastTimeVisibilitySetTrue;
 	#endif

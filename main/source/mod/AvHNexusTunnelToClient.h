@@ -1,3 +1,4 @@
+#if 0
 #ifndef AVHNEXUSTUNNELTOCLIENT_H
 #define AVHNEXUSTUNNELTOCLIENT_H
 
@@ -27,4 +28,5 @@ namespace AvHNexus
 	};
 }
 
+#endif
 #endif

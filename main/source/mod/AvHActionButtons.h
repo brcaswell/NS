@@ -19,9 +19,9 @@
 #ifndef AVHACTIONBUTTONS_H
 #define AVHACTIONBUTTONS_H
 
-#include "vgui_Panel.h"
+#include "VGUI_Panel.h"
 #include "ui/UIComponents.h"
-#include "mod/AvHTechTree.h"
+#include "AvHTechTree.h"
 #include "ui/StaticLabel.h"
 
 const int kNumActionButtonRows = 3;

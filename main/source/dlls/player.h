@@ -16,7 +16,7 @@
 #define PLAYER_H
 
 
-#include "pm_shared/pm_materials.h"
+#include "../pm_shared/pm_materials.h"
 
 
 #define PLAYER_FATAL_FALL_SPEED		1024// approx 60 feet
@@ -334,7 +334,7 @@ public:
 	void SetCustomDecalFrames( int nFrames );
 	int GetCustomDecalFrames( void );
 
-	void CBasePlayer::TabulateAmmo( void );
+	void TabulateAmmo( void );
 
 	float m_flStartCharge;
 	float m_flAmmoStartCharge;

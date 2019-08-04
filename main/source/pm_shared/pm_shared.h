@@ -1,6 +1,6 @@
 /***
 *
-*	Copyright (c) 1999, Valve LLC. All rights reserved.
+*	Copyright (c) 1996-2002, Valve LLC. All rights reserved.
 *	
 *	This product contains software technology licensed from Id 
 *	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc. 
@@ -25,7 +25,6 @@ void PM_Move ( struct playermove_s *ppmove, int server );
 char PM_FindTextureType( char *name );
 
 // Spectator Movement modes (stored in pev->iuser1, so the physics code can get at them)
-
 #define OBS_NONE				0
 #define OBS_CHASE_LOCKED		1
 #define OBS_CHASE_FREE			2

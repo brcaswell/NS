@@ -10,7 +10,7 @@
 #include "general.h"
 #include <float.h>
 #include <iostream>
-#include "particles/papi.h"
+#include "papi.h"
 
 #define SQRT2PI 2.506628274631000502415765284811045253006
 #define ONEOVERSQRT2PI (1. / SQRT2PI)

@@ -91,20 +91,21 @@
 #ifndef AVH_GAMERULES_H
 #define AVH_GAMERULES_H
 
-#include "dlls/gamerules.h"
-//#include "mod/AvHCOCRuleset.h"
-#include "mod/AvHTeam.h"
-#include "mod/AvHMarineWeapons.h"
-#include "types.h"
-#include "mod/AvHMessage.h"
-#include "mod/AvHEntityHierarchy.h"
-#include "mod/AvHEntities.h"
-#include "mod/AvHMiniMap.h"
-#include "dlls/teamplay_gamerules.h"
-#include "mod/AvHDramaticPriority.h"
-#include "mod/AvHMapExtents.h"
-#include "util/Tokenizer.h"
-#include "mod/AvHSpawn.h"
+#include "../dlls/gamerules.h"
+//#include "AvHCOCRuleset.h"
+#include "AvHTeam.h"
+#include "AvHMarineWeapons.h"
+#include "../types.h"
+#include "AvHMessage.h"
+#include "AvHEntityHierarchy.h"
+#include "AvHEntities.h"
+#include "AvHMiniMap.h"
+#include "../dlls/teamplay_gamerules.h"
+#include "AvHDramaticPriority.h"
+#include "AvHMapExtents.h"
+#include "../util/Tokenizer.h"
+#include "AvHSpawn.h"
+//#include "AvHConstants.h"
 
 class AvHPlayer;
 

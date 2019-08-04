@@ -1,3 +1,9 @@
+//========= Copyright © 1996-2002, Valve LLC, All rights reserved. ============
+//
+// Purpose: 
+//
+// $NoKeywords: $
+//=============================================================================
 
 #include"vgui_int.h"
 #include<VGUI_Label.h>
@@ -11,16 +17,13 @@
 #include "cl_util.h"
 #include "camera.h"
 #include "kbutton.h"
-#include "common/cvardef.h"
-#include "common/usercmd.h"
-#include "common/const.h"
+#include "cvardef.h"
+#include "usercmd.h"
+#include "const.h"
 #include "camera.h"
 #include "in_defs.h"
 #include "vgui_TeamFortressViewport.h"
 #include "vgui_ControlConfigPanel.h"
-
-//Label *gTestLabel = NULL;
-//CImageLabel* gTestLabel;
 
 namespace
 {
@@ -87,6 +90,7 @@ void VGui_Startup()
 	//root->setBorder(new LineBorder());
 	root->setLayout(new BorderLayout(0));
 
+	
 	//root->getSurfaceBase()->setEmulatedCursorVisible(true);
 
 	if (gViewPort != NULL)
@@ -103,26 +107,18 @@ void VGui_Startup()
 	{
 		gViewPort = new TeamFortressViewport(0,0,root->getWide(),root->getTall());
 		gViewPort->setParent(root);
-
-//        //gTestLabel = new Label( "TestLabel", 125, 125, 200, 50 );
-//    	gTestLabel = new CImageLabel( "arrowdn", 125, 125, 200, 50 );
-//    	gTestLabel->setParent( root );
-//
-//	    //gTestLabel->setFgColor(0, 255, 0, 128);
-//	    //gTestLabel->setBgColor( 0, 0, 0, 128);
-//
-//        gTestLabel->m_pTGA->setColor( vgui::Color(0, 255, 0, 128) );
 	}
 
-    // Comment this out when not debugging
-	//TexturePanel* texturePanel=new TexturePanel();
-	//texturePanel->setParent(gViewPort);
+	/*
+	TexturePanel* texturePanel=new TexturePanel();
+	texturePanel->setParent(gViewPort);
+	*/
 
 }
 
 void VGui_Shutdown()
 {
-    delete gViewPort;
+	delete gViewPort;
 	gViewPort = NULL;
 }
 

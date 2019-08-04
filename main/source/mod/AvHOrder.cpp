@@ -31,49 +31,49 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "mod/AvHOrder.h"
+#include "AvHOrder.h"
 
 #ifdef AVH_CLIENT
 #include "cl_dll/cl_util.h"
 #include "cl_dll/util_vector.h"
-#include "common/const.h"
-#include "engine/progdefs.h"
+#include "../common/const.h"
+#include "../engine/progdefs.h"
 #include "cl_dll/ev_hldm.h"
-#include "common/vector_util.h"
-#include "common/r_efx.h"
+#include "../common/vector_util.h"
+#include "../common/r_efx.h"
 #endif
 
 #ifdef AVH_SERVER
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "common/vector_util.h"
-//#include "mod/AvHSelection.h"
-#include "mod/AvHSelectionHelper.h"
-#include "dlls/cbase.h"
-#include "mod/AvHPlayer.h"
-#include "mod/AvHWeldable.h"
-#include "mod/AvHServerUtil.h"
-#include "mod/AvHParticleConstants.h"
-#include "mod/AvHMarineEquipment.h"
-#include "mod/AvHPlayerUpgrade.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "../common/vector_util.h"
+//#include "AvHSelection.h"
+#include "AvHSelectionHelper.h"
+#include "../dlls/cbase.h"
+#include "AvHPlayer.h"
+#include "AvHWeldable.h"
+#include "AvHServerUtil.h"
+#include "AvHParticleConstants.h"
+#include "AvHMarineEquipment.h"
+#include "AvHPlayerUpgrade.h"
 #endif
 
-#include "pm_shared/pm_defs.h"
-#include "pm_shared/pm_shared.h"
-#include "pm_shared/pm_movevars.h"
-#include "pm_shared/pm_debug.h"
+#include "../pm_shared/pm_defs.h"
+#include "../pm_shared/pm_shared.h"
+#include "../pm_shared/pm_movevars.h"
+#include "../pm_shared/pm_debug.h"
 #include <stdio.h>  // NULL
 #include <cmath>	// sqrt
 #include <string.h> // strcpy
 #include <stdlib.h> // atoi
 #include <ctype.h>  // isspace
-#include "mod/AvHSpecials.h"
-#include "mod/AvHMarineEquipmentConstants.h"
-#include "mod/AvHMessage.h"
-#include "util/MathUtil.h"
+#include "AvHSpecials.h"
+#include "AvHMarineEquipmentConstants.h"
+#include "AvHMessage.h"
+#include "../util/MathUtil.h"
 extern playermove_t *pmove;
-#include "mod/AvHSelectionHelper.h"
-#include "mod/AvHSharedUtil.h"
+#include "AvHSelectionHelper.h"
+#include "AvHSharedUtil.h"
 
 bool AvHOrder::operator==(const AvHOrder& inOrder) const
 {

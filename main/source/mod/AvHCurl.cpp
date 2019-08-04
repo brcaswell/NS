@@ -14,20 +14,25 @@
 // $Log: $
 //===============================================================================
 
-#include "build.h"
+#include "../build.h"
 
 #if defined(USE_OLDAUTH) // forget entire file if we're using UPP instead
 
-#include "util/nowarnings.h"
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "util/Tokenizer.h"
-#include "mod/AvHGamerules.h"
-#include "mod/AvHServerUtil.h"
+#include "../util/nowarnings.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "../util/Tokenizer.h"
+#include "AvHGamerules.h"
+#include "AvHServerUtil.h"
+
+//@2014 curl 32/64 bit problems
 #ifndef LINUX
 #define CURL_STATICLIB
 #endif
-#include "curl/curl.h"
+
+#include <curl/curl.h>
+//#define CURL_SIZEOF_LONG 4
+
 
 extern cvar_t							avh_serverops;
 extern unsigned int						gTimeLastUpdatedUplink;
@@ -320,6 +325,7 @@ string BuildVersionURL()
 	kAuthURL += "u";
 	kAuthURL += "t";
 	kAuthURL += "h";
+
 	kAuthURL += "/";
 	kAuthURL += "v";
 	kAuthURL += "e";

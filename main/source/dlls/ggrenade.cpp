@@ -26,13 +26,14 @@
 #include "nodes.h"
 #include "soundent.h"
 #include "decals.h"
-#include "mod/AvHPlayerUpgrade.h"
-#include "mod/AvHServerVariables.h"
-#include "mod/AvHMarineWeaponConstants.h"
-#include "mod/AvHGamerules.h"
-#include "mod/AvHServerVariables.h"
-#include "util/MathUtil.h"
-#include "common/vec_op.h"
+#include "../mod/AvHPlayerUpgrade.h"
+#include "../mod/AvHServerVariables.h"
+#include "../mod/AvHMarineWeaponConstants.h"
+#include "../mod/AvHGamerules.h"
+#include "../mod/AvHServerVariables.h"
+
+#include "../util/MathUtil.h"
+#include "../common/vec_op.h"
 
 //===================grenade
 
@@ -54,7 +55,7 @@ void CGrenade::Explode( Vector vecSrc, Vector vecAim)
 	TraceResult tr;
 	UTIL_TraceLine ( pev->origin, pev->origin + Vector ( 0, 0, -32 ),  ignore_monsters, ENT(pev), & tr);
 
-	Explode( &tr,  this->m_damageType);
+	Explode( &tr,this->m_damageType);
 }
 
 // UNDONE: temporary scorching for PreAlpha - find a less sleazy permenant solution.

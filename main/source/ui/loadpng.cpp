@@ -1,8 +1,10 @@
-#include "png.h"
+#include <png.h>
 #include "loadpng.h"
 #include "cl_dll/wrect.h"
 #include "cl_dll/cl_dll.h"
 #include "MemoryInputStream.h"
+
+
 
 //alternate read function for libpng
 void png_read_vgui_stream(png_structp png_ptr, png_bytep data, png_size_t length);

@@ -1,4 +1,5 @@
-#include <NexusClientInterface.h>
+#if 0
+#include <mod/NexusClientInterface.h>
 #include "AvHNexusClient.h"
 #include "AvHNexusTunnelToServer.h"
 
@@ -18,7 +19,7 @@ AvHNexus::TunnelToServer* AvHNexus::TunnelToServer::getInstance(void)
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-bool AvHNexus::TunnelToServer::insertMessage(const byte_string& message)
+bool AvHNexus::TunnelToServer::insertMessage(const string &message)
 {
 	messages.push_back(message);
 	return true;
@@ -26,7 +27,7 @@ bool AvHNexus::TunnelToServer::insertMessage(const byte_string& message)
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-bool AvHNexus::TunnelToServer::recv(byte_string& data)
+bool AvHNexus::TunnelToServer::recv(string &data)
 {
 	if( messages.empty() )
 	{ return false; }
@@ -37,9 +38,10 @@ bool AvHNexus::TunnelToServer::recv(byte_string& data)
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-bool AvHNexus::TunnelToServer::send(const byte_string& data)
-{
-	return AvHNexus::send( data.c_str(), data.length() );
+bool AvHNexus::TunnelToServer::send(const string &data)
+{	
+	return AvHNexus::send( (unsigned char*)&data , data.length() );
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#endif

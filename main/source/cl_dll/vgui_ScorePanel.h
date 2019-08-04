@@ -8,7 +8,7 @@
 #include<VGUI_TextGrid.h>
 #include<VGUI_Label.h>
 #include<VGUI_TextImage.h>
-#include "..\game_shared\vgui_listbox.h"
+#include "vgui_listbox.h"
 
 #include <ctype.h>
 
@@ -34,12 +34,12 @@
 
 using namespace vgui;
 
-#include "cl_dll/CLabelHeader.h"
+#include "CLabelHeader.h"
 
 class ScoreTablePanel;
 
-#include "..\game_shared\vgui_grid.h"
-#include "..\game_shared\vgui_defaultinputsignal.h"
+#include "vgui_grid.h"
+#include "vgui_defaultinputsignal.h"
 
 //-----------------------------------------------------------------------------
 // Purpose: Scoreboard back panel

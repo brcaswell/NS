@@ -1,15 +1,15 @@
 #ifndef AVHREINFORCEABLE_H
 #define AVHREINFORCEABLE_H
 
-#include "util/nowarnings.h"
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "mod/AvHConstants.h"
-#include "mod/AvHBuildable.h"
-#include "dlls/cbase.h"
-#include "mod/AvHMessage.h"
-#include "mod/AvHSpecials.h"
-#include "mod/AvHPlayer.h"
+#include "../util/nowarnings.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "AvHConstants.h"
+#include "AvHBuildable.h"
+#include "../dlls/cbase.h"
+#include "AvHMessage.h"
+#include "AvHSpecials.h"
+#include "AvHPlayer.h"
 
 class AvHReinforceable
 {

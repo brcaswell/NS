@@ -37,37 +37,37 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "mod/AvHVisibleBlipList.h"
+#include "AvHVisibleBlipList.h"
 
 #ifdef AVH_CLIENT
-#include "common/triangleapi.h"
+#include "../common/triangleapi.h"
 #include "cl_dll/wrect.h"
 #include "cl_dll/cl_dll.h"
 
 #include "cl_dll/cl_util.h"
 #include "cl_dll/util_vector.h"
-#include "common/renderingconst.h"
-#include "common/const.h"
-#include "engine/progdefs.h"
-#include "engine/edict.h"
-#include "pm_shared/pm_defs.h"
-#include "engine/cdll_int.h"
-#include "common/event_api.h"
-#include "common/cl_entity.h"
-#include <particledefs.h>
+#include "../common/renderingconst.h"
+#include "../common/const.h"
+#include "../engine/progdefs.h"
+#include "../engine/edict.h"
+#include "../pm_shared/pm_defs.h"
+#include "../engine/cdll_int.h"
+#include "../common/event_api.h"
+#include "../common/cl_entity.h"
+//#include <particledefs.h>
 #include <p_vector.h>
 #include <papi.h>
-#include "common/usercmd.h"
-#include "pm_shared/pm_defs.h"
-#include "pm_shared/pm_shared.h"
-#include "pm_shared/pm_movevars.h"
-#include "pm_shared/pm_debug.h"
+#include "../common/usercmd.h"
+#include "../pm_shared/pm_defs.h"
+#include "../pm_shared/pm_shared.h"
+#include "../pm_shared/pm_movevars.h"
+#include "../pm_shared/pm_debug.h"
 
-#include "mod/AvHParticleSystemManager.h"
-#include "mod/AvHHudConstants.h"
+#include "AvHParticleSystemManager.h"
+#include "AvHHudConstants.h"
 #include "cl_dll/ev_hldm.h"
 #include "cl_dll/hud.h"
-#include "util/STLUtil.h"
+#include "../util/STLUtil.h"
 
 void AvHVisibleBlipList::Draw(const pVector& inView, int kDefaultStatus)
 {
@@ -84,10 +84,10 @@ void AvHVisibleBlipList::Draw(const pVector& inView, int kDefaultStatus)
 		if(!this->mSprite[theStatus])
 		{
 			string theSpriteName = string(kSpriteDirectory) + string("/") + string(kBlipSprite) + MakeStringFromInt(theStatus) + string(".spr");
-			this->mSprite[theStatus] = Safe_SPR_Load(theSpriteName.c_str());
+			this->mSprite[theStatus] = SPR_Load(theSpriteName.c_str());
 		}
 
-		int theSprite = this->mSprite[theStatus];
+		AVHHSPRITE theSprite = this->mSprite[theStatus];
 		if(!theSprite)
 		{
 			theSprite = this->mSprite[kDefaultStatus];
@@ -162,8 +162,8 @@ void AvHVisibleBlipList::Draw(const pVector& inView, int kDefaultStatus)
 #endif
 
 #ifdef AVH_SERVER
-#include "dlls/extdll.h"
-#include "dlls/util.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
 #endif
 
 AvHVisibleBlipList::AvHVisibleBlipList()

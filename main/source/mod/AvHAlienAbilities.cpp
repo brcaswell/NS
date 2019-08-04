@@ -46,16 +46,16 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "mod/AvHAlienAbilities.h"
-#include "mod/AvHAlienWeaponConstants.h"
-#include "mod/AvHAlienAbilityConstants.h"
-#include "mod/AvHConstants.h"
-#include "mod/AvHSpecials.h"
-#include "mod/AvHPlayer.h"
+#include "AvHAlienAbilities.h"
+#include "AvHAlienWeaponConstants.h"
+#include "AvHAlienAbilityConstants.h"
+#include "AvHConstants.h"
+#include "AvHSpecials.h"
+#include "AvHPlayer.h"
 
 #ifdef AVH_CLIENT
 #include "cl_dll/hud.h"
-#include "mod/AvHHud.h"
+#include "AvHHud.h"
 extern int g_runfuncs;
 void IN_Attack2Down();
 void IN_Attack2Up();

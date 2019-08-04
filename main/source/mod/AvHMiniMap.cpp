@@ -1,14 +1,14 @@
-#include "mod/AvHMiniMap.h"
-#include "mod/AvHSharedUtil.h"
-#include "mod/AvHSpecials.h"
-#include "mod/AvHNetworkMessages.h"
+#include "AvHMiniMap.h"
+#include "AvHSharedUtil.h"
+#include "AvHSpecials.h"
+#include "AvHNetworkMessages.h"
 
 #ifdef AVH_CLIENT
-	#include "util/hl/spritegn.h"
+	#include "../util/hl/spritegn.h"
 #endif
 
 #ifdef AVH_SERVER
-	#include "mod/AvHPlayer.h"
+	#include "AvHPlayer.h"
 #endif
 
 const int kMaxScreenWidth = 1600;
@@ -224,23 +224,28 @@ string AvHMiniMap::GetSpriteNameFromMap(int inSpriteWidth, const string& inMapNa
 	sprintf(theWidthString, "%d", inSpriteWidth);
 	// : 1064
 	// insert _labelled into the filename before ".spr"
-	string extraname="";
-	switch ( useLabels ) {
-		case 1:
-			extraname="_1";
-			break;
-		case 2:
-			extraname="_2";
-			break;
-		case 3:
-			extraname="_3";
-			break;
-		default:
-			break;
+	string extraname = "";
+	switch (useLabels) {
+	case 1:
+		extraname = "_1";
+		break;
+	case 2:
+		extraname = "_2";
+		break;
+	case 3:
+		extraname = "_3";
+		break;
+	case 4:
+		extraname = "_4";
+		break;
+	case 5:
+		extraname = "_5";
+		break;
+	default:
+		break;
 	}
-	string theMiniMapName = kMiniMapSpritesDirectory + string("/") /*+ string(theWidthString)*/ + inMapName + extraname + string(".spr");
-	// :
-	return theMiniMapName;
+		string theMiniMapName = kMiniMapSpritesDirectory + string("/") /*+ string(theWidthString)*/ + inMapName + extraname + string(".spr");
+		return theMiniMapName;
 }
 
 void AvHMiniMap::InitializePalette()

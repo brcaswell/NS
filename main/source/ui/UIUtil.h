@@ -19,9 +19,9 @@
 #ifndef UI_UTIL_H
 #define UI_UTIL_H
 
-#include "types.h"
+#include "../types.h"
 #include "textrep/TRDescription.h"
-#include "vgui_keycode.h"
+#include "VGUI_KeyCode.h"
 #include "VGUI_Color.h"
 
 namespace vgui

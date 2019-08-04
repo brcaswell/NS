@@ -22,9 +22,9 @@
 #ifndef AVHTECHNODE_H
 #define AVHTECHNODE_H
 
-#include "types.h"
-#include "mod/AvHMessage.h"
-#include "mod/AvHTechID.h"
+#include "../types.h"
+#include "AvHMessage.h"
+#include "AvHTechID.h"
 
 //NOTE (KGP): I've laid the groundwork for AvHTechNode to potentially become an abstract
 // interface so that it can be subclassed separately for Client and Server instead of having

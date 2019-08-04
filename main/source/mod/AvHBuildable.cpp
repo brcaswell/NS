@@ -1,10 +1,10 @@
-#include "mod/AvHBuildable.h"
-#include "util/nowarnings.h"
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "dlls/cbase.h"
-#include "mod/AvHGamerules.h"
-#include "mod/AvHTeam.h"
+#include "AvHBuildable.h"
+#include "../util/nowarnings.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "../dlls/cbase.h"
+#include "AvHGamerules.h"
+#include "AvHTeam.h"
 
 AvHBuildable::AvHBuildable(AvHTechID inTechID)
 {

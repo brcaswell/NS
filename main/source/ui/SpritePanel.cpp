@@ -63,7 +63,7 @@ void SpritePanel::paint()
 		// Load it up
 		char theSpriteName[256];
 		sprintf(theSpriteName, "sprites/%d%s.spr", theScreenWidth, this->mBaseSpriteName.c_str());
-		this->mSpriteHandle = Safe_SPR_Load(theSpriteName);
+		this->mSpriteHandle = SPR_Load(theSpriteName);
 
 		// If loaded, reposition component if bottom aligned
 		if(this->mSpriteHandle)

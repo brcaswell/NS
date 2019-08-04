@@ -1,6 +1,6 @@
-#include "mod/AvHOverviewControl.h"
-#include "mod/AvHOverviewMap.h"
-#include "mod/AvHSprites.h"
+#include "AvHOverviewControl.h"
+#include "AvHOverviewMap.h"
+#include "AvHSprites.h"
 #include "cl_dll/hud.h"
 #include "cl_dll/cl_util.h"
 
@@ -50,7 +50,7 @@ private:
 
 AvHOverviewControl::AvHOverviewControl()
 {
-    m_hsprWhite = Safe_SPR_Load(kWhiteSprite);
+    m_hsprWhite = SPR_Load(kWhiteSprite);
     addInputSignal(new AvHOverviewInputSignal(this));
 }
 

@@ -19,18 +19,20 @@
 #ifndef AVH_AMBIENT_SOUND_H
 #define AVH_AMBIENT_SOUND_H
 
-#include "types.h"
+#include "../types.h"
+#include "winsani_in.h"
 #include "fmod.h"
+#include "winsani_out.h"
 #include "ui/UIHud.h"
-#include "mod/AvHSpecials.h"
-#include "mod/AvHSharedTypes.h"
-#include "mod/AvHConstants.h"
-#include "mod/AvHParticleSystem.h"
-#include "common/entity_state.h"
+#include "AvHSpecials.h"
+#include "AvHSharedTypes.h"
+#include "AvHConstants.h"
+#include "AvHParticleSystem.h"
+#include "../common/entity_state.h"
 #include "VGUI_ProgressBar.h"
 #include "ui/MarqueeComponent.h"
-#include "mod/AvHOrder.h"
-#include "mod/AvHMessage.h"
+#include "AvHOrder.h"
+#include "AvHMessage.h"
 
 class AvHAmbientSound
 {

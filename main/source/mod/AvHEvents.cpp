@@ -87,36 +87,36 @@
 #include "cl_dll/hud.h"
 #include "cl_dll/cl_util.h"
 
-//#include "mod/AvHMarineWeapons.h"
-//#include "mod/AvHAlienWeapons.h"
-//#include "mod/AvHAlienAbilities.h"
+//#include "AvHMarineWeapons.h"
+//#include "AvHAlienWeapons.h"
+//#include "AvHAlienAbilities.h"
 
 #include "cl_dll/eventscripts.h"
 #include "cl_dll/in_defs.h"
 #include "cl_dll/ev_hldm.h"
-#include "common/event_api.h"
-#include "common/event_args.h"
-#include "common/dlight.h"
-#include "common/r_efx.h"
-#include "mod/AvHMarineWeaponConstants.h"
-#include "mod/AvHAlienWeaponConstants.h"
-#include "mod/AvHParticleSystemManager.h"
-#include "pm_shared/pm_defs.h"
-#include "mod/AvHSpecials.h"
-#include "mod/AvHEvents.h"
-#include "mod/AvHSelectionHelper.h"
-#include "pm_shared/pm_defs.h"
-#include "mod/AvHPlayerUpgrade.h"
-#include "mod/AvHSharedUtil.h"
-#include "mod/AvHParticleConstants.h"
-#include "mod/AvHMarineEquipmentConstants.h"
-#include "mod/AvHAlienAbilityConstants.h"
-#include "mod/AvHAlienEquipmentConstants.h"
-#include "mod/AvHParticleTemplate.h"
-#include "mod/AvHParticleTemplateClient.h"
-#include "mod/AvHClientVariables.h"
-#include "util/MathUtil.h"
-#include "mod/AvHHulls.h"
+#include "../common/event_api.h"
+#include "../common/event_args.h"
+#include "../common/dlight.h"
+#include "../common/r_efx.h"
+#include "AvHMarineWeaponConstants.h"
+#include "AvHAlienWeaponConstants.h"
+#include "AvHParticleSystemManager.h"
+#include "../pm_shared/pm_defs.h"
+#include "AvHSpecials.h"
+#include "AvHEvents.h"
+#include "AvHSelectionHelper.h"
+#include "../pm_shared/pm_defs.h"
+#include "AvHPlayerUpgrade.h"
+#include "AvHSharedUtil.h"
+#include "AvHParticleConstants.h"
+#include "AvHMarineEquipmentConstants.h"
+#include "AvHAlienAbilityConstants.h"
+#include "AvHAlienEquipmentConstants.h"
+#include "AvHParticleTemplate.h"
+#include "AvHParticleTemplateClient.h"
+#include "AvHClientVariables.h"
+#include "../util/MathUtil.h"
+#include "AvHHulls.h"
 
 //extern AvHKnife				gKnife;
 //extern AvHMachineGun		gMachineGun;
@@ -176,12 +176,12 @@ DLightListType							gJetpackLights;
 const float								kArbitraryLargeLightTime = 2000.0f;
 //SelectionListType						gSelectionList;
 extern playermove_t*					pmove;
-
-#include "pm_shared/pm_debug.h"
+/*
+#include "../pm_shared/pm_debug.h"
 extern DebugPointListType				gTriDebugLocations;
 extern DebugPointListType				gSquareDebugLocations;
 extern DebugEntityListType				gCubeDebugEntities;
-
+*/
 AvHSelectionHelper						gSelectionHelper;
 extern AvHParticleTemplateListClient	gParticleTemplateList;
 
@@ -1872,15 +1872,15 @@ void EV_EndJetpack(struct event_args_s* args)
 
 void DrawCircleOnGroundAtPoint(vec3_t inOrigin, int inNumSides, int inStartAngle, int inRadius, float inR, float inG, float inB, float inA, bool inUseRedInstead, float inInnerRadius)
 {
-	static HSPRITE theGreenSprite = 0;
+	static AVHHSPRITE theGreenSprite = 0;
 	if(!theGreenSprite)
-		theGreenSprite = Safe_SPR_Load("sprites/green.spr");
+		theGreenSprite = SPR_Load("sprites/green.spr");
 	
-	static HSPRITE theRedSprite = 0;
+	static AVHHSPRITE theRedSprite = 0;
 	if(!theRedSprite)
-		theRedSprite = Safe_SPR_Load("sprites/red.spr");
+		theRedSprite = SPR_Load("sprites/red.spr");
 	
-	HSPRITE theSprite = theGreenSprite;
+	AVHHSPRITE theSprite = theGreenSprite;
 	if(inUseRedInstead)
 		theSprite = theRedSprite;
 	
@@ -1938,7 +1938,7 @@ void DrawCircleOnGroundAtPoint(vec3_t inOrigin, int inNumSides, int inStartAngle
 //{
 //	static HSPRITE theSprite = 0;
 //	if(!theSprite)
-//		theSprite = Safe_SPR_Load("sprites/320questionmark.spr");
+//		theSprite = SPR_Load("sprites/320questionmark.spr");
 //	
 //	int theCurrentFrame = 0;
 //	
@@ -2027,7 +2027,7 @@ void DrawCircleOnGroundAtPoint(vec3_t inOrigin, int inNumSides, int inStartAngle
 //	AvHVisibleBlipList& theFriendlyBlipList = gHUD.GetFriendlyBlipList();
 //	theFriendlyBlipList.Draw(inView);
 //}
-
+/*
 void DrawDebugEffects()
 {
 	for(DebugPointListType::iterator theIter = gTriDebugLocations.begin(); theIter != gTriDebugLocations.end(); theIter++)
@@ -2039,7 +2039,7 @@ void DrawDebugEffects()
 		int theRadius = theIter->mSize;
 		DrawCircleOnGroundAtPoint(thePosition, 3, 0, theRadius, 1, 1, 0, .5f, false, 0.0f);
 	}
-	for(theIter = gSquareDebugLocations.begin(); theIter != gSquareDebugLocations.end(); theIter++)
+	for(DebugPointListType::iterator theIter = gSquareDebugLocations.begin(); theIter != gSquareDebugLocations.end(); theIter++)
 	{
 		vec3_t thePosition;
 		thePosition.x = theIter->x;
@@ -2072,7 +2072,7 @@ void DrawDebugEffects()
 	//			DrawCircleOnGroundAtPoint(thePoint, 4, 45, 64, .8f, .8f, .8f, .5f, false, 0.0f);
 	//		}
 	//	}
-}
+}*/
 
 void DrawMarineLight(const pVector& inView, vec3_t& inStartPos, vec3_t& inEndPos)
 {

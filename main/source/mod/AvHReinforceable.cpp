@@ -1,6 +1,6 @@
-#include "mod/AvHReinforceable.h"
-#include "mod/AvHServerUtil.h"
-#include "mod/AvHSharedUtil.h"
+#include "AvHReinforceable.h"
+#include "AvHServerUtil.h"
+#include "AvHSharedUtil.h"
 
 AvHReinforceable::AvHReinforceable()
 {

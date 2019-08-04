@@ -1,10 +1,10 @@
 #ifndef AVH_SERVERPLAYERDATA_H
 #define AVH_SERVERPLAYERDATA_H
 
-#include "types.h"
-#include "mod/AvHConstants.h"
-#include "mod/AvHTechTree.h"
-#include "mod/AvHMessageList.h"
+#include "../types.h"
+#include "AvHConstants.h"
+#include "AvHTechTree.h"
+#include "AvHMessageList.h"
 
 class AvHServerPlayerData
 {

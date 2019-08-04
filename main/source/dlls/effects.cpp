@@ -16,13 +16,13 @@
 #include "util.h"
 #include "cbase.h"
 #include "monsters.h"
-#include "engine/customentity.h"
+#include "../engine/customentity.h"
 #include "effects.h"
 #include "weapons.h"
 #include "decals.h"
 #include "func_break.h"
-#include "engine/shake.h"
-#include "mod/AvHServerVariables.h"
+#include "../engine/shake.h"
+#include "../mod/AvHServerVariables.h"
 extern cvar_t avh_killdelay;
 
 #define	SF_GIBSHOOTER_REPEATABLE	1 // allows a gibshooter to be refired

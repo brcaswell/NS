@@ -1,0 +1,27 @@
+co_umbra by Kalessin
+
+co_umbra is a large combat which features long, wide corridors with moderate cover and high ceilings. Despite the apparent advantage the marines may have, the aliens can utilise the extensive ventilation network and the many concealed ambush points to hamper the marine's progress. There are three routes linking the alien half of the map to the marine side, each route converges in the centre of the map where most of the action takes place. Because of the size of the map, it is important that the marines play aggressively to be able to secure a victory.
+
+Object names  Objects/Maxobjs  Memory / Maxmem  Fullness
+------------  ---------------  ---------------  --------
+models            145/400         9280/25600    (36.3%)
+planes           4662/32768      93240/655360   (14.2%)
+vertexes        12197/65535     146364/786420   (18.6%)
+nodes            5059/32767     121416/786408   (15.4%)
+texinfos         5886/32767     235440/1310680  (18.0%)
+faces            8775/65535     175500/1310700  (13.4%)
+clipnodes       10320/32767      82560/262136   (31.5%)
+leaves           2581/8192       72268/229376   (31.5%)
+marksurfaces    11684/65535      23368/131070   (17.8%)
+surfedges       40389/512000    161556/2048000  ( 7.9%)
+edges           21051/256000     84204/1024000  ( 8.2%)
+texdata          [variable]       4900/4194304  ( 0.1%)
+lightdata        [variable]    1560849/6291456  (24.8%)
+visdata          [variable]      53694/2097152  ( 2.6%)
+entdata          [variable]      56849/524288   (10.8%)
+86 textures referenced
+=== Total BSP file data space used: 2881488 bytes ===
+
+Many thanks to everyone who helped test this map, it has come a long way since its initial release and none of this would have been possible without you!
+
+Thankyou!

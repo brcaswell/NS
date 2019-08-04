@@ -22,7 +22,7 @@
 #ifndef AVH_WELDABLE_H
 #define AVH_WELDABLE_H
 
-#include "mod/AvHEntities.h"
+#include "AvHEntities.h"
 
 class AvHWeldable : public AvHBaseEntity
 {

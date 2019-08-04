@@ -1,6 +1,6 @@
-#include "mod/FileUtil.h"
+#include "FileUtil.h"
 #include "localassert.h"
-#include "util/nowarnings.h"
+#include "../util/nowarnings.h"
 #include <stdio.h>
 #include "stdarg.h"
 
@@ -8,7 +8,7 @@
 #ifdef WIN32
 	#include "windows.h"
 #else
-	#include "util/LinuxSupport.h"
+	#include "../util/LinuxSupport.h"
 #endif
 
 #include "public/interface.h"

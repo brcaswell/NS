@@ -1,9 +1,9 @@
-#include "mod/AvHUIFactory.h"
-#include "mod/AvHTeamHierarchy.h"
-#include "mod/AvHActionButtons.h"
-#include "mod/AvHScrollPanel.h"
-#include "mod/AvHLogoutComponent.h"
-#include "mod/AvHTechImpulsePanel.h"
+#include "AvHUIFactory.h"
+#include "AvHTeamHierarchy.h"
+#include "AvHActionButtons.h"
+#include "AvHScrollPanel.h"
+#include "AvHLogoutComponent.h"
+#include "AvHTechImpulsePanel.h"
 
 // Knows how to build custom mod-specific components
 UIComponent* AvHUIFactory::BuildComponent(const TRDescription& inTextRep, CSchemeManager* inSchemeManager)

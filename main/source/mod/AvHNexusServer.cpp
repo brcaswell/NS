@@ -1,25 +1,27 @@
-#define AVH_NO_NEXUS
+//#define USE_OLDAUTH
 #ifdef AVH_NO_NEXUS
 	#include <string>
 	using std::string;
 	#include "AvHNexusServer.h"
     #include "AvHServerUtil.h"
-	bool AvHNexus::send(entvars_t* const pev, const unsigned char* data, const unsigned int length) { return false; }
-	bool AvHNexus::recv(entvars_t* const pev, const char* data, const unsigned int length) { return false; }
-	string AvHNexus::getNetworkID(const edict_t* edict) { return AvHSUGetPlayerAuthIDString((edict_t *)edict); }
-	void AvHNexus::handleUnauthorizedJoinTeamAttempt(const edict_t* edict, const unsigned char team_index) {}
-	void AvHNexus::performSpeedTest(void) {}
-	void AvHNexus::processResponses(void) {}
-	void AvHNexus::setGeneratePerformanceData(const edict_t* edict, const bool generate) {}
-	bool AvHNexus::getGeneratePerformanceData(void) { return false; }
-	bool AvHNexus::isRecordingGame(void) { return false; }
-	void AvHNexus::cancelGame(void) {}
-	void AvHNexus::finishGame(void) {}
-	void AvHNexus::startGame(void) {}
-	void AvHNexus::startup(void) {}
-	void AvHNexus::shutdown(void) {}
+namespace AvHNexus {
+	bool send(entvars_t* const pev, const unsigned char* data, const unsigned int length) { return false; }
+	bool recv(entvars_t* const pev, const char* data, const unsigned int length) { return false; }
+	string getNetworkID(const edict_t* edict) { return AvHSUGetPlayerAuthIDString((edict_t *)edict); }
+	void handleUnauthorizedJoinTeamAttempt(const edict_t* edict, const unsigned char team_index) {}
+	void performSpeedTest(void) {}
+	void processResponses(void) {}
+	void setGeneratePerformanceData(const edict_t* edict, const bool generate) {}
+	bool getGeneratePerformanceData(void) { return false; }
+	bool isRecordingGame(void) { return false; }
+	void cancelGame(void) {}
+	void finishGame(void) {}
+	void startGame(void) {}
+	void startup(void) {}
+	void shutdown(void) {}
+}
 #else
-	#include <NexusServerInterface.h>
+	//#include <NexusServerInterface.h>
 	#include "AvHNexusServer.h"
 	#include "AvHNexusTunnelToClient.h"
 

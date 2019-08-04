@@ -49,17 +49,17 @@
 //
 // Revision 1.8  2002/05/14 19:24:16  Charlie
 //===============================================================================
-#include "mod/AvHHud.h"
-#include "mod/AvHTitles.h"
-#include "mod/AvHBasePlayerWeaponConstants.h"
-#include "mod/AvHClientVariables.h"
-#include "mod/AvHServerVariables.h"
+#include "AvHHud.h"
+#include "AvHTitles.h"
+#include "AvHBasePlayerWeaponConstants.h"
+#include "AvHClientVariables.h"
+#include "AvHServerVariables.h"
 
-#include "common/const.h"
-#include "common/event_api.h"
-#include "pm_shared/pm_defs.h"
-#include "pm_shared/pm_shared.h"
-#include "pm_shared/pm_movevars.h"
+#include "../common/const.h"
+#include "../common/event_api.h"
+#include "../pm_shared/pm_defs.h"
+#include "../pm_shared/pm_shared.h"
+#include "../pm_shared/pm_movevars.h"
 #include "cl_dll/cl_util.h"
 
 bool AvHHud::ProcessEntityHelp()

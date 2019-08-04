@@ -389,7 +389,7 @@ mstudioanim_t *CStudioModelRenderer::StudioGetAnim( model_t *m_pSubModel, mstudi
 
 	if (pseqdesc->seqgroup == 0)
 	{
-		return (mstudioanim_t *)((byte *)m_pStudioHeader + pseqgroup->data + pseqdesc->animindex);
+		return (mstudioanim_t *)((byte *)m_pStudioHeader + pseqdesc->animindex);
 	}
 
 	paSequences = (cache_user_t *)m_pSubModel->submodels;
@@ -465,7 +465,6 @@ void CStudioModelRenderer::StudioSetUpTransform (int trivial_accept)
 
 	//Con_DPrintf("Angles %4.2f prev %4.2f for %i\n", angles[PITCH], m_pCurrentEntity->index);
 	//Con_DPrintf("movetype %d %d\n", m_pCurrentEntity->movetype, m_pCurrentEntity->aiment );
-
 	if (m_pCurrentEntity->curstate.movetype == MOVETYPE_STEP) 
 	{
 		float			f = 0;
@@ -1847,6 +1846,7 @@ void CStudioModelRenderer::StudioRenderFinal_Hardware( void )
 		for (i=0 ; i < m_pStudioHeader->numbodyparts ; i++)
 		{
 			IEngineStudio.StudioSetupModel( i, (void **)&m_pBodyPart, (void **)&m_pSubModel );
+
 			if (m_fDoInterp)
 			{
 				// interpolation messes up bounding boxes.

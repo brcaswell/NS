@@ -5,8 +5,13 @@
 #include "hud_servers.h"
 #include "common/net_api.h"
 #include <string.h>
+ #ifdef _WIN32
+#include "winsani_in.h"
 #include <winsock.h>
-
+#include "winsani_out.h"
+#else
+#include <arpa/inet.h>
+#endif
 static int	context_id;
 
 // Default master server address in case we can't read any from woncomm.lst file
@@ -592,7 +597,7 @@ int CompareField( CHudServers::server_t *p1, CHudServers::server_t *p2, const ch
 	return stricmp( sz1, sz2 );
 }
 
-int CALLBACK ServerListCompareFunc( CHudServers::server_t *p1, CHudServers::server_t *p2, const char *fieldname )
+int ServerListCompareFunc( CHudServers::server_t *p1, CHudServers::server_t *p2, const char *fieldname )
 {
 	if (!p1 || !p2)  // No meaningful comparison
 		return 0;  

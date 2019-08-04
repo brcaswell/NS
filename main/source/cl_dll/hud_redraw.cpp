@@ -70,7 +70,7 @@ void CHud::Think(void)
 	// the clients fov is actually set in the client data update section of the hud
 
 	// Set a new sensitivity
-	if ( m_iFOV == default_fov->value )
+	if ( m_iFOV == default_fov->value || CVAR_GET_FLOAT("senslock") == 1.0f)
 	{  
 		// reset to saved sensitivity
 		m_flMouseSensitivity = 0;
@@ -96,7 +96,7 @@ int CHud :: Redraw( float flTime, int intermission )
 	m_fOldTime = m_flTime;	// save time of previous redraw
 	m_flTime = flTime;
 	m_flTimeDelta = (double)m_flTime - m_fOldTime;
-	static m_flShotTime = 0;
+	static int  m_flShotTime = 0;
 	
 	// Clock was reset, reset delta
 	if ( m_flTimeDelta < 0 )

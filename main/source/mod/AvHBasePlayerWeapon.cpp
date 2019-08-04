@@ -74,18 +74,18 @@
 extern int g_runfuncs;
 #endif
 
-#include "util/nowarnings.h"
-#include "mod/AvHBasePlayerWeapon.h"
-#include "mod/AvHAlienWeaponConstants.h"
-#include "mod/AvHPlayer.h"
-#include "common/usercmd.h"
-#include "pm_shared/pm_defs.h"
-#include "mod/AvHMarineEquipmentConstants.h"
-#include "mod/AvHMarineWeapons.h"
+#include "../util/nowarnings.h"
+#include "AvHBasePlayerWeapon.h"
+#include "AvHAlienWeaponConstants.h"
+#include "AvHPlayer.h"
+#include "../common/usercmd.h"
+#include "../pm_shared/pm_defs.h"
+#include "AvHMarineEquipmentConstants.h"
+#include "AvHMarineWeapons.h"
 
 #ifdef AVH_SERVER
-#include "mod/AvHServerUtil.h"
-#include "mod/AvHGamerules.h"
+#include "AvHServerUtil.h"
+#include "AvHGamerules.h"
 
 extern int				gWelderConstEventID;
 #endif
@@ -94,11 +94,11 @@ extern int				gWelderConstEventID;
 #include "cl_dll/com_weapons.h"
 #endif
 
-#include "mod/AvHPlayerUpgrade.h"
-#include "mod/AvHSharedUtil.h"
-#include "types.h"						
-#include "common/vector_util.h"
-#include "util/MathUtil.h"
+#include "AvHPlayerUpgrade.h"
+#include "AvHSharedUtil.h"
+#include "../types.h"						
+#include "../common/vector_util.h"
+#include "../util/MathUtil.h"
 
 // extern "C" this guy because delcared in pm_shared.c, not pm_shared.cpp
 extern playermove_t*	pmove;

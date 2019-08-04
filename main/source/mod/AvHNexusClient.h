@@ -1,6 +1,9 @@
 #ifndef AVHNEXUSCLIENT_H
 #define AVHNEXUSCLIENT_H
 
+#include <string>
+using std::string;
+
 namespace AvHNexus
 {
 	bool send(const unsigned char* data, const size_t length);
@@ -9,7 +12,7 @@ namespace AvHNexus
 	void startup(void);
 	void shutdown(void);
 
-	bool login(const string& name, const string& password);
+	bool login(const string &name, const string &password);
 	bool logout(void);
 }
 

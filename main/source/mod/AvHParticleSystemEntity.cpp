@@ -19,15 +19,15 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "util/nowarnings.h"
-#include "mod/AvHParticleSystemEntity.h"
-#include "mod/AvHParticleTemplateServer.h"
-#include "mod/AvHParticleSystemManager.h"
-#include "mod/AvHConstants.h"
-#include "mod/AvHMarineEquipmentConstants.h"
-#include "mod/AvHSpecials.h"
-#include "mod/AvHParticleTemplate.h"
-#include "mod/AvHParticleConstants.h"
+#include "../util/nowarnings.h"
+#include "AvHParticleSystemEntity.h"
+#include "AvHParticleTemplateServer.h"
+#include "AvHParticleSystemManager.h"
+#include "AvHConstants.h"
+#include "AvHMarineEquipmentConstants.h"
+#include "AvHSpecials.h"
+#include "AvHParticleTemplate.h"
+#include "AvHParticleConstants.h"
 
 extern AvHParticleTemplateListServer	gParticleTemplateList;
 

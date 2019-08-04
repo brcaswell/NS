@@ -12,7 +12,7 @@
 //
 //===============================================================================
 
-#include "mod/AvHTechTree.h"
+#include "AvHTechTree.h"
 
 bool AvHSHUGetIsResearchTech(AvHMessageID inMessageID);
 
@@ -602,9 +602,9 @@ void AvHTechTree::balanceStartCompoundChange(void) const
 void AvHTechTree::balanceEndCompoundChange(void) const 
 { compoundChangeInProgress = false; }
 
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "mod/AvHGamerules.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "AvHGamerules.h"
 void AvHTechTree::processBalanceChange(void)
 {
 	// Run through our tech nodes and update cost and build time

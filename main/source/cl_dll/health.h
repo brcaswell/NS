@@ -62,7 +62,7 @@
 //
 //#define DMG_CALTROP				(1<<30)
 //#define DMG_HALLUC				(1<<31)
-#include "common/damagetypes.h"
+#include "damagetypes.h"
 
 // TF Healing Additions for TakeHealth
 #define DMG_IGNORE_MAXHEALTH	DMG_IGNITE
@@ -103,8 +103,8 @@ public:
 	float m_fFade;
 
 private:
-	HSPRITE m_hSprite;
-	HSPRITE m_hDamage;
+	AVHHSPRITE m_hSprite;
+	AVHHSPRITE m_hDamage;
 	
 	DAMAGE_IMAGE m_dmg[NUM_DMG_TYPES];
 	int	m_bitsDamage;

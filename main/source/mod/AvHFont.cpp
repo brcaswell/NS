@@ -1,6 +1,6 @@
-#include "mod/AvHFont.h"
-#include "mod/AvHSpriteAPI.h"
-#include "mod/AvHConstants.h"
+#include "AvHFont.h"
+#include "AvHSpriteAPI.h"
+#include "AvHConstants.h"
 
 #include "cl_dll/cl_util.h"
 
@@ -56,7 +56,7 @@ bool AvHFont::Load(const char* inFileName)
         return false;
     }
 
-    mSprite = Safe_SPR_Load(theSpriteFileName.c_str());
+    mSprite = SPR_Load(theSpriteFileName.c_str());
 
     if (mSprite != 0)
     {

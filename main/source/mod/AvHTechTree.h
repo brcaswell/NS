@@ -22,9 +22,9 @@
 #ifndef AVHTECHTREE_H
 #define AVHTECHTREE_H
 
-#include "mod/AvHTechNode.h"
-#include "mod/AvHConstants.h"
-#include "util/Balance.h"
+#include "AvHTechNode.h"
+#include "AvHConstants.h"
+#include "../util/Balance.h"
 
 typedef vector<AvHMessageID> MessageIDListType;	//used in GetDelta, remove when refactoring ChangeListener
 typedef map<AvHMessageID,AvHTechNode*> TechNodeMap;

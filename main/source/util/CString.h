@@ -2,6 +2,7 @@
 #define C_STRING_H
 
 #include <stdio.h>
+#include <string.h>
 #include <string>
 #include <vector>
 using std::string;
@@ -33,12 +34,12 @@ public:
 
     void operator =(const string& inString)
     {
-        sprintf(this->mString, "%s", inString.c_str());
+        sprintf_s(this->mString, sizeof(this->mString), "%s", inString.c_str());
     }
 
     void operator =(const CString& inString)
     {
-        sprintf(this->mString, "%s", inString.mString);
+        sprintf_s(this->mString, sizeof(this->mString), "%s", inString.mString);
     }
 
     bool operator ==(const CString& inString) const

@@ -137,26 +137,26 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "dlls/cbase.h"
-#include "mod/AvHTeam.h"
-#include "mod/AvHPlayer.h"
-#include "mod/AvHGamerules.h"
-#include "mod/AvHServerVariables.h"
-#include "mod/AvHServerUtil.h"
-#include "mod/AvHMarineEquipment.h"
-#include "mod/AvHAlienEquipmentConstants.h"
-#include "mod/AvHMarineEquipmentConstants.h"
-#include "game_shared/teamconst.h"
-#include "mod/AvHBuildable.h"
-#include "mod/AvHServerUtil.h"
-#include "mod/AvHSharedUtil.h"
-#include "mod/AvHTitles.h"
-#include "mod/AvHPlayerUpgrade.h"
-#include "util/MathUtil.h"
-#include "mod/AvHNetworkMessages.h"
-#include "mod/AvHNexusServer.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "../dlls/cbase.h"
+#include "AvHTeam.h"
+#include "AvHPlayer.h"
+#include "AvHGamerules.h"
+#include "AvHServerVariables.h"
+#include "AvHServerUtil.h"
+#include "AvHMarineEquipment.h"
+#include "AvHAlienEquipmentConstants.h"
+#include "AvHMarineEquipmentConstants.h"
+#include "../game_shared/teamconst.h"
+#include "AvHBuildable.h"
+#include "AvHServerUtil.h"
+#include "AvHSharedUtil.h"
+#include "AvHTitles.h"
+#include "AvHPlayerUpgrade.h"
+#include "../util/MathUtil.h"
+#include "AvHNetworkMessages.h"
+#include "AvHNexusServer.h"
 
 extern int gPhaseInEventID;
 extern cvar_t avh_votecasttime;
@@ -2483,9 +2483,10 @@ void AvHTeam::UpdateResources()
 
 AvHServerPlayerData* AvHTeam::GetServerPlayerData(edict_t* inEdict)
 {
-	string theNetworkID = AvHNexus::getNetworkID(inEdict);
+	string theNetworkID = AvHSUGetPlayerAuthIDString(inEdict);
 	return &this->mServerPlayerData[theNetworkID];
 }
+
 // :
 void AvHTeam::UpdateServerPlayerData()
 {

@@ -26,7 +26,7 @@
 //#include "trains.h"
 //#include "saverestore.h"
 #include <cmath>
-#include "dlls/plats.h"
+#include "plats.h"
 
 static void PlatSpawnInsideTrigger(entvars_t* pevPlatform);
 

@@ -34,10 +34,10 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "mod/AvHResearchManager.h"
+#include "AvHResearchManager.h"
 
-#include "mod/AvHAlienWeapons.h"
-#include "mod/AvHPlayer.h"
+#include "AvHAlienWeapons.h"
+#include "AvHPlayer.h"
 
 #ifdef AVH_CLIENT
 #include "cl_dll/eventscripts.h"
@@ -46,15 +46,15 @@
 #include "cl_dll/cl_dll.h"
 #endif
 
-#include "common/hldm.h"
-#include "common/event_api.h"
-#include "common/event_args.h"
-#include "common/vector_util.h"
-#include "mod/AvHAlienWeaponConstants.h"
-#include "mod/AvHPlayerUpgrade.h"
-#include "mod/AvHServerUtil.h"
-#include "mod/AvHSharedUtil.h"
-#include "mod/AvHGamerules.h"
+#include "../common/hldm.h"
+#include "../common/event_api.h"
+#include "../common/event_args.h"
+#include "../common/vector_util.h"
+#include "AvHAlienWeaponConstants.h"
+#include "AvHPlayerUpgrade.h"
+#include "AvHServerUtil.h"
+#include "AvHSharedUtil.h"
+#include "AvHGamerules.h"
 
 AvHResearchNode::AvHResearchNode(AvHMessageID inMessageID, int inEntityIndex)
 {

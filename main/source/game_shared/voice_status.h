@@ -17,7 +17,7 @@
 #include "VGUI_InputSignal.h"
 #include "VGUI_Button.h"
 #include "voice_common.h"
-#include "common/cl_entity.h"
+#include "cl_entity.h"
 #include "voice_banmgr.h"
 #include "vgui_checkbutton2.h"
 #include "vgui_defaultinputsignal.h"
@@ -192,7 +192,7 @@ public:
 	// Squelch mode stuff.
 	bool				m_bInSquelchMode;
 	
-	HSPRITE				m_VoiceHeadModel;		// Voice head model (goes above players who are speaking).
+	AVHHSPRITE				m_VoiceHeadModel;		// Voice head model (goes above players who are speaking).
 	float				m_VoiceHeadModelHeight;	// Height above their head to place the model.
 
 	vgui::Image			*m_pSpeakerLabelIcon;	// Icon next to speaker labels.

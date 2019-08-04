@@ -28,16 +28,18 @@
 // - Added BuildAbridgedString
 //
 //===============================================================================
-#include "util/STLUtil.h"
+#include "STLUtil.h"
 #include <stdio.h>
 #include "stdarg.h"
 
 
 // For FindFirst/FindNext functionality in BuildFileList
-#ifdef WIN32
-	#include "windows.h"
+#ifdef _WIN32
+	#include "winsani_in.h"
+	#include <windows.h>
+	#include "winsani_out.h"
 #else
-	#include "util/LinuxSupport.h"
+	#include "LinuxSupport.h"
 #endif
 
 string LowercaseString(const string& ioString)

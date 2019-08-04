@@ -41,9 +41,9 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "mod/AvHAlienWeapon.h"
-#include "mod/AvHMovementUtil.h"
-#include "mod/AvHSpecials.h"
+#include "AvHAlienWeapon.h"
+#include "AvHMovementUtil.h"
+#include "AvHSpecials.h"
 
 #ifdef AVH_CLIENT
 #include "cl_dll/wrect.h"
@@ -53,16 +53,16 @@
 extern int g_runfuncs;
 #include "cl_dll/com_weapons.h"
 
-#include "common/net_api.h"
+#include "../common/net_api.h"
 
-#include "pm_shared/pm_defs.h"
-#include "pm_shared/pm_shared.h"
-#include "pm_shared/pm_movevars.h"
+#include "../pm_shared/pm_defs.h"
+#include "../pm_shared/pm_shared.h"
+#include "../pm_shared/pm_movevars.h"
 extern playermove_t *pmove;
 #endif
 
-#include "mod/AvHSharedUtil.h"
-#include "util/Balance.h"
+#include "AvHSharedUtil.h"
+#include "../util/Balance.h"
 
 AvHAlienWeapon::AvHAlienWeapon()
 {

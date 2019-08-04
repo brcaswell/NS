@@ -167,7 +167,7 @@ private:
     PieNode*        mParentPieNode;
 
 	string			mConnectorSpriteName;
-	int				mConnectorSprite;
+	AVHHSPRITE		mConnectorSprite;
 
 	string			mLocalizedText;
 	string			mBaseText;

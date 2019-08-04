@@ -1,16 +1,16 @@
-#include "util/nowarnings.h"
-#include "types.h"
-#include "mod/AvHMapExtents.h"
-#include "mod/AvHConstants.h"
+#include "../util/nowarnings.h"
+#include "../types.h"
+#include "AvHMapExtents.h"
+#include "AvHConstants.h"
 
 #ifdef AVH_SERVER
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "dlls/cbase.h"
-#include "engine/shake.h"
-#include "dlls/decals.h"
-#include "dlls/gamerules.h"
-#include "mod/AvHServerUtil.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "../dlls/cbase.h"
+#include "../engine/shake.h"
+#include "../dlls/decals.h"
+#include "../dlls/gamerules.h"
+#include "AvHServerUtil.h"
 #endif
 
 AvHMapExtents::AvHMapExtents()

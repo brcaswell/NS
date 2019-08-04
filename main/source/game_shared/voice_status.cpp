@@ -12,6 +12,7 @@
 #include <assert.h>
 #include <string.h>
 #include <stdio.h>
+#include <string.h>
 #include "../cl_dll/hud_servers.h"
 #include "../cl_dll/demo.h"
 #include "common/demo_api.h"
@@ -23,7 +24,7 @@
 #include "VGUI_TextImage.h"
 #include "vgui_loadtga.h"
 #include "vgui_helpers.h"
-#include "vgui_mousecode.h"
+#include "VGUI_MouseCode.h"
 #include "dlls/extdll.h"
 #include "mod/AvHClientUtil.h"
 #include "mod/AvHHudConstants.h"
@@ -90,7 +91,9 @@ void ForEachBannedPlayer(char id[16])
 		id[8], id[9], id[10], id[11], 
 		id[12], id[13], id[14], id[15]
 		);
+#ifdef _WIN32
 	strupr(str);
+#endif
 	gEngfuncs.pfnConsolePrint(str);
 }
 
@@ -606,7 +609,7 @@ void CVoiceStatus::UpdateBanButton(int iClient)
 	}
 }
 
-#include "cl_dll\parsemsg.h"
+#include "cl_dll/parsemsg.h"
 void CVoiceStatus::HandleVoiceMaskMsg(int iSize, void *pbuf)
 {
 	BEGIN_READ( pbuf, iSize );

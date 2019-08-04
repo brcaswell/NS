@@ -19,8 +19,8 @@
 #ifndef MARQUEECOMPONENT_H
 #define MARQUEECOMPONENT_H
 
-#include "vgui_Panel.h"
-#include "ui/GammaAwareComponent.h"
+#include "VGUI_Panel.h"
+#include "GammaAwareComponent.h"
 
 class MarqueeComponent : public vgui::Panel, public GammaAwareComponent
 {

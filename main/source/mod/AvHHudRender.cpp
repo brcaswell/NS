@@ -97,50 +97,50 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "mod/AvHHud.h"
+#include "AvHHud.h"
 #include "cl_dll/hud.h"
 #include "cl_dll/cl_util.h"
-#include "mod/AvHConstants.h"
-#include "mod/AvHClientVariables.h"
-#include "mod/AvHSpecials.h"
-#include "common/cl_entity.h"
-#include "mod/AvHTitles.h"
-#include "pm_shared/pm_debug.h"
-#include "util/MathUtil.h"
-#include "common/r_efx.h"
+#include "AvHConstants.h"
+#include "AvHClientVariables.h"
+#include "AvHSpecials.h"
+#include "../common/cl_entity.h"
+#include "AvHTitles.h"
+#include "../pm_shared/pm_debug.h"
+#include "../util/MathUtil.h"
+#include "../common/r_efx.h"
 #include "cl_dll/eventscripts.h"
-#include "mod/AvHSprites.h"
+#include "AvHSprites.h"
 #include "ui/UIUtil.h"
-#include "types.h"
+#include "../types.h"
 #include <signal.h>
-#include "common/com_model.h"
+#include "../common/com_model.h"
 #include "cl_dll/studio_util.h"
 #include "cl_dll/r_studioint.h"
-#include "mod/AvHMiniMap.h"
-#include "mod/AvHActionButtons.h"
-#include "util/STLUtil.h"
-#include "mod/AvHSharedUtil.h"
-#include "common/event_api.h"
-#include "mod/AvHScriptManager.h"
+#include "AvHMiniMap.h"
+#include "AvHActionButtons.h"
+#include "../util/STLUtil.h"
+#include "AvHSharedUtil.h"
+#include "../common/event_api.h"
+#include "AvHScriptManager.h"
 #include <p_vector.h>
 #include <papi.h>
-#include "mod/AvHParticleSystemManager.h"
-#include "mod/AvHTeamHierarchy.h"
-#include "mod/AvHClientUtil.h"
-#include "mod/AvHTooltip.h"
+#include "AvHParticleSystemManager.h"
+#include "AvHTeamHierarchy.h"
+#include "AvHClientUtil.h"
+#include "AvHTooltip.h"
 #include "cl_dll/demo.h"
-#include "common/demo_api.h"
-#include "mod/AvHHudConstants.h"
-#include "mod/AvHPlayerUpgrade.h"
-#include "mod/AvHCommanderModeHandler.h"
-#include "common/ref_params.h"
-#include "mod/AvHTechImpulsePanel.h"
-#include "mod/AvHServerVariables.h"
-#include "mod/AvHSpriteAPI.h"
-#include "mod/AvHParticleEditorHandler.h"
-#include "mod/AvHAlienAbilityConstants.h"
+#include "../common/demo_api.h"
+#include "AvHHudConstants.h"
+#include "AvHPlayerUpgrade.h"
+#include "AvHCommanderModeHandler.h"
+#include "../common/ref_params.h"
+#include "AvHTechImpulsePanel.h"
+#include "AvHServerVariables.h"
+#include "AvHSpriteAPI.h"
+#include "AvHParticleEditorHandler.h"
+#include "AvHAlienAbilityConstants.h"
 #include <list>
-#include "common/entity_types.h"
+#include "../common/entity_types.h"
 
 void IN_GetMousePos( int *mx, int *my );
 
@@ -305,7 +305,7 @@ void SetWarpHUDSprites(bool inMode, float inWarpXAmount = 0.0f, float inWarpYAmo
 	gWarpYSpeed = inWarpYSpeed;
 }
 
-void DrawScaledHUDSprite(int inSpriteHandle, int inMode, int inRowsInSprite = 1, int inX = 0, int inY = 0, int inWidth = ScreenWidth(), int inHeight = ScreenHeight(), int inForceSpriteFrame = -1, float inStartU = 0.0f, float inStartV = 0.0f, float inEndU = 1.0f, float inEndV = 1.0f, float inRotateUVRadians = 0.0f, bool inUVWrapsOverFrames = false)
+void DrawScaledHUDSprite(AVHHSPRITE inSpriteHandle, int inMode, int inRowsInSprite = 1, int inX = 0, int inY = 0, int inWidth = ScreenWidth(), int inHeight = ScreenHeight(), int inForceSpriteFrame = -1, float inStartU = 0.0f, float inStartV = 0.0f, float inEndU = 1.0f, float inEndV = 1.0f, float inRotateUVRadians = 0.0f, bool inUVWrapsOverFrames = false)
 {
 	// Count number of frames
 	int theNumFrames = SPR_Frames(inSpriteHandle);
@@ -588,7 +588,7 @@ void DrawScaledHUDSprite(int inSpriteHandle, int inMode, int inRowsInSprite = 1,
 	}
 }
 
-void DrawVariableScaledHUDSprite(float inFactor, int inSpriteHandle, int inMode, int inX, int inY, int inWidth, int inHeight)
+void DrawVariableScaledHUDSprite(float inFactor, AVHHSPRITE inSpriteHandle, int inMode, int inX, int inY, int inWidth, int inHeight)
 {
 	// Draw as two scaled sprites, one for the level and one for the "empty" level
 	// Assumes that sprite has two frames, with the empty level being frame 0 and the full frame being frame 1
@@ -611,7 +611,7 @@ void DrawVariableScaledHUDSprite(float inFactor, int inSpriteHandle, int inMode,
 	DrawScaledHUDSprite(inSpriteHandle, inMode, 1, theX, theY, theWidth, theHeight, 0, theStartU, theStartV, theEndU, theEndV);
 }
 
-void DrawSpriteOnGroundAtPoint(vec3_t inOrigin, int inRadius, HSPRITE inSprite, int inRenderMode = kRenderNormal, int inFrame = 0, float inAlpha = 1.0f)
+void DrawSpriteOnGroundAtPoint(vec3_t inOrigin, int inRadius, AVHHSPRITE inSprite, int inRenderMode = kRenderNormal, int inFrame = 0, float inAlpha = 1.0f)
 {
 	if(gEngfuncs.pTriAPI->SpriteTexture((struct model_s *)gEngfuncs.GetSpritePointer(inSprite), inFrame))
 	{
@@ -889,7 +889,7 @@ void AvHHud::DrawToolTips()
 	}
 }
 
-void AvHHud::DrawWorldSprite(int inSpriteHandle, int inRenderMode, vec3_t inWorldPosition, int inFrame, float inWorldSize, float inAlpha)
+void AvHHud::DrawWorldSprite(AVHHSPRITE inSpriteHandle, int inRenderMode, vec3_t inWorldPosition, int inFrame, float inWorldSize, float inAlpha)
 // : added inAlpha
 {
 	vec3_t theUpperLeft;
@@ -1183,7 +1183,7 @@ void AvHHud::DrawDisplayOrder()
 		}
 
 		// draw the panel
-//        int sprite = Safe_SPR_Load(kWhiteSprite);
+//        int sprite = SPR_Load(kWhiteSprite);
         
         int r, g, b;
         GetPrimaryHudColor(r, g, b, true, false);
@@ -1263,7 +1263,8 @@ void AvHHud::GetOrderDirection(vec3_t inTarget, int inOrderType)
 
 void AvHHud::DrawTeammateOrders()
 {
-	TeammateOrderListType::iterator toErase = NULL;
+	
+	TeammateOrderListType::iterator toErase =  this->mTeammateOrder.end();// to fix 2014 not sure wether it works correctly or not was NULL BEFORE
 	cl_entity_s* theLocalPlayer = gEngfuncs.GetLocalPlayer();
 
 	const float flashLength = 1.0f;
@@ -1311,7 +1312,7 @@ void AvHHud::DrawTeammateOrders()
 		}
 	}
 
-	if (toErase != NULL)
+	if (toErase != this->mTeammateOrder.end()) // to fix 2014 not sure wether it works correctly or not was NULL BEFORE
 		this->mTeammateOrder.erase(toErase);
 
 	// flash target player
@@ -1329,7 +1330,7 @@ void AvHHud::DrawTeammateOrders()
 		}
 	}
 
-
+	
 }
 // :
 
@@ -1414,7 +1415,7 @@ int AvHHud::GetHelpIconFrameFromUser3(AvHUser3 inUser3)
 	return theFrame;
 }
 
-HSPRITE	AvHHud::GetHelpSprite() const
+AVHHSPRITE AvHHud::GetHelpSprite() const
 {
 	return this->mHelpSprite;
 }
@@ -1436,7 +1437,7 @@ void AvHHud::DrawHelpIcons()
 //			if(this->mHelpSprites[theUser3] == 0)
 //			{
 //				string theIconName = string(kHelpIconPrefix) + MakeStringFromInt(theUser3) + ".spr";
-//				this->mHelpSprites[theUser3] = Safe_SPR_Load(theIconName.c_str());
+//				this->mHelpSprites[theUser3] = SPR_Load(theIconName.c_str());
 //			}
 //			
 //			int theSpriteHandle = this->mHelpSprites[theUser3];
@@ -1650,7 +1651,7 @@ void AvHHud::DrawMouseCursor(int inBaseX, int inBaseY)
 	if ( g_iVisibleMouse && !(this->GetInTopDownMode() && gEngfuncs.pDemoAPI->IsPlayingback()) )
 	{
 
-        HSPRITE theCursorSprite;
+        AVHHSPRITE theCursorSprite;
         int theCursorFrame;
 
         GetCursor(theCursorSprite, theCursorFrame);
@@ -1695,7 +1696,7 @@ void AvHHud::DrawMouseCursor(int inBaseX, int inBaseY)
             if (mSelectionBoxVisible)
             {
 				
-                int sprite = Safe_SPR_Load(kWhiteSprite);
+                AVHHSPRITE sprite = SPR_Load(kWhiteSprite);
                 
                 int r, g, b;
                 GetPrimaryHudColor(r, g, b, true, false);
@@ -2014,7 +2015,7 @@ void AvHHud::PreRenderFrame()
 //		static int theCommanderHUDSprite = 0;
 //		if(!theCommanderHUDSprite)
 //		{
-//			theCommanderHUDSprite = Safe_SPR_Load("sprites/.spr");
+//			theCommanderHUDSprite = SPR_Load("sprites/.spr");
 //		}
 //		
 //		if(theCommanderHUDSprite)
@@ -2108,7 +2109,7 @@ void AvHHud::DrawActionButtons()
 //					sprintf(theMessageNumberString, "%d", (int)theMessageNumber);
 //					//string theSpriteName = kTechTreeSpriteDirectory + string("/") + kTechTreeSpritePrefix + string(theMessageIDString) + string(".spr");
 //					string theSpriteName = kTechTreeSpriteDirectory + string("/") + kTechTreeSpritePrefix + string(theMessageNumberString) + string("s.spr");
-//					int theSpriteHandle = Safe_SPR_Load(theSpriteName.c_str());
+//					int theSpriteHandle = SPR_Load(theSpriteName.c_str());
 //
 //					// Sprite handle can be 0, as I don't have sprites for all tech yet
 //					this->mActionButtonSprites[theMessageNumber] = theSpriteHandle;
@@ -2178,7 +2179,7 @@ void AvHHud::DrawActionButtons()
 	}
 }
 
-int AvHHud::GetTechTreeSprite(AvHMessageID inMessageID)
+AVHHSPRITE AvHHud::GetTechTreeSprite(AvHMessageID inMessageID)
 {
 	// Find the group that it belongs to (20, 30, 40, etc.)
 	int theMessageNumber = (int)inMessageID - (inMessageID % 10);
@@ -2191,15 +2192,19 @@ int AvHHud::GetTechTreeSprite(AvHMessageID inMessageID)
 		char theMessageNumberString[16];
 		sprintf(theMessageNumberString, "%d", (int)theMessageNumber);
 		//string theSpriteName = kTechTreeSpriteDirectory + string("/") + kTechTreeSpritePrefix + string(theMessageIDString) + string(".spr");
-		string theSpriteName = kTechTreeSpriteDirectory + string("/") + kTechTreeSpritePrefix + string(theMessageNumberString) + string("s.spr");
-		int theSpriteHandle = Safe_SPR_Load(theSpriteName.c_str());
+		string theSpriteName;
+		if (CVAR_GET_FLOAT("hud_style") == 2.0f)
+			theSpriteName = kTechTreeSpriteDirectoryNL + string("/") + kTechTreeSpritePrefix + string(theMessageNumberString) + string("s.spr");
+		else
+		theSpriteName = kTechTreeSpriteDirectory + string("/") + kTechTreeSpritePrefix + string(theMessageNumberString) + string("s.spr");
+		AVHHSPRITE theSpriteHandle = SPR_Load(theSpriteName.c_str());
 		
 		// Sprite handle can be 0, as I don't have sprites for all tech yet
 		this->mActionButtonSprites[theMessageNumber] = theSpriteHandle;
 	}
 	
 	// Fetch sprite handle
-	int theSpriteHandle = this->mActionButtonSprites[theMessageNumber];
+	AVHHSPRITE theSpriteHandle = this->mActionButtonSprites[theMessageNumber];
 
 	return theSpriteHandle;
 }
@@ -2210,7 +2215,7 @@ void AvHHud::DrawTechTreeSprite(AvHMessageID inMessageID, int inPosX, int inPosY
 	{
 		// Check for alien sprites
 		bool theIsAlienSprite = false;
-		int theSpriteHandle = 0;
+		AVHHSPRITE theSpriteHandle = 0;
 		int theRenderMode = kRenderTransAlpha; // kRenderNormal
 		
 		switch(inMessageID)
@@ -2477,7 +2482,7 @@ void AvHHud::DrawBuildHealthEffectsForEntity(int inEntityIndex, float inAlpha)
 	{
 		if(theContinue && theLocalPlayer)
 		{
-			const kDrawEnemyBuildingDistance = 200;
+			const int kDrawEnemyBuildingDistance = 200;
 
 			// Draw effects if we are in top-down mode OR
 			if(	this->GetInTopDownMode() ||
@@ -2506,7 +2511,7 @@ void AvHHud::DrawBuildHealthEffectsForEntity(int inEntityIndex, float inAlpha)
 				AvHSHUGetBuildResearchState(theUser3, theUser4, theFuser1, theIsBuilding, theIsResearching, theNormalizedPercentage);
 		
 				bool theDrawHealth = true;
-				int theSpriteToUse = this->GetIsAlien() ? this->mAlienHealthSprite : this->mMarineHealthSprite;
+				AVHHSPRITE theSpriteToUse = this->GetIsAlien() ? this->mAlienHealthSprite : this->mMarineHealthSprite;
                 bool theDrawAsRecyling = (GetHasUpgrade(theUser4, MASK_RECYCLING) && theIsOnOurTeam);
 
 				if((theIsOnOurTeam && theIsBuilding && (GetHasUpgrade(theUser4, MASK_BUILDABLE))) || theDrawAsRecyling)
@@ -2709,7 +2714,7 @@ void AvHHud::Render()
 
         // Black out the screen
         
-        int sprite = Safe_SPR_Load(kWhiteSprite);
+        int sprite = SPR_Load(kWhiteSprite);
         AvHSpriteSetColor(0, 0, 0, 1);
         AvHSpriteDraw(sprite, 0, 0, 0, ScreenWidth(), ScreenHeight(), 0, 0, 1, 1);
         AvHSpriteSetColor(1, 1, 1, 1);
@@ -3049,7 +3054,7 @@ void AvHHud::RenderCommonUI()
 		// Now draw our current experience level, so people know how close they are to the next level
 		// Load alien resource and energy sprites
 		string theSpriteName = UINameToSprite(kCombatExperienceSprite, ScreenWidth());
-		int theExperienceSprite = Safe_SPR_Load(theSpriteName.c_str());
+		AVHHSPRITE theExperienceSprite = SPR_Load(theSpriteName.c_str());
 		
 		if(theExperienceSprite)
 		{
@@ -3102,7 +3107,7 @@ void AvHHud::RenderProgressBar(char *spriteName)
 	const float progressBarStayTime = 0.2f;
 	if (this->mProgressBarLastDrawn + progressBarStayTime > this->GetTimeOfLastUpdate())
 	{
-		HSPRITE currentSprite=0;
+		AVHHSPRITE currentSprite=0;
 		if ( spriteName && ( strcmp(spriteName, kExperienceBarSprite) == 0 ) ) {
 			currentSprite=this->mExperienceBarSprite;
 		}
@@ -3602,7 +3607,7 @@ void AvHHud::RenderStructureRanges()
 			thePosition = AvHSHUGetRealLocation(theEntity->origin, theEntity->mins, theEntity->maxs);
 
 			//int theSprite = (theEntity->iuser3 == AVH_USER3_SIEGETURRET) ? this->mSiegeTurretSprite : this->mBuildCircleSprite;
-			int theSprite = this->mBuildCircleSprite;
+			AVHHSPRITE theSprite = this->mBuildCircleSprite;
 
 			int theDistanceRequirement = theDistanceRequirements[theDistanceCounter];
 			RenderStructureRange(thePosition, theDistanceRequirement, theSprite, kRenderTransAdd, 0, theRangeR, theRangeG, theRangeB, theRangeA);
@@ -3629,7 +3634,7 @@ void AvHHud::RenderStructureRanges()
 				if(!GetHasUpgrade(theEntity->curstate.iuser4, MASK_RECYCLING))
 				{
 					//int theSprite = (theEntity->curstate.iuser3 == AVH_USER3_SIEGETURRET) ? this->mSiegeTurretSprite : this->mBuildCircleSprite;
-					int theSprite = this->mBuildCircleSprite;
+					AVHHSPRITE theSprite = this->mBuildCircleSprite;
 					RenderStructureRange(thePosition, theRange, theSprite, kRenderTransAdd, 0, theRangeR, theRangeG, theRangeB, theRangeA);
 				}
 			}
@@ -3669,7 +3674,7 @@ void AvHHud::RenderStructureRanges()
             AvHSHUGetSizeForUser3(theUser3, theMinSize, theMaxSize);
             float theMaxRadius2 = max(max(theMinSize.x, theMaxSize.x), max(theMinSize.y, theMaxSize.y));
 
-            int theSprite = this->mBuildCircleSprite;
+            AVHHSPRITE theSprite = this->mBuildCircleSprite;
 			// : 0000291 
 			// It's possible to place "on" marines if you're offset a little from center. This code and 
 			// associated changes above and in AvHSharedUtil.cpp is to enforce a build distance around marines,
@@ -3689,7 +3694,7 @@ void AvHHud::RenderStructureRanges()
 	}
 }
 
-void AvHHud::RenderStructureRange(vec3_t inOrigin, int inRadius, HSPRITE inSprite, int inRenderMode, int inFrame, float inR, float inG, float inB, float inAlpha)
+void AvHHud::RenderStructureRange(vec3_t inOrigin, int inRadius, AVHHSPRITE inSprite, int inRenderMode, int inFrame, float inR, float inG, float inB, float inAlpha)
 {
 
     vec3_t w1;
@@ -4043,6 +4048,7 @@ void AvHHud::RenderAlienUI()
 		
 		// Find the blip nearest our view reticle
 		int theNearestBlip = -1;
+		int theBlip = 0;
 		float theDotProductOfClosestBlip = -1;
 		
 		// Get view vector
@@ -4051,7 +4057,7 @@ void AvHHud::RenderAlienUI()
 		AngleVectors(v_angles, theForward, theRight, theUp);
 		VectorNormalize(theForward);
 
-		for(int theBlip = 0; theBlip < this->mFriendlyBlips.mNumBlips; theBlip++)
+		for( theBlip = 0; theBlip < this->mFriendlyBlips.mNumBlips; theBlip++)
 		{
 			// Get vector to current blip
 			Vector theVectorToBlip;
@@ -4176,7 +4182,7 @@ void AvHHud::RenderAlienUI()
 
 }
 
-void AvHHud::DrawWarpedOverlaySprite(int spriteHandle, int numXFrames, int numYFrames, float inWarpXAmount, float inWarpYAmount, float inWarpXSpeed, float inWarpYSpeed)
+void AvHHud::DrawWarpedOverlaySprite(AVHHSPRITE spriteHandle, int numXFrames, int numYFrames, float inWarpXAmount, float inWarpYAmount, float inWarpXSpeed, float inWarpYSpeed)
 {
     
     float dx = ScreenWidth();
@@ -4356,10 +4362,10 @@ void AvHHud::VidInit(void)
 	string theSpriteName;
 	
 	//	theSpriteName = UINameToSprite(kEggSprite, theScreenWidth);
-	//	this->mAlienUIEggSprite = Safe_SPR_Load(theSpriteName.c_str());
+	//	this->mAlienUIEggSprite = SPR_Load(theSpriteName.c_str());
 	
 	//	theSpriteName = UINameToSprite(kHiveSprite, theScreenWidth);
-	//	this->mAlienUIHiveSprite = Safe_SPR_Load(theSpriteName.c_str());
+	//	this->mAlienUIHiveSprite = SPR_Load(theSpriteName.c_str());
 	
 	int i = 0;
 	//	for(i = 0; i < kNumAlienLifeforms; i++)
@@ -4367,83 +4373,136 @@ void AvHHud::VidInit(void)
 	//		char theBaseName[128];
 	//		sprintf(theBaseName, "%s%d", kLifeformSprite, i+1);
 	//		string theSpriteName = "sprites/level1_hud.spr";//UINameToSprite(theBaseName, theScreenWidth, true);
-	//		this->mAlienUILifeforms[i] = Safe_SPR_Load(theSpriteName.c_str());
+	//		this->mAlienUILifeforms[i] = SPR_Load(theSpriteName.c_str());
 	//	}
+
+	if (CVAR_GET_FLOAT("hud_style") == 2.0f)
+	{
+		this->mAlienUIUpgrades = SPR_Load(kAlienUpgradeSpriteNL);
+		this->mAlienUIEnergySprite = SPR_Load(kAlienEnergySpriteNL);
+		this->mAlienUICloakSprite = SPR_Load(kAlienCloakSpriteNL);
+		this->mBackgroundSprite = SPR_Load(kTopDownBGSpriteNL);
+		this->mTopDownTopSprite = SPR_Load(kTopDownTopHUDSpriteNL);
+		this->mTopDownBottomSprite = SPR_Load(kTopDownBottomHUDSpriteNL);
+		this->mMarineTopSprite = SPR_Load(kMarineTopHUDSpriteNL);
+		this->mLogoutSprite = SPR_Load(kLogoutSpriteNL);
+		this->mCommandButtonSprite = SPR_Load(kCommandButtonSpriteNL);
+		this->mCommandStatusSprite = SPR_Load(kCommandStatusSpriteNL);
+		this->mSelectAllSprite = SPR_Load(kSelectAllSpriteNL);
+		this->mOrderSprite = SPR_Load(kOrdersSpriteNL);
+		this->mHiveInfoSprite = SPR_Load(kHiveInfoSpriteNL);
+		this->mHiveHealthSprite = SPR_Load(kHiveHealthSpriteNL);
+		this->mMarineOrderIndicator = SPR_Load(kMarineOrderSpriteNL);
+		this->mMarineUpgradesSprite = SPR_Load(kMarineUpgradesSpriteNL);
+	}
+	else if (CVAR_GET_FLOAT("hud_style") == 1.0f)
+	{
+		char theBaseName[128];
+		sprintf(theBaseName, "%s", kAlienUpgradeSprite);
+		theSpriteName = UINameToSprite(theBaseName, theScreenWidth);
+		this->mAlienUIUpgrades = SPR_Load(theSpriteName.c_str());
+
+		// Load alien energy sprite
+		theSpriteName = UINameToSprite(kAlienEnergySprite, theScreenWidth);
+		this->mAlienUIEnergySprite = SPR_Load(theSpriteName.c_str());
+		theSpriteName = UINameToSprite(kAlienCloakSprite, theScreenWidth);
+
+		this->mAlienUICloakSprite = SPR_Load(theSpriteName.c_str());
+		this->mBackgroundSprite = SPR_Load(kTopDownBGSprite);
+		this->mTopDownTopSprite = SPR_Load(kTopDownTopHUDSpriteMin);
+		this->mTopDownBottomSprite = SPR_Load(kTopDownBottomHUDSpriteMin);
+		this->mMarineTopSprite = SPR_Load(kMarineTopHUDSpriteMin);
+		this->mLogoutSprite = SPR_Load(kLogoutSprite);
+		this->mCommandButtonSprite = SPR_Load(kCommandButtonSprite);
+		this->mCommandStatusSprite = SPR_Load(kCommandStatusSpriteMin);
+		this->mSelectAllSprite = SPR_Load(kSelectAllSpriteMin);
+		// Load order sprite
+		theSpriteName = UINameToSprite(kOrdersSprite, theScreenWidth);
+		this->mOrderSprite = SPR_Load(theSpriteName.c_str());
+		this->mHiveInfoSprite = SPR_Load(kHiveInfoSprite);
+		this->mHiveHealthSprite = SPR_Load(kHiveHealthSprite);
+		this->mMarineOrderIndicator = SPR_Load(kMarineOrderSprite);
+		this->mMarineUpgradesSprite = SPR_Load(kMarineUpgradesSprite);
+	}
+	else
+	{
+		char theBaseName[128];
+		sprintf(theBaseName, "%s", kAlienUpgradeSprite);
+		theSpriteName = UINameToSprite(theBaseName, theScreenWidth);
+		this->mAlienUIUpgrades = SPR_Load(theSpriteName.c_str());
+
+		// Load alien energy sprite
+		theSpriteName = UINameToSprite(kAlienEnergySprite, theScreenWidth);
+		this->mAlienUIEnergySprite = SPR_Load(theSpriteName.c_str());
+		theSpriteName = UINameToSprite(kAlienCloakSprite, theScreenWidth);
+		this->mAlienUICloakSprite = SPR_Load(theSpriteName.c_str());
+
+		// Load background for topdown mode
+		this->mBackgroundSprite = SPR_Load(kTopDownBGSprite);
+
+		// Load HUD
+		this->mTopDownTopSprite = SPR_Load(kTopDownTopHUDSprite);
+		this->mTopDownBottomSprite = SPR_Load(kTopDownBottomHUDSprite);
+		this->mMarineTopSprite = SPR_Load(kMarineTopHUDSprite);
+
+		this->mLogoutSprite = SPR_Load(kLogoutSprite);
+		this->mCommandButtonSprite = SPR_Load(kCommandButtonSprite);
+		this->mCommandStatusSprite = SPR_Load(kCommandStatusSprite);
+		this->mSelectAllSprite = SPR_Load(kSelectAllSprite);
+
+		// Load order sprite
+		theSpriteName = UINameToSprite(kOrdersSprite, theScreenWidth);
+		this->mOrderSprite = SPR_Load(theSpriteName.c_str());
+		this->mHiveInfoSprite = SPR_Load(kHiveInfoSprite);
+		this->mHiveHealthSprite = SPR_Load(kHiveHealthSprite);
+
+		this->mMarineOrderIndicator = SPR_Load(kMarineOrderSprite);
+		this->mMarineUpgradesSprite = SPR_Load(kMarineUpgradesSprite);
+	}
 	
 	char theBaseName[128];
-	sprintf(theBaseName, "%s", kAlienUpgradeSprite);
-	theSpriteName = UINameToSprite(theBaseName, theScreenWidth);
-	this->mAlienUIUpgrades = Safe_SPR_Load(theSpriteName.c_str());
-	
 	sprintf(theBaseName, "%s", kAlienUpgradeCategory);
 	theSpriteName = UINameToSprite(theBaseName, theScreenWidth);
-	this->mAlienUIUpgradeCategories = Safe_SPR_Load(theSpriteName.c_str());
+	this->mAlienUIUpgradeCategories = SPR_Load(theSpriteName.c_str());
 	
 	// Load jetpack sprite
 	theSpriteName = UINameToSprite(kJetpackSprite, theScreenWidth);
-	this->mMarineUIJetpackSprite = Safe_SPR_Load(theSpriteName.c_str());
+	this->mMarineUIJetpackSprite = SPR_Load(theSpriteName.c_str());
 
-	// Load alien energy sprite
-	theSpriteName = UINameToSprite(kAlienEnergySprite, theScreenWidth);
-	this->mAlienUIEnergySprite = Safe_SPR_Load(theSpriteName.c_str());
-	theSpriteName = UINameToSprite(kAlienCloakSprite, theScreenWidth);
-	this->mAlienUICloakSprite = Safe_SPR_Load(theSpriteName.c_str());
-
-	// Load background for topdown mode
-	this->mBackgroundSprite = Safe_SPR_Load(kTopDownBGSprite);
-
-	// Load HUD
-	this->mTopDownTopSprite = Safe_SPR_Load(kTopDownTopHUDSprite);
-	this->mTopDownBottomSprite = Safe_SPR_Load(kTopDownBottomHUDSprite);
-	this->mMarineTopSprite = Safe_SPR_Load(kMarineTopHUDSprite);
-
-	this->mLogoutSprite = Safe_SPR_Load(kLogoutSprite);
-	this->mCommandButtonSprite = Safe_SPR_Load(kCommandButtonSprite);
-	this->mCommandStatusSprite = Safe_SPR_Load(kCommandStatusSprite);
-	this->mSelectAllSprite = Safe_SPR_Load(kSelectAllSprite);
-
-	//this->mTopDownBottomSprite = Safe_SPR_Load("sprites/distorttest.spr");
-	//this->mTopDownBottomSprite = Safe_SPR_Load("sprites/ns.spr");
-	//this->mTopDownBottomSprite = Safe_SPR_Load("sprites/distorttest.spr");
+	//this->mTopDownBottomSprite = SPR_Load("sprites/distorttest.spr");
+	//this->mTopDownBottomSprite = SPR_Load("sprites/ns.spr");
+	//this->mTopDownBottomSprite = SPR_Load("sprites/distorttest.spr");
 
 	// Load overlays
-	this->mMembraneSprite = Safe_SPR_Load(kMembraneSprite);
-	this->mDigestingSprite = Safe_SPR_Load(kDigestingSprite);
+	this->mMembraneSprite = SPR_Load(kMembraneSprite);
+	this->mDigestingSprite = SPR_Load(kDigestingSprite);
 	
-	// Load order sprite
-	theSpriteName = UINameToSprite(kOrdersSprite, theScreenWidth);
-	this->mOrderSprite = Safe_SPR_Load(theSpriteName.c_str());
-	this->mHiveInfoSprite = Safe_SPR_Load(kHiveInfoSprite);
-	this->mHiveHealthSprite = Safe_SPR_Load(kHiveHealthSprite);
-
 	// Load cursor sprite
-	this->mMarineCursor = Safe_SPR_Load(kCursorsSprite);
-	this->mAlienCursor = Safe_SPR_Load(kAlienCursorSprite);
-	this->mMarineOrderIndicator = Safe_SPR_Load(kMarineOrderSprite);
-	this->mMarineUpgradesSprite = Safe_SPR_Load(kMarineUpgradesSprite);
-	//this->mMappingTechSprite = Safe_SPR_Load("sprites/ns.spr");
+	this->mMarineCursor = SPR_Load(kCursorsSprite);
+	this->mAlienCursor = SPR_Load(kAlienCursorSprite);
+	//this->mMappingTechSprite = SPR_Load("sprites/ns.spr");
 
-	this->mAlienBuildSprite = Safe_SPR_Load(kAlienBuildSprite);
-	this->mMarineBuildSprite = Safe_SPR_Load(kMarineBuildSprite);
+	this->mAlienBuildSprite = SPR_Load(kAlienBuildSprite);
+	this->mMarineBuildSprite = SPR_Load(kMarineBuildSprite);
 
-	this->mAlienHealthSprite = Safe_SPR_Load(kAlienHealthSprite);
-	this->mMarineHealthSprite = Safe_SPR_Load(kMarineHealthSprite);
+	this->mAlienHealthSprite = SPR_Load(kAlienHealthSprite);
+	this->mMarineHealthSprite = SPR_Load(kMarineHealthSprite);
 
-	this->mBuildCircleSprite = Safe_SPR_Load(kBuildCircleSprite);
-	//this->mSiegeTurretSprite = Safe_SPR_Load(kSiegeTurretSprite);
+	this->mBuildCircleSprite = SPR_Load(kBuildCircleSprite);
+	//this->mSiegeTurretSprite = SPR_Load(kSiegeTurretSprite);
 
 	this->mActionButtonSprites.clear();
 	//this->mHelpSprites.clear();
 
 	string theIconName = string(kHelpIconPrefix) + ".spr";
-	this->mHelpSprite = Safe_SPR_Load(theIconName.c_str());
+	this->mHelpSprite = SPR_Load(theIconName.c_str());
 
 	// : 0000971
-	this->mTeammateOrderSprite = Safe_SPR_Load(kTeammateOrderSprite);
+	this->mTeammateOrderSprite = SPR_Load(kTeammateOrderSprite);
 	// :
 
-	this->mExperienceBarSprite = Safe_SPR_Load(kExperienceBarSprite);
-	this->mProgressBarSprite = Safe_SPR_Load(kProgressBarSprite);
+	this->mExperienceBarSprite = SPR_Load(kExperienceBarSprite);
+	this->mProgressBarSprite = SPR_Load(kProgressBarSprite);
 
 	this->mEnemyBlips.VidInit();
 	this->mFriendlyBlips.VidInit();

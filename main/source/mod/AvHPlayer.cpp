@@ -214,46 +214,46 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "util/nowarnings.h"
-#include "mod/AvHPlayer.h"
-#include "mod/AvHMessage.h"
-#include "mod/AvHParticleTemplateServer.h"
-#include "mod/AvHEntities.h"
-#include "mod/AvHGamerules.h"
-#include "mod/AvHServerVariables.h"
-#include "mod/AvHConstants.h"
-#include "mod/AvHMarineWeapons.h"
-#include "dlls/client.h"
-#include "dlls/util.h"
-#include "mod/AvHSoundListManager.h"
-#include "mod/AvHServerUtil.h"
-#include "mod/AvHMarineEquipment.h"
-#include "mod/AvHTitles.h"
-#include "mod/AvHMarineEquipmentConstants.h"
-#include "mod/AvHParticleTemplate.h"
-#include "common/vector_util.h"
-#include "dlls/roach.h"
-#include "mod/AvHSelectionHelper.h"
-#include "mod/AvHPlayerUpgrade.h"
-#include "mod/AvHSharedUtil.h"
-#include "mod/AvHServerUtil.h"
-#include "mod/AvHDramaticPriority.h"
-#include "mod/AvHHulls.h"
-#include "mod/AvHMovementUtil.h"
-#include "mod/AvHAlienWeaponConstants.h"
-#include "mod/AvHParticleSystemEntity.h"
-#include "mod/AvHAlienAbilities.h"
-#include "mod/AvHAlienAbilityConstants.h"
-#include "mod/AvHAlienEquipmentConstants.h"
-#include "mod/AvHMarineTurret.h"
-#include "mod/AvHSiegeTurret.h"
-#include "mod/AvHBlipConstants.h"
-#include "mod/AvHParticleConstants.h"
-#include "util/MathUtil.h"
-#include "types.h"
+#include "../util/nowarnings.h"
+#include "AvHPlayer.h"
+#include "AvHMessage.h"
+#include "AvHParticleTemplateServer.h"
+#include "AvHEntities.h"
+#include "AvHGamerules.h"
+#include "AvHServerVariables.h"
+#include "AvHConstants.h"
+#include "AvHMarineWeapons.h"
+#include "../dlls/client.h"
+#include "../dlls/util.h"
+#include "AvHSoundListManager.h"
+#include "AvHServerUtil.h"
+#include "AvHMarineEquipment.h"
+#include "AvHTitles.h"
+#include "AvHMarineEquipmentConstants.h"
+#include "AvHParticleTemplate.h"
+#include "../common/vector_util.h"
+#include "../dlls/roach.h"
+#include "AvHSelectionHelper.h"
+#include "AvHPlayerUpgrade.h"
+#include "AvHSharedUtil.h"
+#include "AvHServerUtil.h"
+#include "AvHDramaticPriority.h"
+#include "AvHHulls.h"
+#include "AvHMovementUtil.h"
+#include "AvHAlienWeaponConstants.h"
+#include "AvHParticleSystemEntity.h"
+#include "AvHAlienAbilities.h"
+#include "AvHAlienAbilityConstants.h"
+#include "AvHAlienEquipmentConstants.h"
+#include "AvHMarineTurret.h"
+#include "AvHSiegeTurret.h"
+#include "AvHBlipConstants.h"
+#include "AvHParticleConstants.h"
+#include "../util/MathUtil.h"
+#include "../types.h"
 
-#include "mod/AvHNetworkMessages.h"
-#include "mod/AvHNexusServer.h"
+#include "AvHNetworkMessages.h"
+#include "AvHNexusServer.h"
 
 std::string GetLogStringForPlayer( edict_t *pEntity );
 
@@ -6878,7 +6878,7 @@ void AvHPlayer::InternalMovementThink()
 						float factor = pushbackfactor / (radius / distance);
 
 						float weigthFactor=1.0f;
-						int veriticalLimit=110;
+						float veriticalLimit=110.0f;
 						switch(theEntity->pev->iuser3) {
 							case AVH_USER3_ALIEN_PLAYER4:
 								weigthFactor=0.70f;
@@ -7268,7 +7268,7 @@ void AvHPlayer::ResetOverwatch()
 }
 
 
-#include "engine/studio.h"
+#include "../engine/studio.h"
 
 void AvHPlayer::SetModelFromState()
 {
@@ -7482,12 +7482,12 @@ void AvHPlayer::GetViewForUser3(AvHUser3 inUser3, bool inIsDucking, float& outFO
     {
     case AVH_USER3_NONE:
     case AVH_USER3_MARINE_PLAYER:
-    case AVH_USER3_COMMANDER_PLAYER:
-    case AVH_USER3_ALIEN_PLAYER4:
-    default:
-        outFOV    = 90;
-        outOffset = inIsDucking ? kDuckingViewHeightPercentage*HULL1_MAXZ: kStandingViewHeightPercentage*HULL0_MAXZ;
-        break;
+	case AVH_USER3_COMMANDER_PLAYER:
+	case AVH_USER3_ALIEN_PLAYER4:
+	default:
+		outFOV = 90;
+		outOffset = inIsDucking ? kDuckingViewHeightPercentage * HULL1_MAXZ : kStandingViewHeightPercentage * HULL0_MAXZ;
+		break;
 
     case AVH_USER3_ALIEN_PLAYER1:
         outFOV    = 105;
@@ -8034,7 +8034,6 @@ void AvHPlayer::SetUser3(AvHUser3 inUser3, bool inForceChange, bool inGiveWeapon
         mSavedJetpackEnergy = this->pev->fuser3;
 
         this->ClearUserVariables();
-
         switch(inUser3)
         {
         case AVH_USER3_NONE:
@@ -8413,7 +8412,6 @@ void AvHPlayer::StartTopDownMode()
 //      GetGameRules()->GetMapExtents(theMinViewHeight, theMaxViewHeight, theMinX, theMinY, theMaxX, theMaxY, theDrawMapBG);
 
         this->pev->origin.z = GetGameRules()->GetMapExtents().GetMaxViewHeight();
-
         this->mInTopDownMode = true;
 
         // Cheesy way to make sure player class change is sent to everyone
@@ -9227,7 +9225,7 @@ bool AvHPlayer::RunClientScript(const string& inScriptName)
 
 void AvHPlayer::PrintWeaponListToClient(CBaseEntity *theAvHPlayer) {
 		char msg[1024];
-		sprintf(msg, "Weapons for %s:\n", this->GetPlayerName());	
+		sprintf(msg, "Weapons for %s:\n", this->GetPlayerName().c_str());	
 		ClientPrint(theAvHPlayer->pev, HUD_PRINTNOTIFY, msg);
 
         for(int i = 0; i < MAX_ITEM_TYPES; i++)
@@ -9331,8 +9329,8 @@ void AvHPlayer::UpdateAmbientSounds()
                 int theBaseSpeed, theMaxSpeed;
                 this->GetSpeeds(theBaseSpeed, theMaxSpeed);
                 
-                float theAlienSoundFreq = 0.003f;
-                float theChanceOfPlayingSound = theAlienSoundFreq*(theVelocity/((float)theMaxSpeed));
+                float theAlienSoundFreq = 0.3f;
+                float theChanceOfPlayingSound = gpGlobals->frametime*theAlienSoundFreq*(theVelocity/((float)theMaxSpeed));
                 if(RANDOM_FLOAT(0, 1) < theChanceOfPlayingSound)
                 {
                     float theVolume = RANDOM_FLOAT(.5, 1.0)*theSilenceVolumeFactor;
@@ -10271,7 +10269,7 @@ bool AvHPlayer::GetIsAuthorized(AvHAuthAction inAction, int inParameter) const
 		}
 		case AUTH_ACTION_ADJUST_BALANCE:
 		{
-#ifndef BALANCE_ENABLED
+#ifndef BALANCE_ENABLED 
 			return false;
 #else
 			return this->GetIsMember(PLAYERAUTH_DEVELOPER);

@@ -11,23 +11,25 @@
 // $Date: $
 //
 //-------------------------------------------------------------------------------
-// $Log: $
+// $Log: AvHWorldUpdate.cpp $
+// 2015/12/02  fmoraw
+// - removed infinite detection range of the observatory on the z axis 
 //===============================================================================
-#include "util/nowarnings.h"
-#include "dlls/extdll.h"
-#include "dlls/util.h"
-#include "dlls/cbase.h"
-#include "dlls/player.h"
-#include "dlls/weapons.h"
-#include "mod/AvHGamerules.h"
-#include "mod/AvHMarineEquipment.h"
-#include "mod/AvHMarineEquipmentConstants.h"
-#include "mod/AvHAlienEquipment.h"
-#include "mod/AvHAlienEquipmentConstants.h"
-#include "mod/AvHAlienWeapons.h"
-#include "mod/AvHAlienWeaponConstants.h"
-#include "mod/AvHServerUtil.h"
-#include "util/MathUtil.h"
+#include "../util/nowarnings.h"
+#include "../dlls/extdll.h"
+#include "../dlls/util.h"
+#include "../dlls/cbase.h"
+#include "../dlls/player.h"
+#include "../dlls/weapons.h"
+#include "AvHGamerules.h"
+#include "AvHMarineEquipment.h"
+#include "AvHMarineEquipmentConstants.h"
+#include "AvHAlienEquipment.h"
+#include "AvHAlienEquipmentConstants.h"
+#include "AvHAlienWeapons.h"
+#include "AvHAlienWeaponConstants.h"
+#include "AvHServerUtil.h"
+#include "../util/MathUtil.h"
 
 typedef vector<AvHPlayer*>			AvHPlayerListType;
 typedef vector<AvHObservatory*>		AvHObservatoryListType;
@@ -98,7 +100,7 @@ bool AvHSUGetInViewOfEnemy(CBaseEntity* inEntity, int& outSightedStatus)
 					if((*theObservatoryIter)->pev->team != inEntity->pev->team && ( inEntity->pev->team != TEAM_IND ) && !(*theObservatoryIter)->GetIsRecycling() )
 					{
 						// Check that entity is in range of scan (only check XY distance, for commander's purposes)
-						float theDistance = VectorDistance2D((*theObservatoryIter)->pev->origin, inEntity->pev->origin);
+						float theDistance = VectorDistance((*theObservatoryIter)->pev->origin, inEntity->pev->origin);
 						if(theDistance < BALANCE_VAR(kObservatoryXYDetectionRadius))
 						{
 							outSightedStatus |= MASK_VIS_DETECTED;

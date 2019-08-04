@@ -130,65 +130,70 @@
 // - Post-crash checkin.  Restored @Backup from around 4/16.  Contains changes for last four weeks of development.
 //
 //===============================================================================
-#include "mod/AvHConstants.h"
-#include "mod/AvHHud.h"
+#include "AvHConstants.h"
+#include "AvHHud.h"
 #include "cl_dll/hud.h"
 #include "cl_dll/cl_util.h"
-#include "vgui_label.h"
+#include "VGUI_Label.h"
 #include "ui/PieMenu.h"
-#include "mod/AvHTeamHierarchy.h"
-#include "mod/AvHPieMenuHandler.h"
-#include "mod/AvHParticleTemplateClient.h"
-#include "mod/AvHParticleSystemManager.h"
-#include "mod/AvHClientVariables.h"
-#include "mod/AvHSpecials.h"
+#include "AvHTeamHierarchy.h"
+#include "AvHPieMenuHandler.h"
+#include "AvHParticleTemplateClient.h"
+#include "AvHParticleSystemManager.h"
+#include "AvHClientVariables.h"
+#include "AvHSpecials.h"
 #include "ui/FadingImageLabel.h"
-#include "mod/AvHScrollHandler.h"
-#include "mod/AvHEvents.h"
-#include "pm_shared/pm_shared.h"
-#include "common/cl_entity.h"
-#include "mod/AvHCommanderModeHandler.h"
-#include "mod/AvHParticleEditorHandler.h"
-#include "mod/AvHTechTree.h"
-#include "mod/AvHMovementUtil.h"
-#include "mod/AvHTitles.h"
-#include "mod/AvHSelectionHelper.h"
-#include "mod/AvHActionButtons.h"
-#include "pm_shared/pm_debug.h"
-#include "util/MathUtil.h"
-#include "util/STLUtil.h"
-#include "mod/AvHSharedUtil.h"
-#include "common/r_efx.h"
+#include "AvHScrollHandler.h"
+#include "AvHEvents.h"
+#include "../pm_shared/pm_shared.h"
+#include "../common/cl_entity.h"
+#include "AvHCommanderModeHandler.h"
+#include "AvHParticleEditorHandler.h"
+#include "AvHTechTree.h"
+#include "AvHMovementUtil.h"
+#include "AvHTitles.h"
+#include "AvHSelectionHelper.h"
+#include "AvHActionButtons.h"
+#include "../pm_shared/pm_debug.h"
+#include "../util/MathUtil.h"
+#include "../util/STLUtil.h"
+#include "AvHSharedUtil.h"
+#include "../common/r_efx.h"
 #include "cl_dll/eventscripts.h"
 #include <stdlib.h>
-#include "mod/AvHSprites.h"
+#include "AvHSprites.h"
 #include "ui/UIUtil.h"
-#include "mod/AvHMiniMap.h"
-#include "types.h"
+#include "AvHMiniMap.h"
+#include "../types.h"
 #include <signal.h>
-#include "common/event_api.h"
-#include "mod/AvHHulls.h"
-#include "common/com_model.h"
-#include "mod/AvHBasePlayerWeaponConstants.h"
+#include "../common/event_api.h"
+#include "AvHHulls.h"
+#include "../common/com_model.h"
+#include "AvHBasePlayerWeaponConstants.h"
 #include "cl_dll/vgui_ScorePanel.h"
-#include "mod/AvHAlienAbilityConstants.h"
-#include "mod/AvHSharedUtil.h"
-#include "mod/AvHScriptManager.h"
-#include "mod/AvHHudConstants.h"
+#include "AvHAlienAbilityConstants.h"
+#include "AvHSharedUtil.h"
+#include "AvHScriptManager.h"
+#include "AvHHudConstants.h"
 #include "cl_dll/demo.h"
-#include "common/demo_api.h"
+#include "../common/demo_api.h"
 #include "cl_dll/ammohistory.h"
-#include "mod/AvHTechImpulsePanel.h"
-#include "mod/AvHServerVariables.h"
-#include "mod/AvHPlayerUpgrade.h"
-#include "mod/AvHCommandConstants.h"
-#include "mod/AvHDebugUtil.h" 
-#include "engine/keydefs.h"
+#include "AvHTechImpulsePanel.h"
+#include "AvHServerVariables.h"
+#include "AvHPlayerUpgrade.h"
+#include "AvHCommandConstants.h"
+#include "AvHDebugUtil.h" 
+#include "../engine/keydefs.h"
 #include "ui/ChatPanel.h"
 #include "cl_dll/r_studioint.h"
-#include "util/Tokenizer.h"
+#include "../util/Tokenizer.h"
+/*
+//@2014 see http://askubuntu.com/questions/309134/g-error-sstream-tcc11239-error-expected-unqualified-id-before-token
+#undef max
+#undef min
 #include <sstream>
-#include "mod/AvHNetworkMessages.h"
+*/
+#include "AvHNetworkMessages.h"
 
 //#include "cl_dll/studio_util.h"
 //#include "cl_dll/r_studioint.h"
@@ -199,8 +204,11 @@ void RemoveAllDecals();
 void ScorePanel_InitializeDemoRecording();
 
 // Include windows for GDI and gamma functions
-#include "windows.h"
-
+#ifdef _WIN32
+#include "winsani_in.h"
+#include <windows.h>
+#include "winsani_out.h"
+#endif
 extern engine_studio_api_t IEngineStudio;
 
 AvHPieMenuHandler						gPieMenuHandler;
@@ -208,7 +216,7 @@ AvHScrollHandler						gScrollHandler;
 AvHCommanderModeHandler					gCommanderHandler;
 AvHParticleEditorHandler				gParticleEditorHandler;
 extern AvHParticleTemplateListClient	gParticleTemplateList;
-extern DebugPointListType				gTriDebugLocations;
+//extern DebugPointListType				gTriDebugLocations;
 extern extra_player_info_t				g_PlayerExtraInfo[MAX_PLAYERS+1];
 extern WeaponsResource					gWR;
 
@@ -219,8 +227,11 @@ extern void	__CmdFunc_Close(void);
 extern int CL_ButtonBits(int);
 extern int g_iVisibleMouse;
 
+//@2014 make this work for linux
+
 GammaTable AvHHud::sPregameGammaTable;
 GammaTable AvHHud::sGameGammaTable;
+
 
 bool AvHHud::sShowMap = false;
 
@@ -301,15 +312,22 @@ void NumericalInfoEffect::SetPosition(float inPosition[3])
 void AvHHud::OnActivateSteamUI()
 {
     // Set the normal gamma so the Steam UI looks correct.
+	/*
+#ifdef _WIN32
     sPregameGammaTable.InitializeToVideoState();
+#endif*/
     mSteamUIActive = true;
 }
 
 void AvHHud::OnDeactivateSteamUI()
 {
 
-    // Set the special NS gamma.
+    // Set the special NS gamma. //@2014 no more gamma
+	/*
+	#ifdef _WIN32
     SetGamma(mDesiredGammaSlope);
+	#endif */
+
     mSteamUIActive = false;
 
     // The Steam UI screws up the mouse cursor so reset it.
@@ -321,8 +339,10 @@ void AvHHud::OnDeactivateSteamUI()
 }
 
 void AvHHud::OnLostFocus()
-{
-    sPregameGammaTable.InitializeToVideoState();
+{/*
+#ifdef _WIN32    
+sPregameGammaTable.InitializeToVideoState();
+#endif*/
 }
 
 bool AvHHud::OnKeyEvent(int virtualKey, int scanCode, bool pressed)
@@ -330,8 +350,8 @@ bool AvHHud::OnKeyEvent(int virtualKey, int scanCode, bool pressed)
 
     if (gViewPort != NULL && !mSteamUIActive)
     {
-
-        ChatPanel* theChatPanel = gViewPort->GetChatPanel();
+    	//@linux no chat Panel for Linux
+        /*ChatPanel* theChatPanel = gViewPort->GetChatPanel();
 
         if (theChatPanel && theChatPanel->isVisible())
         {
@@ -346,9 +366,9 @@ bool AvHHud::OnKeyEvent(int virtualKey, int scanCode, bool pressed)
                 // the key up needs to go to HL.
                 return theChatPanel->WasKeyPushed(virtualKey);
             }
-        }
-       
-        if (virtualKey == VK_ESCAPE && GetInTopDownMode() && mGhostBuilding != MESSAGE_NULL)
+        }*/
+       //@linux VK_ESCAPE --> KEY_ESCAPE
+        if (virtualKey == KEY_ESCAPE && GetInTopDownMode() && mGhostBuilding != MESSAGE_NULL)
         {
             if (pressed)
             {
@@ -507,13 +527,14 @@ void CLinkGhostBuildingCallback( struct tempent_s *ent, float frametime, float c
 {
 	gHUD.GhostBuildingCallback(ent, frametime, currenttime);
 }
-
+//@2014
 // For easily adding message functions
+
 #define BIND_MESSAGE(x) \
     int __MsgFunc_##x(const char *pszName, int iSize, void *pbuf) \
 	{ \
-    	return gHUD.##x(pszName, iSize, pbuf ); \
-    }
+	return gHUD.MsgFunc_##x(pszName, iSize, pbuf ); \
+    } 
 
 AvHHud::AvHHud(const string& inFilename, UIFactory* inFactory) : UIHud(inFilename, inFactory)
 {
@@ -1143,8 +1164,8 @@ bool AvHHud::GetAndClearTopDownScrollAmount(int& outX, int& outY, int& outZ)
 	{
 		const int kScreenWidth = ScreenWidth();
 		const int kScreenHeight = ScreenHeight();
-		const kScrollHorizontal = .0152f*kScreenWidth;
-		const kScrollVertical = .015f*kScreenHeight;
+		const float kScrollHorizontal = .0152f*kScreenWidth;
+		const float kScrollVertical = .015f*kScreenHeight;
 
 		// Left side
 		if(this->GetIsMouseInRegion(0, 0, kScrollHorizontal, kScreenHeight) || (gScrollHandler.GetXScroll() < 0))
@@ -1745,12 +1766,11 @@ AvHMessageID AvHHud::HotKeyHit(char inChar)
 {
 	return gCommanderHandler.HotKeyHit(inChar);
 }
-
+//@2014 make this work for linux
 float AvHHud::GetGammaSlope() const
-{
+{	
 	return sGameGammaTable.GetGammaSlope();
 }
-
 string AvHHud::GetMapName(bool inLocalOnly) const
 {
     string theMapName = this->mMapName;
@@ -1758,6 +1778,9 @@ string AvHHud::GetMapName(bool inLocalOnly) const
     if((theMapName == "") && !inLocalOnly )
     {
         const char* theLevelName = gEngfuncs.pfnGetLevelName();
+
+
+
         if(theLevelName)
         {
             theMapName = string(theLevelName);
@@ -1811,8 +1834,11 @@ bool AvHHud::SetGamma(float inSlope)
 
 	// Disable gamma stuff in debug for sanity
 //	#ifndef DEBUG
-	
-	HDC theDC = GetDC(NULL);
+
+//@2014 
+	/*
+#ifdef _WIN32 	
+	HDC theDC = GetDC(NULL); // this is a windows func call
 	if(theDC != 0)
 	{
 		const float kGammaIncrement = 0.05f;
@@ -1854,8 +1880,7 @@ bool AvHHud::SetGamma(float inSlope)
 		}
 	}
 
-	//#endif
-	
+#endif */
     return theSuccess;
 }
 
@@ -1903,12 +1928,16 @@ int AvHHud::Redraw( float flTime, int intermission )
 
 void AvHHud::ResetGammaAtExit()
 {
-	sPregameGammaTable.InitializeToVideoState();
+/*#ifdef _WIN32	
+sPregameGammaTable.InitializeToVideoState();
+#endif*/
 }
 
 int AvHHud::ResetGammaAtExitForOnExit()
-{
+{	
+/*#ifdef _WIN32
 	sPregameGammaTable.InitializeToVideoState();
+#endif*/
 	return TRUE;
 }
 
@@ -1962,7 +1991,7 @@ void AvHHud::SetTechHelpText(const string& inTechHelpText)
 }
 
 BIND_MESSAGE(Countdown);
-int AvHHud::Countdown(const char* pszName, int iSize, void* pbuf)
+int AvHHud::MsgFunc_Countdown(const char* pszName, int iSize, void* pbuf)
 {
 	NetMsg_UpdateCountdown( pbuf, iSize, this->mNumTicksToPlay );
 	this->mLastTickPlayed = 1;
@@ -2260,7 +2289,7 @@ void AvHHud::ResetComponentsForUser3()
 }
 
 BIND_MESSAGE(BalanceVar);
-int AvHHud::BalanceVar(const char* pszName, int iSize, void* pbuf)
+int AvHHud::MsgFunc_BalanceVar(const char* pszName, int iSize, void* pbuf)
 {
 	string name;
 	BalanceMessageAction action;
@@ -2292,7 +2321,7 @@ int AvHHud::BalanceVar(const char* pszName, int iSize, void* pbuf)
 }
 
 BIND_MESSAGE(GameStatus);
-int AvHHud::GameStatus(const char* pszName, int iSize, void* pbuf)
+int AvHHud::MsgFunc_GameStatus(const char* pszName, int iSize, void* pbuf)
 {
 	int status, game_time, timelimit, misc_data;
 	AvHMapMode map_mode;
@@ -2328,7 +2357,7 @@ int AvHHud::GameStatus(const char* pszName, int iSize, void* pbuf)
 }
 
 BIND_MESSAGE(MiniMap);
-int AvHHud::MiniMap(const char* pszName, int iSize, void* pbuf)
+int AvHHud::MsgFunc_MiniMap(const char* pszName, int iSize, void* pbuf)
 {
 	gMiniMap.ReceiveFromNetworkStream( pbuf, iSize );
 	return 1;
@@ -2336,7 +2365,7 @@ int AvHHud::MiniMap(const char* pszName, int iSize, void* pbuf)
 
 // : 0000971 
 BIND_MESSAGE(IssueOrder);
-int AvHHud::IssueOrder(const char* pszName, int iSize, void* pbuf)
+int AvHHud::MsgFunc_IssueOrder(const char* pszName, int iSize, void* pbuf)
 {
 	int ordertype, ordersource, ordertarget;
 	NetMsg_IssueOrder( pbuf, iSize, ordertype, ordersource, ordertarget);
@@ -2385,7 +2414,7 @@ int AvHHud::IssueOrder(const char* pszName, int iSize, void* pbuf)
 // :
 
 BIND_MESSAGE(ServerVar);
-int AvHHud::ServerVar(const char* pszName, int iSize, void* pbuf)
+int AvHHud::MsgFunc_ServerVar(const char* pszName, int iSize, void* pbuf)
 {
 	string name;
 	int value;
@@ -2395,7 +2424,7 @@ int AvHHud::ServerVar(const char* pszName, int iSize, void* pbuf)
 }
 
 BIND_MESSAGE(Progress);
-int AvHHud::Progress(const char* pszName, int iSize, void* pbuf)
+int AvHHud::MsgFunc_Progress(const char* pszName, int iSize, void* pbuf)
 {
 	NetMsg_ProgressBar( pbuf, iSize, this->mProgressBarEntityIndex, this->mProgressBarParam, this->mProgressBarCompleted );
 	return 1;
@@ -2594,7 +2623,7 @@ void AvHHud::ResetGame(bool inMapChanged)
 }
 
 BIND_MESSAGE(SetGmma);
-int	AvHHud::SetGmma(const char* pszName, int iSize, void* pbuf)
+int	AvHHud::MsgFunc_SetGmma(const char* pszName, int iSize, void* pbuf)
 {
 	NetMsg_SetGammaRamp( pbuf, iSize, this->mDesiredGammaSlope );
     if (!mSteamUIActive)
@@ -2606,7 +2635,7 @@ int	AvHHud::SetGmma(const char* pszName, int iSize, void* pbuf)
 }
 
 BIND_MESSAGE(BlipList);
-int	AvHHud::BlipList(const char* pszName, int iSize, void* pbuf)
+int	AvHHud::MsgFunc_BlipList(const char* pszName, int iSize, void* pbuf)
 {
 	bool friendly_blips;
 	AvHVisibleBlipList list;
@@ -2630,7 +2659,7 @@ int	AvHHud::BlipList(const char* pszName, int iSize, void* pbuf)
 }
 
 BIND_MESSAGE(ClScript);
-int	AvHHud::ClScript(const char *pszName, int iSize, void *pbuf)
+int	AvHHud::MsgFunc_ClScript(const char *pszName, int iSize, void *pbuf)
 {
 	StringList script_names;
 	NetMsg_ClientScripts( pbuf, iSize, script_names );
@@ -2644,7 +2673,7 @@ int	AvHHud::ClScript(const char *pszName, int iSize, void *pbuf)
 }
 
 BIND_MESSAGE(DelParts);
-int AvHHud::DelParts(const char *pszName, int iSize, void *pbuf)
+int AvHHud::MsgFunc_DelParts(const char *pszName, int iSize, void *pbuf)
 {
 	NetMsg_DelParts( pbuf, iSize );
 	gParticleTemplateList.Clear();
@@ -2653,7 +2682,7 @@ int AvHHud::DelParts(const char *pszName, int iSize, void *pbuf)
 }
 
 BIND_MESSAGE(Particles);
-int AvHHud::Particles(const char *pszName, int iSize, void *pbuf)
+int AvHHud::MsgFunc_Particles(const char *pszName, int iSize, void *pbuf)
 {
 	int index=-1;
 	AvHParticleTemplate particle_template;
@@ -2664,7 +2693,7 @@ int AvHHud::Particles(const char *pszName, int iSize, void *pbuf)
 }
 
 BIND_MESSAGE(SoundNames);
-int AvHHud::SoundNames(const char *pszName, int iSize, void *pbuf)
+int AvHHud::MsgFunc_SoundNames(const char *pszName, int iSize, void *pbuf)
 {
 	bool theClearSoundList;
 	string sound_name;
@@ -2683,7 +2712,7 @@ int AvHHud::SoundNames(const char *pszName, int iSize, void *pbuf)
 }
 
 BIND_MESSAGE(SetSelect);
-int	AvHHud::SetSelect(const char* pszName, int iSize, void* pbuf)
+int	AvHHud::MsgFunc_SetSelect(const char* pszName, int iSize, void* pbuf)
 {
 	Selection selection;
 	NetMsg_SetSelect( pbuf, iSize, selection );
@@ -2713,7 +2742,7 @@ int	AvHHud::SetSelect(const char* pszName, int iSize, void* pbuf)
 }
 
 BIND_MESSAGE(SetRequest);
-int AvHHud::SetRequest(const char* pszName, int iSize, void* pbuf)
+int AvHHud::MsgFunc_SetRequest(const char* pszName, int iSize, void* pbuf)
 {
 	int request_type, request_count;
 	NetMsg_SetRequest( pbuf, iSize, request_type, request_count );
@@ -2723,7 +2752,7 @@ int AvHHud::SetRequest(const char* pszName, int iSize, void* pbuf)
 }
 
 BIND_MESSAGE(SetOrder);
-int	AvHHud::SetOrder(const char* pszName, int iSize, void* pbuf)
+int	AvHHud::MsgFunc_SetOrder(const char* pszName, int iSize, void* pbuf)
 {
 	AvHOrder theNewOrder;
 	NetMsg_SetOrder( pbuf, iSize, theNewOrder );
@@ -2750,7 +2779,7 @@ int	AvHHud::SetOrder(const char* pszName, int iSize, void* pbuf)
 }
 
 BIND_MESSAGE(SetupMap);
-int	AvHHud::SetupMap(const char* pszName, int iSize, void* pbuf)
+int	AvHHud::MsgFunc_SetupMap(const char* pszName, int iSize, void* pbuf)
 {
 	bool is_location, draw_background;
 	float min_extents[3], max_extents[3];
@@ -2788,7 +2817,7 @@ int	AvHHud::SetupMap(const char* pszName, int iSize, void* pbuf)
 
   
 BIND_MESSAGE(SetTopDown);
-int	AvHHud::SetTopDown(const char* pszName, int iSize, void* pbuf)
+int	AvHHud::MsgFunc_SetTopDown(const char* pszName, int iSize, void* pbuf)
 {
 	bool is_menu_tech, is_top_down;
 	float position[3];
@@ -2836,14 +2865,14 @@ int	AvHHud::SetTopDown(const char* pszName, int iSize, void* pbuf)
 }
 
 BIND_MESSAGE(DelEntHier);
-int AvHHud::DelEntHier(const char *pszName, int iSize, void *pbuf) {
+int AvHHud::MsgFunc_DelEntHier(const char *pszName, int iSize, void *pbuf) {
 	NetMsg_DelEntityHierarchy(pbuf, iSize);
 	this->mEntityHierarchy.Clear();
 	return 0;
 }
 
 BIND_MESSAGE(EntHier);
-int AvHHud::EntHier(const char *pszName, int iSize, void *pbuf)
+int AvHHud::MsgFunc_EntHier(const char *pszName, int iSize, void *pbuf)
 {
 	MapEntityMap new_items;
 	EntityListType old_items;
@@ -2865,7 +2894,7 @@ int AvHHud::EntHier(const char *pszName, int iSize, void *pbuf)
 }
 
 BIND_MESSAGE(EditPS);
-int	AvHHud::EditPS(const char* pszName, int iSize, void* pbuf)
+int	AvHHud::MsgFunc_EditPS(const char* pszName, int iSize, void* pbuf)
 {
 	int particle_index;
 	NetMsg_EditPS( pbuf, iSize, particle_index );
@@ -2875,7 +2904,7 @@ int	AvHHud::EditPS(const char* pszName, int iSize, void* pbuf)
 }
 
 BIND_MESSAGE(Fog);
-int	AvHHud::Fog(const char* pszName, int iSize, void* pbuf)
+int	AvHHud::MsgFunc_Fog(const char* pszName, int iSize, void* pbuf)
 {
 	bool enabled;
 	int R, G, B;
@@ -2897,7 +2926,7 @@ int	AvHHud::Fog(const char* pszName, int iSize, void* pbuf)
 
 
 BIND_MESSAGE(SetUpgrades);
-int	AvHHud::SetUpgrades(const char* pszName, int iSize, void* pbuf)
+int	AvHHud::MsgFunc_SetUpgrades(const char* pszName, int iSize, void* pbuf)
 {
 	int mask;
 	NetMsg_HUDSetUpgrades( pbuf, iSize, mask );
@@ -2920,7 +2949,7 @@ int	AvHHud::SetUpgrades(const char* pszName, int iSize, void* pbuf)
 
 
 BIND_MESSAGE(ListPS);
-int	AvHHud::ListPS(const char* pszName, int iSize, void* pbuf)
+int	AvHHud::MsgFunc_ListPS(const char* pszName, int iSize, void* pbuf)
 {
 	string name;
 	NetMsg_ListPS( pbuf, iSize, name );
@@ -2930,7 +2959,7 @@ int	AvHHud::ListPS(const char* pszName, int iSize, void* pbuf)
 }
 
 BIND_MESSAGE(PlayHUDNot);
-int AvHHud::PlayHUDNot(const char* pszName, int iSize, void* pbuf)
+int AvHHud::MsgFunc_PlayHUDNot(const char* pszName, int iSize, void* pbuf)
 {
 	int message_id, sound;
 	float location_x, location_y;
@@ -3003,7 +3032,7 @@ int AvHHud::PlayHUDNot(const char* pszName, int iSize, void* pbuf)
 }
 
 BIND_MESSAGE(AlienInfo);
-int	AvHHud::AlienInfo(const char* pszName, int iSize, void* pbuf)
+int	AvHHud::MsgFunc_AlienInfo(const char* pszName, int iSize, void* pbuf)
 {
 	bool was_hive_info;
 	AvHAlienUpgradeListType upgrades;
@@ -3043,7 +3072,9 @@ void AvHHud::PlayHUDSound(AvHHUDSound inSound)
     // Some sounds are forced, but don't allow them to be spammed or cut themselves off
     bool theForceSound = AvHSHUGetForceHUDSound(inSound) && (inSound != this->mLastHUDSoundPlayed);
 
+
 	// : 0000407
+
 	bool theAutoHelpEnabled = gEngfuncs.pfnGetCvarFloat(kvAutoHelp);
 	// :
 
@@ -3378,6 +3409,7 @@ void AvHHud::PlayHUDSound(AvHHUDSound inSound)
 			theSoundLength = 1.5f;
 			break;
 
+
 		case HUD_SOUND_ALIEN_POINTS_RECEIVED:
 			theSoundPtr = kAlienPointsReceivedSound;
 			theSoundLength = 1.57f;
@@ -3529,7 +3561,7 @@ void AvHHud::PlayHUDSound(AvHHUDSound inSound)
 }
 
 BIND_MESSAGE(SetTech);
-int	AvHHud::SetTech(const char* pszName, int iSize, void* pbuf)
+int	AvHHud::MsgFunc_SetTech(const char* pszName, int iSize, void* pbuf)
 {
 	AvHTechNode* theTechNode = NULL;
 	NetMsg_SetTechNode( pbuf, iSize, theTechNode );
@@ -3540,7 +3572,7 @@ int	AvHHud::SetTech(const char* pszName, int iSize, void* pbuf)
 }
 
 BIND_MESSAGE(TechSlots);
-int AvHHud::TechSlots(const char* pszName, int iSize, void* pbuf)
+int AvHHud::MsgFunc_TechSlots(const char* pszName, int iSize, void* pbuf)
 {
 	AvHTechSlots theNewTechSlots;
 	NetMsg_SetTechSlots( pbuf, iSize, theNewTechSlots );
@@ -3551,7 +3583,7 @@ int AvHHud::TechSlots(const char* pszName, int iSize, void* pbuf)
 }
 
 BIND_MESSAGE(DebugCSP);
-int	AvHHud::DebugCSP(const char* pszName, int iSize, void* pbuf)
+int	AvHHud::MsgFunc_DebugCSP(const char* pszName, int iSize, void* pbuf)
 {
 	weapon_data_t weapon_data;
 	float next_attack;
@@ -3630,7 +3662,7 @@ void AvHHud::Init(void)
     UIHud::Init();
 
 	HOOK_MESSAGE(DelEntHier);
-    HOOK_MESSAGE(EntHier);
+   	HOOK_MESSAGE(EntHier);
 	HOOK_MESSAGE(DelParts);
 	HOOK_MESSAGE(Particles);
 	HOOK_MESSAGE(SoundNames);
@@ -3670,20 +3702,21 @@ void AvHHud::Init(void)
 
 	this->mEntityHierarchy.Clear();
 	//this->mUpgradeCosts.clear();
-
+	/*
+#ifdef _WIN32
 	sPregameGammaTable.InitializeFromVideoState();
 	sGameGammaTable.InitializeFromVideoState();
 
 	int theRC = atexit(AvHHud::ResetGammaAtExit);
 	_onexit_t theExit = _onexit(AvHHud::ResetGammaAtExitForOnExit);
-	
+
 	signal(SIGILL, AvHHud::ResetGammaAtExit);
 	signal(SIGFPE, AvHHud::ResetGammaAtExit);
 	signal(SIGSEGV, AvHHud::ResetGammaAtExit);
 	signal(SIGTERM, AvHHud::ResetGammaAtExit);
 	signal(SIGBREAK, AvHHud::ResetGammaAtExit);
 	signal(SIGABRT, AvHHud::ResetGammaAtExit);
-
+#endif	*/
 	//memset(this->mAlienUILifeforms, 0, sizeof(HSPRITE)*kNumAlienLifeforms);
 	this->mAlienUIUpgrades = 0;
 	this->mAlienUIUpgradeCategories = 0;
@@ -3863,7 +3896,7 @@ bool AvHHud::SetCursor(AvHOrderType inOrderType)
 	return theSuccess;
 }
 
-void AvHHud::GetCursor(HSPRITE& outSprite, int& outFrame)
+void AvHHud::GetCursor(AVHHSPRITE& outSprite, int& outFrame)
 {
 
     if (g_iUser1 == 0)
@@ -4059,8 +4092,8 @@ int AvHHud::InitializeDemoPlayback(int inSize, unsigned char* inBuffer)
 	int theNumUpgrades = 0;
 	//this->mUpgradeCosts.clear();
 	LoadData(&theNumUpgrades, inBuffer, sizeof(int), theBytesRead);
-
-	for(int i = 0; i < theNumUpgrades; i++)
+	int i;
+	for( i = 0; i < theNumUpgrades; i++)
 	{
 		// Read in upgrades (for backwards-compatibility)
 		int theFirst = 0;
@@ -4287,8 +4320,8 @@ void AvHHud::InitializeDemoRecording()
 	// Save sound names
 	int theSoundNameListSize = (int)this->mSoundNameList.size();
 	theTotalSize += sizeof(theSoundNameListSize);
-
-	for(int i = 0; i < theSoundNameListSize; i++)
+	int i;
+	for( i = 0; i < theSoundNameListSize; i++)
 	{
 		string theCurrentSoundName = this->mSoundNameList[i];
 		theTotalSize += GetDataSize(theCurrentSoundName);
@@ -4321,7 +4354,8 @@ void AvHHud::InitializeDemoRecording()
 		SAVE_DATA(theDrawMapBG);
 
 		SAVE_DATA(theSoundNameListSize);
-		for(int i = 0; i < theSoundNameListSize; i++)
+
+		for( i = 0; i < theSoundNameListSize; i++)
 		{
 			string theCurrentSoundName = this->mSoundNameList[i];
 			SaveStringData(theCharArray, theCurrentSoundName, theCounter);
@@ -4717,8 +4751,8 @@ void AvHHud::UpdateCommonUI()
 }
 
 void RemoveAlias(char *name)
-{
-	cmdalias_t* alias = gEngfuncs.pfnGetAliases();// *(alias_s**)0x02d29b7c;
+{	/* @2014 changed pfnGetAliases pfnGetAliasList*/
+	cmdalias_t* alias = gEngfuncs.pfnGetAliasList();// *(alias_s**)0x02d29b7c;
 	while(alias)
 	{
 		if ( name && (strlen(name) > 1) && alias->name && (strcmp(alias->name, name) == 0) ) {
@@ -4731,7 +4765,7 @@ void RemoveAlias(char *name)
 
 void ForceCvar(char *name, cvar_t *cvar, float value)
 {
-	cmdalias_t* alias = gEngfuncs.pfnGetAliases();// *(alias_s**)0x02d29b7c;
+	cmdalias_t* alias = gEngfuncs.pfnGetAliasList();// *(alias_s**)0x02d29b7c;
 	while(alias)
 	{
 		if ( name && (strlen(name) > 1) && alias->name && (strcmp(alias->name, name) == 0) ) {
@@ -4880,7 +4914,10 @@ void AvHHud::UpdateAlienUI(float inCurrentTime)
 		}
 	}
 }
-
+//@2014 undef max/min from cl_util.h
+#undef max
+#undef min
+#include <sstream>
 bool AvHHud::GetCommanderLabelText(std::string& outCommanderName) const
 {
 
@@ -4903,7 +4940,7 @@ bool AvHHud::GetCommanderLabelText(std::string& outCommanderName) const
 
         theStream << theCommanderText;
         theStream << ": ";
-        
+        // DEBUG SAYS PROBLEM HERE @TO FIX
 		hud_player_info_t *thePlayerInfo=(hud_player_info_t *)&buff[0];
 		memset(thePlayerInfo, 0, 512+sizeof(hud_player_info_t));
 		memset(thePlayerInfo->padding, 0xe, sizeof(thePlayerInfo->padding));
@@ -4922,6 +4959,9 @@ bool AvHHud::GetCommanderLabelText(std::string& outCommanderName) const
     }
 
 }
+
+#define max(a,b)    (((a) > (b)) ? (a) : (b))
+#define min(a,b)    (((a) < (b)) ? (a) : (b))
 
 void AvHHud::UpdateMarineUI(float inCurrentTime)
 { 
@@ -5619,7 +5659,7 @@ string AvHHud::GetRankTitle(bool inShowUnspentLevels) const
 {
 	string theText;
 
-	char* theTeamName = this->GetIsMarine() ? "Marine" : "Alien";
+	char const* theTeamName = this->GetIsMarine() ? "Marine" : "Alien";
 	int theCurrentLevel = this->GetHUDExperienceLevel();
 
 	char theCharArray[512];
@@ -5929,6 +5969,7 @@ void AvHHud::GhostBuildingCallback(struct tempent_s* inEntity, float inFrametime
 		
 		// Update position to be where mouse is
 		VectorCopy(this->mGhostWorldLocation, inEntity->entity.origin);
+
 		
 		// Visually indicate whether this is a valid position or not
 		if(this->mCurrentGhostIsValid)
@@ -6197,6 +6238,7 @@ void AvHHud::UpdateSelection()
 //		{
 //			theOrderType = ORDERTYPET_GUARD;
 //		}
+
 //		this->SetCursor(theOrderType);
 
 		// Change cursor depending on order type
@@ -6474,6 +6516,7 @@ void AvHHud::UpdateFromEntities(float inCurrentTime)
 		}
 	}
 }
+
 
 void AvHHud::UpdateViewModelEffects()
 {
@@ -6761,6 +6804,7 @@ bool AvHHud::GetShouldDisplayUser3(AvHUser3 inUser3) const
 	return theShouldDisplay;
 }
 
+
 bool AvHHud::GetTranslatedUser3Name(AvHUser3 inUser3, string& outString) const
 {
 	bool theSuccess = false;
@@ -6879,7 +6923,7 @@ void AvHHud::HideCommandMenu()
 		gViewPort->HideCommandMenu();
 }
 
-void AvHHud::GetSpriteForUser3(AvHUser3 inUser3, int& outSprite, int& outFrame, int& outRenderMode)
+void AvHHud::GetSpriteForUser3(AvHUser3 inUser3, AVHHSPRITE& outSprite, int& outFrame, int& outRenderMode)
 {
 
     switch (inUser3)
@@ -6887,124 +6931,124 @@ void AvHHud::GetSpriteForUser3(AvHUser3 inUser3, int& outSprite, int& outFrame, 
 
     // Marines
     case AVH_USER3_WAYPOINT:
-		outSprite = Safe_SPR_Load(kSmallOrderSprite);
+		outSprite = SPR_Load(kSmallOrderSprite);
 		outFrame  = 2;
         outRenderMode = kRenderTransAdd;
         break;
     case AVH_USER3_MARINE_PLAYER:
-		outSprite = Safe_SPR_Load(kMarinePlayersSprite);
+		outSprite = SPR_Load(kMarinePlayersSprite);
 		outFrame  = 0;
         break;
     case AVH_USER3_HEAVY: // This really means a marine with heavy armor, not a heavy armor object.
-		outSprite = Safe_SPR_Load(kMarinePlayersSprite);
+		outSprite = SPR_Load(kMarinePlayersSprite);
 		outFrame  = 1;
         break;
     case AVH_USER3_COMMANDER_STATION:
-		outSprite = Safe_SPR_Load(kStructuresSprite);
+		outSprite = SPR_Load(kStructuresSprite);
 		outFrame  = 5;
         break;
     case AVH_USER3_TURRET_FACTORY: 
     case AVH_USER3_ADVANCED_TURRET_FACTORY:
-		outSprite = Safe_SPR_Load(kStructuresSprite);
+		outSprite = SPR_Load(kStructuresSprite);
 		outFrame  = 6;
         break;
     case AVH_USER3_ARMORY:
-		outSprite = Safe_SPR_Load(kStructuresSprite);
+		outSprite = SPR_Load(kStructuresSprite);
 		outFrame  = 7;
         break;
 	case AVH_USER3_ADVANCED_ARMORY:
-		outSprite = Safe_SPR_Load(kStructuresSprite);
+		outSprite = SPR_Load(kStructuresSprite);
 		outFrame  = 8;
         break;
     case AVH_USER3_ARMSLAB:
-		outSprite = Safe_SPR_Load(kStructuresSprite);
+		outSprite = SPR_Load(kStructuresSprite);
 		outFrame  = 9;
         break;
     case AVH_USER3_PROTOTYPE_LAB:
-		outSprite = Safe_SPR_Load(kStructuresSprite);
+		outSprite = SPR_Load(kStructuresSprite);
 		outFrame  = 10;
         break;
     case AVH_USER3_OBSERVATORY:
-		outSprite = Safe_SPR_Load(kStructuresSprite);
+		outSprite = SPR_Load(kStructuresSprite);
 		outFrame  = 11;
         break;
     case AVH_USER3_TURRET:
-		outSprite = Safe_SPR_Load(kStructuresSprite);
+		outSprite = SPR_Load(kStructuresSprite);
 		outFrame  = 12;
         break;
     case AVH_USER3_SIEGETURRET:
-		outSprite = Safe_SPR_Load(kStructuresSprite);
+		outSprite = SPR_Load(kStructuresSprite);
 		outFrame  = 13;
         break;
     case AVH_USER3_RESTOWER:
-		outSprite = Safe_SPR_Load(kStructuresSprite);
+		outSprite = SPR_Load(kStructuresSprite);
 		outFrame  = 14;
         break;        
     case AVH_USER3_INFANTRYPORTAL:
-		outSprite = Safe_SPR_Load(kStructuresSprite);
+		outSprite = SPR_Load(kStructuresSprite);
 		outFrame  = 15;
         break;        
     case AVH_USER3_PHASEGATE:
-		outSprite = Safe_SPR_Load(kStructuresSprite);
+		outSprite = SPR_Load(kStructuresSprite);
 		outFrame  = 16;
         break;        
         
 	// Aliens
     case AVH_USER3_DEFENSE_CHAMBER:
-		outSprite = Safe_SPR_Load(kStructuresSprite);
+		outSprite = SPR_Load(kStructuresSprite);
 		outFrame  = 17;
         break;
     case AVH_USER3_MOVEMENT_CHAMBER:
-		outSprite = Safe_SPR_Load(kStructuresSprite);
+		outSprite = SPR_Load(kStructuresSprite);
 		outFrame  = 18;
         break;
     case AVH_USER3_OFFENSE_CHAMBER:
-		outSprite = Safe_SPR_Load(kStructuresSprite);
+		outSprite = SPR_Load(kStructuresSprite);
 		outFrame  = 19;
         break;
     case AVH_USER3_SENSORY_CHAMBER:
-		outSprite = Safe_SPR_Load(kStructuresSprite);
+		outSprite = SPR_Load(kStructuresSprite);
 		outFrame  = 20;
         break;
     case AVH_USER3_ALIENRESTOWER:
-		outSprite = Safe_SPR_Load(kStructuresSprite);
+		outSprite = SPR_Load(kStructuresSprite);
 		outFrame  = 21;
         break;
 	case AVH_USER3_HIVE:
-		outSprite = Safe_SPR_Load(kStructuresSprite);
+		outSprite = SPR_Load(kStructuresSprite);
 		outFrame = 3;
 		break;
 	case AVH_USER3_ALIEN_PLAYER1:
-		outSprite = Safe_SPR_Load(kAlienPlayersSprite);
+		outSprite = SPR_Load(kAlienPlayersSprite);
 		outFrame  = 0;
         break;
 	case AVH_USER3_ALIEN_PLAYER2:
-		outSprite = Safe_SPR_Load(kAlienPlayersSprite);
+		outSprite = SPR_Load(kAlienPlayersSprite);
 		outFrame  = 1;
         break;
 	case AVH_USER3_ALIEN_PLAYER3:
-		outSprite = Safe_SPR_Load(kAlienPlayersSprite);
+		outSprite = SPR_Load(kAlienPlayersSprite);
 		outFrame  = 2;
         break;
 	case AVH_USER3_ALIEN_PLAYER4:
-		outSprite = Safe_SPR_Load(kAlienPlayersSprite);
+		outSprite = SPR_Load(kAlienPlayersSprite);
 		outFrame  = 3;
         break;
 	case AVH_USER3_ALIEN_PLAYER5:
-		outSprite = Safe_SPR_Load(kAlienPlayersSprite);
+		outSprite = SPR_Load(kAlienPlayersSprite);
 		outFrame  = 4;
         break;
 	case AVH_USER3_ALIEN_EMBRYO	:
-		outSprite = Safe_SPR_Load(kAlienPlayersSprite);
+		outSprite = SPR_Load(kAlienPlayersSprite);
 		outFrame  = 5;
         break;
 
 	case AVH_USER3_FUNC_RESOURCE:
-		outSprite = Safe_SPR_Load(kStructuresSprite);
+		outSprite = SPR_Load(kStructuresSprite);
 		outFrame = 4;
 		break;
     case AVH_USER3_WELD:
-		outSprite = Safe_SPR_Load(kStructuresSprite);
+		outSprite = SPR_Load(kStructuresSprite);
 		outFrame  = 0;
         break;
     
@@ -7051,7 +7095,7 @@ void AvHHud::HideCrosshair()
 
 }
 
-void AvHHud::SetCurrentCrosshair(HSPRITE hspr, wrect_t rc, int r, int g, int b)
+void AvHHud::SetCurrentCrosshair(AVHHSPRITE hspr, wrect_t rc, int r, int g, int b)
 {
     mCrosshairSprite = hspr;
     mCrosshairRect   = rc;
@@ -7151,6 +7195,7 @@ float AvHHud::GetServerVariableFloat(const char* inName) const
 /**
  * Prints the call stack when an unhandled exception occurs.
  */
+#ifdef _WIN32
 LONG WINAPI ExceptionFilter(EXCEPTION_POINTERS* pExp) 
 {
 
@@ -7199,3 +7244,4 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL,
     }
 	return TRUE;
 }
+#endif

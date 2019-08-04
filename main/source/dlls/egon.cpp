@@ -22,9 +22,9 @@
 #include "weapons.h"
 #include "nodes.h"
 #include "effects.h"
-#include "engine/customentity.h"
+#include "../engine/customentity.h"
 #include "gamerules.h"
-#include "mod/AvHNetworkMessages.h"
+#include "../mod/AvHNetworkMessages.h"
 
 #define	EGON_PRIMARY_VOLUME		450
 #define EGON_BEAM_SPRITE		"sprites/xbeam1.spr"

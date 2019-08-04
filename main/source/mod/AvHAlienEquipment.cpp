@@ -45,18 +45,18 @@
 // - Swapped umbra and bile bomb
 //
 //===============================================================================
-#include "mod/AvHAlienEquipment.h"
-#include "mod/AvHAlienEquipmentConstants.h"
-#include "mod/AvHServerUtil.h"
-#include "mod/AvHGamerules.h"
-#include "mod/AvHTeam.h"
-#include "mod/AvHServerUtil.h"
-#include "mod/AvHSharedUtil.h"
-#include "util/MathUtil.h"
-#include "mod/AvHAlienAbilityConstants.h"
-#include "mod/AvHAlienEquipmentConstants.h"
-#include "mod/AvHAlienWeaponConstants.h"
-#include "mod/AvHMovementUtil.h"
+#include "AvHAlienEquipment.h"
+#include "AvHAlienEquipmentConstants.h"
+#include "AvHServerUtil.h"
+#include "AvHGamerules.h"
+#include "AvHTeam.h"
+#include "AvHServerUtil.h"
+#include "AvHSharedUtil.h"
+#include "../util/MathUtil.h"
+#include "AvHAlienAbilityConstants.h"
+#include "AvHAlienEquipmentConstants.h"
+#include "AvHAlienWeaponConstants.h"
+#include "AvHMovementUtil.h"
 
 LINK_ENTITY_TO_CLASS(kwAlienResourceTower, AvHAlienResourceTower);
 

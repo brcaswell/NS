@@ -1,9 +1,9 @@
 #ifndef AVHOVERVIEWMAP_H
 #define AVHOVERVIEWMAP_H
 
-#include "mod/AvHEntityHierarchy.h"
-#include "mod/AvHMapExtents.h"
-#include "mod/AvHOrder.h"
+#include "AvHEntityHierarchy.h"
+#include "AvHMapExtents.h"
+#include "AvHOrder.h"
 
 class DrawableEntity
 {
@@ -84,7 +84,7 @@ private:
     void                            WorldToMiniMapCoords(const DrawInfo& inDrawInfo, float& x, float& y);
 
 	void							Init();
-    void                            GetSpriteForEntity(const DrawableEntity& entity, int& outSprite, int& outFrame, int& outRenderMode, bool commanderOverview);
+    void                            GetSpriteForEntity(const DrawableEntity& entity, AVHHSPRITE& outSprite, int& outFrame, int& outRenderMode, bool commanderOverview);
     void                            GetColorForEntity(const DrawableEntity& entity, float& outR, float& outG, float& outB);
     
 	void							UpdateDrawData(float inCurrentTime);
@@ -100,7 +100,7 @@ private:
 	string							mMapName;
 	int								mMiniMapSprite;
 
-	HSPRITE							mReticleSprite;
+	AVHHSPRITE						mReticleSprite;
 	
 	typedef vector<DrawableEntity>	DrawableEntityListType;
 	DrawableEntityListType			mDrawableEntityList;

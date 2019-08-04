@@ -1,18 +1,18 @@
 #include "cl_dll/hud.h"
 #include "cl_dll/cl_util.h"
-#include "common/const.h"
-#include "common/entity_state.h"
-#include "common/cl_entity.h"
+#include "../common/const.h"
+#include "../common/entity_state.h"
+#include "../common/cl_entity.h"
 #include "ui/UITags.h"
-#include "mod/AvHOverviewMap.h"
-#include "mod/AvHSharedUtil.h"
-#include "mod/AvHSpecials.h"
-#include "mod/AvHMiniMap.h"
+#include "AvHOverviewMap.h"
+#include "AvHSharedUtil.h"
+#include "AvHSpecials.h"
+#include "AvHMiniMap.h"
 #include "ui/UIUtil.h"
-#include "mod/AvHPlayerUpgrade.h"
-#include "mod/AvHSpriteAPI.h"
-#include "mod/AvHSprites.h"
-#include "mod/AvHClientVariables.h"
+#include "AvHPlayerUpgrade.h"
+#include "AvHSpriteAPI.h"
+#include "AvHSprites.h"
+#include "AvHClientVariables.h"
 
 using std::string;
 
@@ -147,13 +147,13 @@ bool getIsOnCommMinimap(int user3) {
 			user3 ==  AVH_USER3_FUNC_RESOURCE || 
 			user3 ==  AVH_USER3_WELD;
 }
-void AvHOverviewMap::GetSpriteForEntity(const DrawableEntity& entity, int& outSprite, int& outFrame, int& outRenderMode, bool commanderOverview)
+void AvHOverviewMap::GetSpriteForEntity(const DrawableEntity& entity, AVHHSPRITE& outSprite, int& outFrame, int& outRenderMode, bool commanderOverview)
 {
     outRenderMode = kRenderTransTexture;
 	
 	if (entity.mUser3 == AVH_USER3_UNKNOWN) 
 	{
-		outSprite = Safe_SPR_Load(kCommBlipSprite);
+		outSprite = SPR_Load(kCommBlipSprite);
 		outFrame=1;
 	}
 	else if (commanderOverview && this->mUser3 == AVH_USER3_COMMANDER_PLAYER )
@@ -161,7 +161,7 @@ void AvHOverviewMap::GetSpriteForEntity(const DrawableEntity& entity, int& outSp
 		if ( getIsOnCommMinimap(entity.mUser3 ) ) {
 			bool isStructure=getIsStructure(entity.mUser3);
 			bool isFriendly=entity.mTeam == mTeam;
-			outSprite = Safe_SPR_Load(kCommBlipSprite);
+			outSprite = SPR_Load(kCommBlipSprite);
 			outFrame=1;
 			if ( entity.mUser3 == AVH_USER3_HIVE ) {
 				outFrame=4;
@@ -344,7 +344,7 @@ void AvHOverviewMap::DrawMiniMapEntity(const DrawInfo& inDrawInfo, const Drawabl
 		theEntityPosY = this->mWorldPlayerY;
 	}
 
-	int theSprite = 0;
+	AVHHSPRITE theSprite = 0;
     int theFrame = 0;
     int theRenderMode;
 
@@ -406,7 +406,7 @@ void AvHOverviewMap::DrawMiniMapEntity(const DrawInfo& inDrawInfo, const Drawabl
             if (inEntity.mIsLocalPlayer && mUser3 != AVH_USER3_COMMANDER_PLAYER)
             {
                 
-                int theSprite = Safe_SPR_Load("sprites/fov.spr");
+                AVHHSPRITE theSprite = SPR_Load("sprites/fov.spr");
                 int theFrame  = 0;
 
                 int theSprWidth = SPR_Width(theSprite, theFrame);
@@ -451,7 +451,7 @@ void AvHOverviewMap::DrawMiniMapEntity(const DrawInfo& inDrawInfo, const Drawabl
 
                 // Draw friendly players as little arrows on the edge of the minimap.
 
-                int theSprite = Safe_SPR_Load(kMarinePlayersSprite);
+                AVHHSPRITE theSprite = SPR_Load(kMarinePlayersSprite);
 				int theFrame  = theIsWaypoint ? 4 : 3;
 
                 ASSERT(theSprite != 0);
@@ -543,10 +543,10 @@ void AvHOverviewMap::DrawMiniMap(const DrawInfo& inDrawInfo)
 		int drawLabels=CVAR_GET_FLOAT(kvLabelMaps);
 		if ( mLastMinimap != drawLabels || mMiniMapSprite == -1 )
 		{
-			int tmpSpr=0;
+			AVHHSPRITE tmpSpr=0;
 			for ( int i=drawLabels; i >=0 && tmpSpr == 0 ; i-- ) {
 				string theMiniMapName = AvHMiniMap::GetSpriteNameFromMap(ScreenWidth(), mMapName, i);
-				tmpSpr = Safe_SPR_Load(theMiniMapName.c_str());
+				tmpSpr = SPR_Load(theMiniMapName.c_str());
 			}
 			if ( tmpSpr != 0 ) {
 				mMiniMapSprite=tmpSpr;
@@ -636,7 +636,7 @@ void AvHOverviewMap::DrawAlerts(const DrawInfo& inDrawInfo)
     AvHSpriteEnableClippingRect(true);
     AvHSpriteSetClippingRect(theX, theY, theX + theWidth, theY + theHeight);
 
-    int theSprite = Safe_SPR_Load(kAlertSprite);
+    AVHHSPRITE theSprite = SPR_Load(kAlertSprite);
 	int theFrame  = 0;
 
     ASSERT(theSprite != 0);
@@ -790,7 +790,7 @@ void AvHOverviewMap::Draw(const DrawInfo& inDrawInfo)
 		
         if (!this->mReticleSprite)
 		{
-			this->mReticleSprite = Safe_SPR_Load(kReticleSprite);
+			this->mReticleSprite = SPR_Load(kReticleSprite);
 		}
 
 		if (this->mReticleSprite)

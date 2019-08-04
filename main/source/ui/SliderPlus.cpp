@@ -19,11 +19,11 @@ SliderPlus::SliderPlus(int inX, int inY,int inWidth, int inHeight, bool inIsVert
 	// Add ourselves as our own input signal...kinda strange sounding but useful
 	this->addInputSignal(this);
 }
-
+/*
 void SliderPlus::addIntChangeSignal(IntChangeSignal* inChangeSignal)
 {
 	// Add inChangeSignal to list
-}
+}*/
 
 void SliderPlus::computeNobBox(int& outStartX, int& outStartY, int& outEndX, int& outEndY)
 {

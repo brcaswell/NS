@@ -25,8 +25,8 @@
 #ifndef AVHSOUNDLISTMANAGER_H
 #define AVHSOUNDLISTMANAGER_H
 
-#include "types.h"
-#include "util/CString.h"
+#include "../types.h"
+#include "../util/CString.h"
 class CBaseEntity;
 
 typedef vector< pair<string, CStringList> >	SoundListType;

@@ -112,7 +112,7 @@ void FadingImageLabel::DoPaint()
 		{
 			//FillRGBA(theXBorder, theYBorder, theWidth - theXBorder*2, theHeight - theYBorder*2, r, g, b, a);
 
-			//int theSprite = Safe_SPR_Load("sprites/marinenode.spr");
+			//int theSprite = SPR_Load("sprites/marinenode.spr");
 			//DrawScaledHUDSprite(theSprite, kRenderTransAdd, 1, theX, theY, theWidth, theHeight, 0);
 			
 			gEngfuncs.pTriAPI->RenderMode(kRenderTransAlpha);
@@ -144,7 +144,7 @@ void FadingImageLabel::DoPaint()
 
 			if(!this->mSprite)
 			{
-				this->mSprite = Safe_SPR_Load(this->mImageName.c_str());
+				this->mSprite = SPR_Load(this->mImageName.c_str());
 				this->mSpriteWidth = SPR_Width(this->mSprite, this->mSpriteFrame);
 				this->mSpriteHeight = SPR_Height(this->mSprite, this->mSpriteFrame);
 				ASSERT(this->mSprite > 0);

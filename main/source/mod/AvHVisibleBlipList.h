@@ -31,14 +31,15 @@
 #ifndef AVH_VISIBLE_BLIP_LIST_H
 #define AVH_VISIBLE_BLIP_LIST_H
 
-#include "types.h"
+#include "../types.h"
 
 #ifdef AVH_CLIENT
 #include "cl_dll/util_vector.h"
-#include "mod/AvHBlipConstants.h"
+#include "AvHBlipConstants.h"
 #include <p_vector.h>
 #endif
 
+typedef int AVHHSPRITE;
 const int	kMaxBlips = 64;
 
 class AvHVisibleBlipList
@@ -69,7 +70,7 @@ public:
 
 private:
 	#ifdef AVH_CLIENT
-	int			mSprite[kNumBlipTypes];
+	AVHHSPRITE	mSprite[kNumBlipTypes];
 	float		mTimeBlipsReceived;
 	#endif
 

@@ -77,14 +77,14 @@
 #ifndef AVH_TEAM_H
 #define AVH_TEAM_H
 
-#include "mod/AvHConstants.h"
-#include "mod/AvHOrder.h"
-#include "mod/AvHSharedTypes.h"
-#include "mod/AvHResearchManager.h"
-#include "mod/AvHSpecials.h"
-#include "mod/AvHServerPlayerData.h"
-#include "mod/AvHTechSlotManager.h"
-#include "mod/AvHAlert.h"
+#include "AvHConstants.h"
+#include "AvHOrder.h"
+#include "AvHSharedTypes.h"
+#include "AvHResearchManager.h"
+#include "AvHSpecials.h"
+#include "AvHServerPlayerData.h"
+#include "AvHTechSlotManager.h"
+#include "AvHAlert.h"
 
 class AvHPlayer;
 
