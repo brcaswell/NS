@@ -242,3 +242,6 @@ _Pvt_Extensions
 !main/source/includes/
 
 
+
+Playtest
+/main/cl_dlls/client.dll
