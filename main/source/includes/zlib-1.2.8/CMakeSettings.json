@@ -1,0 +1,25 @@
+﻿{
+  "environments": [
+    {
+      "VSDefaultBuildDir": "${env.USERPROFILE}\\CMakeBuilds\\${workspaceHash}\\build\\${name}",
+      "VSDefaultInstallDir": "${env.USERPROFILE}\\CMakeBuilds\\${workspaceHash}\\install\\${name}",
+      "BuildDir": "${thisFileDir}",
+      "InstallDir": "${thisFileDir}"
+    }
+  ],
+  "configurations": [
+    {
+      "name": "x86-Release",
+      "generator": "Ninja",
+      "configurationType": "RelWithDebInfo",
+      "inheritEnvironments": [
+        "msvc_x86"
+      ],
+      "buildRoot": "${env.BuildDir}",
+      "installRoot": "${env.VSDefaultInstallDir}",
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "-v",
+      "ctestCommandArgs": ""
+    }
+  ]
+}
