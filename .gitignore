@@ -20,6 +20,8 @@ x86/
 bld/
 [Bb]in/
 [Oo]bj/
+Playtest
+/main/cl_dlls/client.dll
 
 # Visual Studio 2015 cache/options directory
 .vs/
@@ -242,6 +244,3 @@ _Pvt_Extensions
 !main/source/includes/
 
 
-
-Playtest
-/main/cl_dlls/client.dll
