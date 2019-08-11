@@ -1,10 +1,11 @@
 language: cpp
 
 matrix:
-  include:
+  allow_failures:
     - os: linux
       dist: bionic
       compiler: gcc
+      name: "Ubuntu bionic"
       script: cd main/source/linux && make
       env: OPJ_CI_ARCH=i386
       addons:
@@ -15,11 +16,13 @@ matrix:
             - libc6-i386
             - mesa-common-dev
             - libcurl4-openssl-dev
-            - libpng-dev
-                
+            - libpng-dev                
+  
+  include:
     - os: linux
       dist: xenial
       compiler: gcc
+      name: "Ubuntu xenial"
       script: cd main/source/linux && make
       env: OPJ_CI_ARCH=i386
       addons:
@@ -35,6 +38,7 @@ matrix:
     - os: linux
       dist: trusty
       compiler: gcc
+      name: "Ubuntu trusty"
       script: cd main/source/linux && make
       env: OPJ_CI_ARCH=i386
       addons:
