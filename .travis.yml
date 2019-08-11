@@ -12,12 +12,6 @@ matrix:
             - gcc-multilib
             - g++-multilib
             - libc6-i386
+            - mesa-common-dev
             - libcurl4-openssl-dev:i386
             - libpng12-dev:i386
-
-    - os: osx
-      compiler: clang
-      before_script:
-      - export CC=clang
-      - export CPLUS=clang++
-      script: cd main/source/linux && make
