@@ -3,6 +3,7 @@ language: cpp
 matrix:
   include:
     - os: linux
+      dist: bionic
       compiler: gcc
       script: cd main/source/linux && make
       env: OPJ_CI_ARCH=i386
