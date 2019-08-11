@@ -15,7 +15,7 @@ matrix:
             - libc6-i386
             - mesa-common-dev
             - libcurl4-openssl-dev
-            - libpng12-dev
+            - libpng-dev
                 
     - os: linux
       dist: xenial
