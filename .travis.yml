@@ -12,8 +12,9 @@ matrix:
             - gcc-multilib
             - g++-multilib
             - libc6-i386
-            - libcurl4-openssl-dev:i386
-            - libpng12-dev:i386
+            - mesa-common-dev
+            - libcurl4-openssl-dev
+            - libpng-dev
 
     - os: osx
       compiler: clang
