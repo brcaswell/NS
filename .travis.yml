@@ -14,4 +14,4 @@ matrix:
             - libc6-i386
             - mesa-common-dev
             - libcurl4-openssl-dev:i386
-            - libpng-dev
+            - libpng12-dev:i386
