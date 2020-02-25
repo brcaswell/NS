@@ -1,12 +1,13 @@
 # Natural Selection v3.2.2
 
-[![Build Status](https://travis-ci.org/ENSL/NS.svg?branch=develop)](https://travis-ci.org/ENSL/NS)
+[![ENSL/NS Develop Build Status](https://travis-ci.org/ENSL/NS.svg?branch=develop)](https://travis-ci.org/ENSL/NS)
+[![brcaswell Develop Build Status](https://travis-ci.org/brcaswell/NS.svg?branch=develop)](https://travis-ci.com/brcaswell)
 
 This is a complete rebuild of the game [Natural Selection] for Windows, Linux, and OS X. It includes updates and fixes by pierow, Prefix, fmoraw, Bacsu, puzl, and others.
 
-## Downloads
+## ENSL/NS Downloads
 
-The recommended way to install the game or update an existing installation for Windows users is through the [Natural Selection Launcher](https://github.com/ENSL/NaturalLauncher/releases/) (Thanks Khelben). Simply download the installation exe or portable zip from there and run the launcher. Linux and OS X users, as well as those that want to install or patch the game manually, can find releases [here](https://github.com/ENSL/NS/releases).
+The recommended way to install the game or update an existing installation for Windows users is through the [ENSL/NS - Natural Selection Launcher](https://github.com/ENSL/NaturalLauncher/releases/) (Thanks Khelben). Simply download the installation exe or portable zip from there and run the launcher. Linux and OS X users, as well as those that want to install or patch the game manually, can find releases [here](https://github.com/ENSL/NS/releases).
 
 As the game is a Half-Life mod, Steam and Half-Life installations are required to play the game.
 
