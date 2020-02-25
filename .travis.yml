@@ -3,7 +3,9 @@ language: cpp
 matrix:
   include:
     - os: linux
+      dist: xenial
       compiler: gcc
+      name: "Ubuntu xenial"
       script: cd main/source/linux && make
       env: OPJ_CI_ARCH=i386
       addons:
@@ -15,3 +17,36 @@ matrix:
             - mesa-common-dev
             - libcurl4-openssl-dev:i386
             - libpng12-dev:i386
+            
+    - os: linux
+      dist: trusty
+      compiler: gcc
+      name: "Ubuntu trusty"
+      script: cd main/source/linux && make
+      env: OPJ_CI_ARCH=i386
+      addons:
+        apt:
+          packages:
+            - gcc-multilib
+            - g++-multilib
+            - libc6-i386
+            - libcurl4-openssl-dev:i386
+            - libpng12-dev:i386
+            
+  allow_failures:
+    - os: linux
+      dist: bionic
+      compiler: gcc
+      name: "Ubuntu bionic"
+      script: cd main/source/linux && make
+      env: OPJ_CI_ARCH=i386
+      addons:
+        apt:
+          packages:
+            - gcc-multilib
+            - g++-multilib
+            - libc6-i386
+            - mesa-common-dev
+            - libcurl4-openssl-dev
+            - libpng-dev  
+            
