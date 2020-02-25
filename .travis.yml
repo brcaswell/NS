@@ -1,23 +1,6 @@
 language: cpp
 
 matrix:
-  allow_failures:
-    - os: linux
-      dist: bionic
-      compiler: gcc
-      name: "Ubuntu bionic"
-      script: cd main/source/linux && make
-      env: OPJ_CI_ARCH=i386
-      addons:
-        apt:
-          packages:
-            - gcc-multilib
-            - g++-multilib
-            - libc6-i386
-            - mesa-common-dev
-            - libcurl4-openssl-dev
-            - libpng-dev                
-  
   include:
     - os: linux
       dist: xenial
@@ -49,3 +32,21 @@ matrix:
             - libc6-i386
             - libcurl4-openssl-dev:i386
             - libpng12-dev:i386
+            
+  allow_failures:
+    - os: linux
+      dist: bionic
+      compiler: gcc
+      name: "Ubuntu bionic"
+      script: cd main/source/linux && make
+      env: OPJ_CI_ARCH=i386
+      addons:
+        apt:
+          packages:
+            - gcc-multilib
+            - g++-multilib
+            - libc6-i386
+            - mesa-common-dev
+            - libcurl4-openssl-dev
+            - libpng-dev  
+            
