@@ -28,7 +28,7 @@
 //////////////////////////////////////////////////////////////////////
 // Type codes for domains
 extern "C" {
-	enum PDomainEnum : unsigned int
+	enum PDomainEnum 
 	{
 		PDPoint = 0, // Single point
 		PDLine = 1, // Line segment
