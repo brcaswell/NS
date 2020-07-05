@@ -11,22 +11,6 @@
 
 #ifdef WIN32
 #include <windows.h>
-
-// removed <<< cgc >>>
-//#ifdef PARTICLEDLL_EXPORTS
-//#define PARTICLEDLL_API __declspec(dllexport)
-//#else
-//#define PARTICLEDLL_API __declspec(dllimport)
-//#endif
-#define PARTICLEDLL_API extern "C"
-
-// removed <<< cgc >>>
-#else
-#define PARTICLEDLL_API
-#endif
-
-
-#ifdef _WIN32
 #pragma warning (disable:4244)
 #endif
 
@@ -43,21 +27,22 @@
 
 //////////////////////////////////////////////////////////////////////
 // Type codes for domains
-PARTICLEDLL_API enum PDomainEnum
-{
-	PDPoint = 0, // Single point
-	PDLine = 1, // Line segment
-	PDTriangle = 2, // Triangle
-	PDPlane = 3, // Arbitrarily-oriented plane
-	PDBox = 4, // Axis-aligned box
-	PDSphere = 5, // Sphere
-	PDCylinder = 6, // Cylinder
-	PDCone = 7, // Cone
-	PDBlob = 8, // Gaussian blob
-	PDDisc = 9, // Arbitrarily-oriented disc
-	PDRectangle = 10 // Rhombus-shaped planar region
-};
-
+extern "C" {
+	enum PDomainEnum : unsigned int
+	{
+		PDPoint = 0, // Single point
+		PDLine = 1, // Line segment
+		PDTriangle = 2, // Triangle
+		PDPlane = 3, // Arbitrarily-oriented plane
+		PDBox = 4, // Axis-aligned box
+		PDSphere = 5, // Sphere
+		PDCylinder = 6, // Cylinder
+		PDCone = 7, // Cone
+		PDBlob = 8, // Gaussian blob
+		PDDisc = 9, // Arbitrarily-oriented disc
+		PDRectangle = 10 // Rhombus-shaped planar region
+	};
+}
 // A single particle
 struct Particle
 {
