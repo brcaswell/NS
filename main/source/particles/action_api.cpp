@@ -7,7 +7,7 @@
 // added to an action list.
 
 #include "general.h"
-#include "particles/papi.h"
+#include "papi.h"
 
 extern void _pAddActionToList(ParticleAction *S, int size);
 extern void _pCallActionList(ParticleAction *pa, int num_actions,

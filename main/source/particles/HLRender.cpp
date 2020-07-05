@@ -8,11 +8,11 @@
 #endif
 
 //#include <GL/gl.h>
-#include "common/triangleapi.h"
-#include "cl_dll/wrect.h"
-#include "cl_dll/cl_dll.h"
-#include "common/renderingconst.h"
-#include "particles/papi.h"
+#include "../common/triangleapi.h"
+#include "../cl_dll/wrect.h"
+#include "../cl_dll/cl_dll.h"
+#include "../common/renderingconst.h"
+#include "papi.h"
 
 // XXX #include <iostream.h>
 
