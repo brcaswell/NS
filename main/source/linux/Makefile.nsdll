@@ -31,7 +31,7 @@ UTIL_INCLUDEDIRS = -I../ -I../util
 TEXTREP_INCLUDEDIRS=..
 
 ifeq ($(OS),Darwin)
-LDFLAGS=-lm -lcurl -L. libparticleMP.a
+LDFLAGS=-lm -lcurl -lstdc++ -L. libparticleMP.a
 else
 LDFLAGS=-lm -lcurl -lstdc++ -L. libparticleMP.a
 endif

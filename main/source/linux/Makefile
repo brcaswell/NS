@@ -30,9 +30,9 @@ ARCH=i386
 ELF-GC-DYNSTR=./elf-gc-dynstr
 
 ifeq ($(OS),Linux)
-	CC="gcc -std=c++11 -m32"
-	CPLUS="g++ -std=c++11 -m32"
-	CPP_LIB:=-L$(shell g++ -std=c++11 -m32 -print-file-name=libstdc++.so | xargs dirname) -lstdc++ -ldl -lpthread
+	CC="gcc -m32"
+	CPLUS="g++ -m32 -std=c++11"
+	CPP_LIB:=-L$(shell g++ -m32 -print-file-name=libstdc++.so | xargs dirname) -lstdc++ -ldl -lpthread
 endif
 
 ifeq ($(OS),Darwin)
@@ -49,16 +49,16 @@ ifeq ($(OS),Darwin)
 	endif
 
 	#SDKROOT ?= $(SDK_DIR)/MacOSX10.6.sdk
-	SDKROOT ?= $(SDK_DIR)/MacOSX10.9.sdk
+	SDKROOT ?= $(SDK_DIR)/MacOSX10.8.sdk
 
 	ARCH_FLAGS ?= -arch i386 -m32 -march=prescott -gdwarf-2 -g2  -Wno-typedef-redefinition -momit-leaf-frame-pointer -mtune=core2
-	CPP_LIB=-lpthread
+	CPP_LIB=-lstdc++ -lpthread
 
 	ifeq ($(origin AR), default)
 		AR = libtool -static -o
 	endif
 	ifeq ($(origin CC), default)
-		CC ="$(COMPILER_BIN_DIR)/clang -std=c++11 -Qunused-arguments -isysroot $(SDKROOT) -mmacosx-version-min=10.5 -fasm-blocks -I$(SDKROOT)/usr/include/malloc $(ARCH_FLAGS)"
+		CC ="$(COMPILER_BIN_DIR)/clang -Qunused-arguments -isysroot $(SDKROOT) -mmacosx-version-min=10.5 -fasm-blocks -I$(SDKROOT)/usr/include/malloc $(ARCH_FLAGS)"
 	endif
 	ifeq ($(origin CPLUS), default)
 		CPLUS ="$(COMPILER_BIN_DIR)/clang++ -std=c++11 -Qunused-arguments -isysroot $(SDKROOT) -mmacosx-version-min=10.5 -fasm-blocks -I$(SDKROOT)/usr/include/malloc $(ARCH_FLAGS)"
@@ -96,13 +96,13 @@ endif
 
 ARCH_CFLAGS="$(ARCH_CFLAGS_I486)"
 
-BASE_CFLAGS=-fpermissive -fno-strict-aliasing -DNDEBUG -DPOSIX -D_POSIX -DLINUX -D_LINUX -DGNUC -DHL1 -Dstricmp=strcasecmp -D_strnicmp=strncasecmp -Dstrnicmp=strncasecmp -D_snprintf=snprintf -DQUIVER -DQUAKE2 -DVALVE_DLL -D_alloca=alloca -fno-exceptions -fexpensive-optimizations -D_vsnprintf=vsnprintf -DNO_MALLOC_OVERRIDE -Werror=return-type
+BASE_CFLAGS=-std=c++11 -fpermissive -fno-strict-aliasing -DNDEBUG -DPOSIX -D_POSIX -DLINUX -D_LINUX -DGNUC -DHL1 -Dstricmp=strcasecmp -D_strnicmp=strncasecmp -Dstrnicmp=strncasecmp -D_snprintf=snprintf -DQUIVER -DQUAKE2 -DVALVE_DLL -D_alloca=alloca -fno-exceptions -fexpensive-optimizations -D_vsnprintf=vsnprintf -DNO_MALLOC_OVERRIDE -Werror=return-type
 BASE_CFLAGS+=-w
 
 ifeq ($(OS),Darwin)
 	BASE_CFLAGS += -DOSX -D_OSX -fvisibility=hidden -target i386-apple-darwin -DCMAKE_OSX_ARCHITECTURES=i386
 else
-	BASE_CFLAGS += -DLINUX -D_LINUX
+	BASE_CFLAGS+= -DLINUX -D_LINUX
 endif
 
 DEDICATED_CFLAGS="-DDEDICATED -DSWDS"
