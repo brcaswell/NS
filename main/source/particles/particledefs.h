@@ -43,7 +43,7 @@
 
 //////////////////////////////////////////////////////////////////////
 // Type codes for domains
-enum PDomainEnum : unsigned int
+PARTICLEDLL_API enum PDomainEnum
 {
 	PDPoint = 0, // Single point
 	PDLine = 1, // Line segment
