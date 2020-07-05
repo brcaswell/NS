@@ -37,6 +37,7 @@ matrix:
       before_script:
         - export CC=clang
         - export CPLUS=clang++
+        - export MACOSX_DEPLOYMENT_TARGET=10.10
       script: cd main/source/linux && make
             
   allow_failures:
