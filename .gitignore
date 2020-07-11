@@ -23,6 +23,9 @@ bld/
 [Oo]bj/
 Playtest
 /main/cl_dlls/client.dll
+/main/source/Natural_Selection.VC.db
+/main/source/cl_dll/cl_dll.lib
+/main/source/cl_dll/cl_dll.exp
 
 # Visual Studio 2015 cache/options directory
 .vs/
@@ -257,3 +260,4 @@ install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
 _deps
+
