@@ -62,6 +62,11 @@ extern void	CreateInstancedBaselines ( void );
 extern int	InconsistentFile( const edict_t *player, const char *filename, char *disconnect_message );
 
 extern int AllowLagCompensation( void );
+extern void Player_Ready(edict_t* pEntity, bool ready);
+
+extern vector<int> playerReadyList;
+extern vector<int> alienPlayersList;
+extern vector<int> marinePlayersList;
 
 //extern bool AvHClientCommand( edict_t *pEntity );
 

@@ -603,6 +603,9 @@ private:
 	void				balanceValueRemoved(const string& name, const int old_value) const;
 	void				balanceValueRemoved(const string& name, const string& old_value) const;
 
+	void				setReady(bool ready);
+	bool				getReadyStatus();
+
     float				mResources;
 
 	bool				mFirstUpdate;
@@ -846,6 +849,8 @@ private:
 	int					mNumMovement;
 	int					mNumSensory;
 	int					mNumDefense;
+
+	bool				mIsReady; // for tournamentmode, if player is ready
 
     struct ServerVariable
     {

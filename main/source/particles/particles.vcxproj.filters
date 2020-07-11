@@ -18,6 +18,7 @@
     <None Include="PS Docs.htm" />
     <None Include="Overview.txt" />
     <None Include="Readme.txt" />
+    <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="general.h">

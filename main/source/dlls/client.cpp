@@ -145,6 +145,8 @@
 #include "../mod/AvHAlienAbilityConstants.h"
 #include "../mod/AvHNetworkMessages.h"
 #include "../mod/AvHNexusServer.h"
+#include <algorithm>
+#include <vector>
 
 #include "../game_shared/voice_gamemgr.h"
 extern CVoiceGameMgr	g_VoiceGameMgr;
@@ -159,6 +161,10 @@ extern DLL_GLOBAL ULONG		g_ulFrameCount;
 extern void CopyToBodyQue(entvars_t* pev);
 extern int g_teamplay;
 
+
+vector<int> playerReadyList;
+vector<int> marinesPlayerList;
+vector<int> aliensPlayerList;
 /*
  * used by kill command and disconnect command
  * ROBIN: Moved here from player.cpp, to allow multiple player models
@@ -359,6 +365,64 @@ void ClientPutInServer( edict_t *pEntity )
 	pPlayer->pev->effects |= EF_NOINTERP;
 }
 
+
+void Player_Ready(edict_t* pEntity, bool ready) {
+	AvHPlayer* theTalkingPlayer = dynamic_cast<AvHPlayer*>(CBaseEntity::Instance(pEntity));
+	// Player is ready
+	//if (theTalkingPlayer->GetTeam == TEAM_ONE || theTalkingPlayer->GetTeam == TEAM_TWO) {
+	//	if (ready) {
+	//		if (std::find(std::begin(playerReadyList), std::end(playerReadyList), theTalkingPlayer->entindex()) == std::end(playerReadyList)) {
+	//			playerReadyList.push_back(theTalkingPlayer->entindex());
+	//			g_engfuncs.pfnServerPrint(("ADD playerReady " + std::to_string(theTalkingPlayer->entindex())).c_str());
+
+	//		}
+	//	}
+	//	else {	// Player is not ready
+	//		if (std::find(std::begin(playerReadyList), std::end(playerReadyList), theTalkingPlayer->entindex()) != std::end(playerReadyList)) {
+	//			playerReadyList.erase(std::find(std::begin(playerReadyList), std::end(playerReadyList), theTalkingPlayer->entindex()));
+	//			g_engfuncs.pfnServerPrint(("REMOVE playerReady " + std::to_string(theTalkingPlayer->entindex())).c_str());
+	//		}
+
+	
+		
+
+		// Loop trough all players 
+		//AvHPlayer* client = NULL;
+		//while (((client = (AvHPlayer*)UTIL_FindEntityByClassname(client, "player")) != NULL) && (!FNullEnt(client->edict()))) {
+
+		//	if (client->GetTeam == AvHTeamNumber::TEAM_ONE){
+		//		marinesPlayerList.push_back(client->entindex);
+		//		
+		//	}
+		//	else if (client->GetTeam == AvHTeamNumber::TEAM_TWO) {
+		//		aliensPlayerList.push_back(client->entindex);
+
+		//	}
+
+		//	// in case someone left the team remove him
+		//	if (std::find(std::begin(aliensPlayerList), std::end(aliensPlayerList), client->entindex) != std::end(aliensPlayerList)) {
+		//		aliensPlayerList.erase(std::find(std::begin(aliensPlayerList), std::end(aliensPlayerList), client->entindex));
+		//	}
+		//	if (std::find(std::begin(marinesPlayerList), std::end(marinesPlayerList), client->entindex) != std::end(marinesPlayerList)) {
+		//		marinesPlayerList.erase(std::find(std::begin(aliensPlayerList), std::end(aliensPlayerList), client->entindex));
+		//	}
+		//}
+
+
+
+		//bool allready = true;
+		// check wether all players are ready
+		//if (marinesPlayerList.size() >= 12) {
+		//	for (int i : marinesPlayerList) {
+		//		if (std::find(std::begin(playerReadyList), std::end(playerReadyList), i) != std::end(playerReadyList)) {
+		//			allready = false;
+		//		}
+		//	}
+		//}
+	
+
+}
+
 //// HOST_SAY
 // String comes in as
 // say blah blah blah
@@ -378,6 +442,7 @@ void Host_Say( edict_t *pEntity, int teamonly )
 	const char*	pcmd = CMD_ARGV(0);
 	bool		theTalkerInReadyRoom = theTalkingPlayer->GetInReadyRoom();
 	//bool		theTalkerIsObserver = (theTalkingPlayer->GetPlayMode() == PLAYMODE_OBSERVER) || (theTalkingPlayer->GetPlayMode() == PLAYMODE_AWAITINGREINFORCEMENT);
+	
 
 	// We can get a raw string now, without the "say " prepended
 	if ( CMD_ARGC() == 0 )
@@ -395,23 +460,31 @@ void Host_Say( edict_t *pEntity, int teamonly )
 
 			if(GetGameRules()->GetIsTournamentMode() && !GetGameRules()->GetGameStarted())
 			{
+
+				
 				if(!strcmp(CMD_ARGV(1), kReadyNotification))
 				{
+					//Player_Ready(pEntity, true);
 					// Team is ready
+					
 					AvHTeam* theTeam = GetGameRules()->GetTeam((AvHTeamNumber)(pEntity->v.team));
 					if(theTeam && !theTeam->GetIsReady())
 					{
 						theTeam->SetIsReady();
 					}
+					
 				}
 				else if (!strcmp(CMD_ARGV(1), kNotReadyNotification))
 				{
+					Player_Ready(pEntity, false);
 					// Team is no longer ready
+					
 					AvHTeam* theTeam = GetGameRules()->GetTeam((AvHTeamNumber)(pEntity->v.team));
 					if(theTeam && theTeam->GetIsReady())
 					{
 						theTeam->SetIsReady(false);
 					}
+					
 				}
 			}
 		}
@@ -477,6 +550,8 @@ void Host_Say( edict_t *pEntity, int teamonly )
 	client = NULL;
 	while ( ((client = (AvHPlayer*)UTIL_FindEntityByClassname( client, "player" )) != NULL) && (!FNullEnt(client->edict())) ) 
 	{
+
+	
 		if ( !client->pev )
 			continue;
 		
@@ -498,6 +573,7 @@ void Host_Say( edict_t *pEntity, int teamonly )
 		bool theClientIsHLTV = (client->pev->flags & FL_PROXY);
 
         bool theClientInReadyRoom = client->GetInReadyRoom();
+
 
         if (theClientInReadyRoom != theTalkerInReadyRoom && !theClientIsHLTV)
         {
@@ -844,6 +920,7 @@ void ParmsChangeLevel( void )
 
 	if ( pSaveData )
 		pSaveData->connectionCount = BuildChangeList( pSaveData->levelList, MAX_LEVEL_CONNECTIONS );
+
 }
 
 void ShowMenu(entvars_s *pev, int ValidSlots, int DisplayTime, BOOL ShowLater, char Menu[500])
