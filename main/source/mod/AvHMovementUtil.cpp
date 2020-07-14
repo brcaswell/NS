@@ -270,7 +270,7 @@ float AvHMUGetWalkSpeedFactor(AvHUser3 inUser3)
 	case AVH_USER3_ALIEN_PLAYER1:
 		//theMoveSpeed = .04f;
 		//theMoveSpeed = .14f;
-		theMoveSpeed = .25f;
+		theMoveSpeed = .35f;
 		break;
 	case AVH_USER3_ALIEN_PLAYER2:
 		//theMoveSpeed = .08f;

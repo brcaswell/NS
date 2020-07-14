@@ -687,15 +687,7 @@ void AvHNoBuild::Spawn()
 AvHMP3Audio::AvHMP3Audio()
 {
 	this->mUseState = false;
-	//bool ambtoggle = CVAR_GET_FLOAT("cl_ambientsound") != 1;
-	//if (ambtoggle)
-	//{
-	//	this->mSoundVolume = 0;
-	//}
-	//else
-	//{
-		this->mSoundVolume = 255;
-//	}
+	this->mSoundVolume = 255;
 	this->mLooping = false;
 }
 
@@ -713,16 +705,7 @@ void AvHMP3Audio::KeyValue( KeyValueData* pkvd )
 	}
 	else if(FStrEq(pkvd->szKeyName, "soundvolume"))
 	{
-		bool ambtoggle = CVAR_GET_FLOAT("cl_ambientsound") != 1;
-		if (ambtoggle)
-		{
-			this->mSoundVolume = 0;
-		}
-		else
-		{
-			this->mSoundVolume = atoi(pkvd->szValue);
-		}
-		
+		this->mSoundVolume = atoi(pkvd->szValue);
 		pkvd->fHandled = TRUE;
 	}
 	else if(FStrEq(pkvd->szKeyName, "fadedistance"))
